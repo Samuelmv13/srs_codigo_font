@@ -1,0 +1,204 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="20201206093940-001" author="rai.maciel">
+
+        <createTable
+                remarks="Tabela de clientes"
+                schemaName="aluguel_sala"
+                tableName="cliente">
+
+            <column name="id" type="number"/>
+            <column name="nome" type="varchar(255)"/>
+            <column name="cpf" type="varchar(11)"/>
+            <column name="dt_nasc" type="Date"/>
+            <column name="endereco" type="text"/>
+            <column name="email" type="varchar(12)"/>
+            <column name="telefone" type="varchar(12)"/>
+            <column name="rg" type="varchar(7)"/>
+        </createTable>
+        <addPrimaryKey  columnNames="id"
+                        constraintName="pk_client"
+                        tableName="cliente"/>
+
+        <createTable
+                remarks="Tabela de tipo de equipamento"
+                schemaName="aluguel_sala"
+                tableName="tipo_equipamento">
+
+            <column name="id"
+                    type="number"/>
+            <column name="descricao"
+                    type="varchar(255)"/>
+        </createTable>
+        <addPrimaryKey  columnNames="id"
+                        constraintName="pk_client"
+                        tableName="tipo_equipamento"/>
+
+        <createTable
+                remarks="Tabela de equipamentos"
+                schemaName="aluguel_sala"
+                tableName="equipamento">
+            <column name="id"
+                    type="number"/>
+            <column name="nome"
+                    type="varchar(255)"/>
+            <column name="preco_diario"
+                    type="double"/>
+            <column name="id_tipo_equipamento"
+                    type="number"/>
+            <column name="obrigatorio"
+                    type="number"/>
+
+        </createTable>
+        <addPrimaryKey  columnNames="id"
+                        constraintName="pk_client"
+                        tableName="cliente"/>
+        <addForeignKeyConstraint
+                baseColumnNames="id_tipo_equipamento"
+                baseTableName="equipamento"
+                constraintName="fk_equipamento"
+                deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="tipo_equipamento"/>
+
+        <createTable remarks="Tabela de tipo de sala"
+                     schemaName="aluguel_sala"
+                     tableName="tipo_sala"
+        >
+            <column
+                    name="id"
+                    type="number"/>
+            <column
+                    name="descricao"
+                    type="text"/>
+
+        </createTable>
+
+        <addPrimaryKey
+                columnNames="id"
+                constraintName="pk_tipo_sala"
+                tableName="tipo_sala"/>
+
+        <createTable remarks="Tabela de Salas"
+                     schemaName="aluguel_sala"
+                     tableName="sala"
+                     >
+            <column
+                    name="id"
+                    type="number"/>
+            <column
+                    name="descricao"
+                    type="text"/>
+            <column
+                    name="id_tipo_sala"
+                    type="number"/>
+            <column
+                    name="capacidade_pessoas"
+                    type="number"/>
+            <column
+                    name="preco_diario"
+                    type="double"/>
+
+        </createTable>
+
+        <addPrimaryKey
+                columnNames="id"
+                constraintName="pk_sala"
+                tableName="sala"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="id_tipo_sala"
+                baseTableName="sala"
+                constraintName="fk_tipo_sala"
+                deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="tipo_sala"/>
+
+        <createTable
+                remarks="Tabela de equipamentos da sala"
+                schemaName="aluguel_sala"
+                tableName="sala_equipamento">
+
+            <column name="id_sala"
+                    type="number"/>
+            <column name="id_equipamento"
+                    type="number"/>
+            <column name="quantidade"
+                    type="number"/>
+        </createTable>
+        <addForeignKeyConstraint
+                baseColumnNames="id_sala"
+                baseTableName="sala_equipamento"
+                constraintName="fk_sala_equip"
+                deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="sala"/>
+        <addForeignKeyConstraint
+                baseColumnNames="id_equipamento"
+                baseTableName="sala_equipamento"
+                constraintName="fk_sala_equip"
+                deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="equipamentos"/>
+
+
+        <createTable remarks="Tabela de Reservas"
+                     schemaName="aluguel_sala"
+                     tableName="reserva"
+        >
+            <column
+                    name="id_cliente"
+                    type="number"/>
+            <column
+                    name="id_sala"
+                    type="number"/>
+            <column
+                    name="data_inicio"
+                    type="timestamp"/>
+            <column
+                    name="data_fim"
+                    type="timestamp"/>
+
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseColumnNames="id_cliente"
+                baseTableName="reserva"
+                constraintName="fk_cliente"
+                deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="cliente"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="id_sala"
+                baseTableName="reserva"
+                constraintName="fk_sala"
+                deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="sala"/>
+
+    </changeSet>
+
+</databaseChangeLog>
