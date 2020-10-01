@@ -4,11 +4,10 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <changeSet id="20201206093940-001" author="rai.maciel">
+    <changeSet id="1" author="samuel.medeiros">
 
         <createTable
                 remarks="Tabela de clientes"
-                schemaName="aluguel_sala"
                 tableName="cliente">
 
             <column name="id" type="number"/>
@@ -23,10 +22,11 @@
         <addPrimaryKey  columnNames="id"
                         constraintName="pk_client"
                         tableName="cliente"/>
+    </changeSet>
 
+    <changeSet id="2" author="samuel.medeiros">
         <createTable
                 remarks="Tabela de tipo de equipamento"
-                schemaName="aluguel_sala"
                 tableName="tipo_equipamento">
 
             <column name="id"
@@ -35,12 +35,13 @@
                     type="varchar(255)"/>
         </createTable>
         <addPrimaryKey  columnNames="id"
-                        constraintName="pk_client"
+                        constraintName="pk_tipo_equipamento"
                         tableName="tipo_equipamento"/>
+    </changeSet>
 
+    <changeSet id="3" author="samuel.medeiros">
         <createTable
                 remarks="Tabela de equipamentos"
-                schemaName="aluguel_sala"
                 tableName="equipamento">
             <column name="id"
                     type="number"/>
@@ -55,8 +56,8 @@
 
         </createTable>
         <addPrimaryKey  columnNames="id"
-                        constraintName="pk_client"
-                        tableName="cliente"/>
+                        constraintName="pk_equipamento"
+                        tableName="equipamento"/>
         <addForeignKeyConstraint
                 baseColumnNames="id_tipo_equipamento"
                 baseTableName="equipamento"
@@ -67,9 +68,10 @@
                 onUpdate="RESTRICT"
                 referencedColumnNames="id"
                 referencedTableName="tipo_equipamento"/>
+    </changeSet>
 
+    <changeSet id="4" author="samuel.medeiros">
         <createTable remarks="Tabela de tipo de sala"
-                     schemaName="aluguel_sala"
                      tableName="tipo_sala"
         >
             <column
@@ -85,11 +87,12 @@
                 columnNames="id"
                 constraintName="pk_tipo_sala"
                 tableName="tipo_sala"/>
+    </changeSet>
 
+    <changeSet id="5" author="samuel.medeiros">
         <createTable remarks="Tabela de Salas"
-                     schemaName="aluguel_sala"
                      tableName="sala"
-                     >
+        >
             <column
                     name="id"
                     type="number"/>
@@ -123,10 +126,11 @@
                 onUpdate="RESTRICT"
                 referencedColumnNames="id"
                 referencedTableName="tipo_sala"/>
+    </changeSet>
 
+    <changeSet id="6" author="samuel.medeiros">
         <createTable
                 remarks="Tabela de equipamentos da sala"
-                schemaName="aluguel_sala"
                 tableName="sala_equipamento">
 
             <column name="id_sala"
@@ -149,19 +153,22 @@
         <addForeignKeyConstraint
                 baseColumnNames="id_equipamento"
                 baseTableName="sala_equipamento"
-                constraintName="fk_sala_equip"
+                constraintName="fk_sala_equipamento"
                 deferrable="true"
                 initiallyDeferred="true"
                 onDelete="CASCADE"
                 onUpdate="RESTRICT"
                 referencedColumnNames="id"
-                referencedTableName="equipamentos"/>
+                referencedTableName="equipamento"/>
+    </changeSet>
 
-
+    <changeSet id="7" author="samuel.medeiros">
         <createTable remarks="Tabela de Reservas"
-                     schemaName="aluguel_sala"
                      tableName="reserva"
         >
+            <column
+                    name="id"
+                    type="number"/>
             <column
                     name="id_cliente"
                     type="number"/>
@@ -176,6 +183,11 @@
                     type="timestamp"/>
 
         </createTable>
+
+        <addPrimaryKey
+                columnNames="id"
+                constraintName="pk_reserva"
+                tableName="reserva"/>
 
         <addForeignKeyConstraint
                 baseColumnNames="id_cliente"
@@ -198,7 +210,5 @@
                 onUpdate="RESTRICT"
                 referencedColumnNames="id"
                 referencedTableName="sala"/>
-
     </changeSet>
-
 </databaseChangeLog>
