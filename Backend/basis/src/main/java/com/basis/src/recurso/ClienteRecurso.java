@@ -30,12 +30,12 @@ public class ClienteRecurso {
 	}
 
 	@PostMapping
-	public ResponseEntity<Cliente> inserir(@RequestBody Cliente cliente) {
+	public ResponseEntity<Cliente> inserir(@RequestBody ClienteDTO cliente) {
 		return null;
 	}
 
 	@PutMapping
-	public ResponseEntity<Cliente> atualizar(@RequestBody ClienteDTO clienteDto) {
+	public ResponseEntity<Cliente> atualizar(@RequestBody ClienteDTO cliente) {
 		return null;
 	}
 
