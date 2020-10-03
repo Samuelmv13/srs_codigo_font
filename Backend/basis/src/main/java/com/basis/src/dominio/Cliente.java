@@ -4,44 +4,40 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 
 @Entity
-@Table
+@Table(name = "cliente")
 @Getter
 @Setter
-public class Cliente {
+public class Cliente implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;
-	
+	@SequenceGenerator(name = "sq_cliente", allocationSize = 1, sequenceName = "sq_cliente")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_cliente")
+	@Column(name = "id")
+	private Integer id;
+
+	@Column(name = "nome")
 	private String nome;
 	
-	@Column(length = 11)
+	@Column(name = "cpf")
 	private String cpf;
 
-	private Date dt_nasc;
+	@Column(name = "dt_nasc")
+	private LocalDate dtNasc;
 
+	@Column(name = "endereco")
 	private String endereco;
 	
-	@Column(length = 12)
+	@Column(name = "e-mail")
 	private String email;
 	
-	@Column(length = 12)
+	@Column(name="telefone")
 	private String telefone;
 	
-	@Column(length = 7)
+	@Column(name = "rg")
 	private String rg;
-
-	public Cliente(String nome, String cpf, Date dt_nasc, String endereco, String email, String telefone, String rg) {
-		this.nome = nome;
-		this.cpf = cpf;
-		this.dt_nasc = dt_nasc;
-		this.endereco = endereco;
-		this.email = email;
-		this.telefone = telefone;
-		this.rg = rg;
-	}
 }

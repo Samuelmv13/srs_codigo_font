@@ -1,6 +1,5 @@
-package com.basis.src.servico;
+package com.basis.src.servico.dto;
 
-import com.basis.src.dominio.Cliente;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,7 +23,4 @@ public class ClienteDTO {
 
 	private String rg;
 
-	public Cliente transformaParaObjeto() {
-		return new Cliente(nome, cpf, dt_nasc, end, email, telefone, rg);
-	}
 }
