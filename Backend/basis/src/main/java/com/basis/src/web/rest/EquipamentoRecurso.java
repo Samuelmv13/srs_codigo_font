@@ -7,35 +7,45 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/equipamento")@RequiredArgsConstructor
+@RequestMapping("/api/equipamentos")@RequiredArgsConstructor
 public class EquipamentoRecurso {
 
         private EquipamentoService equipamentoService;
 
         @GetMapping("/{id}")
-        public ResponseEntity<Equipamento> buscar (@PathVariable Integer  equipamento){
-            return null;
+        public ResponseEntity<EquipamentoDTO> buscarPorId (@PathVariable Integer  id){
+            EquipamentoDTO dto = equipamentoService.buscar(id);
+            return ResponseEntity.ok(dto);
         }
 
         @GetMapping
-        public ResponseEntity<Equipamento> listar(){
-            return null;
+        public ResponseEntity<List<EquipamentoDTO>> listar(){
+            List<EquipamentoDTO> dto = equipamentoService.listar();
+            return ResponseEntity.ok(dto);
         }
 
         @PostMapping
-        public ResponseEntity<Equipamento> inserir(@RequestBody EquipamentoDTO equipamento ){
-            return null;
+        public ResponseEntity<EquipamentoDTO> inserir(@RequestBody EquipamentoDTO equipamentoDTO ) throws URISyntaxException {
+            EquipamentoDTO dto = equipamentoService.inserir(equipamentoDTO);
+            return ResponseEntity.created(new URI("/api/equipamentos")).body(dto);
+
         }
 
         @PutMapping
-        public ResponseEntity<Equipamento> alterar(@RequestBody  EquipamentoDTO equipamento){
-            return null;
+        public ResponseEntity<EquipamentoDTO> alterar(@RequestBody  EquipamentoDTO equipamento){
+            EquipamentoDTO dto = equipamentoService.inserir(equipamento);
+            return ResponseEntity.ok(dto);
         }
 
         @DeleteMapping("/{id}")
-        public ResponseEntity<Equipamento> deletar(@PathVariable Integer equipamento){
-            return null;
+        public ResponseEntity<Void> deletar(@PathVariable Integer id){
+            equipamentoService.deletar(id);
+            return ResponseEntity.ok().build();
         }
 
 }

@@ -3,15 +3,14 @@ package com.basis.src.servico.dto;
 import com.basis.src.dominio.Equipamento;
 import com.basis.src.dominio.TipoEquipamento;
 import lombok.Getter;
+import lombok.Setter;
 
-@Getter
+@Getter@Setter
 public class EquipamentoDTO {
-
-    private  Equipamento equipamento;
 
     private int id;
 
-    private TipoEquipamento idTipoEquipamento;
+    private DominioPadraoDTO tipoEquipamento;
 
     private String nome;
 

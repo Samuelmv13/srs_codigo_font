@@ -1,18 +1,23 @@
 package com.basis.src.dominio;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Entity @Data
+@Entity @Getter
+@Setter
 @Table(name ="equipamento")
-public class Equipamento {
+public class Equipamento implements Serializable {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO )
-    @Column(name ="id")
-    private int id;
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_equipamento")
+    @SequenceGenerator(name="sq_equipamento", allocationSize = 1, sequenceName = "sq_equipamento")
+    @Column(name = "id")
+    private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="id_tipo_equipamento")
     private TipoEquipamento idTipoEquipamento;
 

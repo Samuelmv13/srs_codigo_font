@@ -24,7 +24,7 @@
                         tableName="cliente"/>
     </changeSet>
 
-    <changeSet id="2" author="samuel.medeiros">
+    <changeSet id="2" author="isaque.costa">
         <createTable
                 remarks="Tabela de tipo de equipamento"
                 tableName="tipo_equipamento">
@@ -39,7 +39,7 @@
                         tableName="tipo_equipamento"/>
     </changeSet>
 
-    <changeSet id="3" author="samuel.medeiros">
+    <changeSet id="3" author="isaque.costa">
         <createTable
                 remarks="Tabela de equipamentos"
                 tableName="equipamento">
