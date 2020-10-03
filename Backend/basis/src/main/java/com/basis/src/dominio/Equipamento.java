@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Equipamento implements Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_equipamento")
-    @SequenceGenerator(name="sq_equipamento", allocationSize = 1, sequenceName = "sq_equipamento")
+    @SequenceGenerator(name="sq_equipamento", allocationSize = 1, sequenceName = "equipamento_sequence")
     @Column(name = "id")
     private Integer id;
 
