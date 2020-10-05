@@ -78,6 +78,7 @@
             <column name="id_tipo_sala" type="number"> <constraints nullable="false"/></column>
             <column name="capacidade_pessoas" type="number"> <constraints nullable="false"/></column>
             <column name="preco_diario" type="double"> <constraints nullable="false"/></column>
+
             <column name="disponivel" type="number"> <constraints nullable="false"/></column>
         </createTable>
         <addPrimaryKey columnNames="id" constraintName="pk_sala" tableName="sala"/>
