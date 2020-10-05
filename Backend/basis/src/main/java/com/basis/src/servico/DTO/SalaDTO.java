@@ -1,4 +1,4 @@
-package com.basis.src.servico;
+package com.basis.src.servico.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,8 +6,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SalaDTO {
+
     private String descricao;
+
     private Integer capacidade_pessoas;
+
     private Double preco_diario;
 
 }

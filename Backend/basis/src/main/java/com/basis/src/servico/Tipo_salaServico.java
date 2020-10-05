@@ -10,30 +10,33 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class Tipo_salaServico {
 
-    private Tipo_salaRepositorio repositorio;
+    private Tipo_salaRepositorio tipo_salaRepositorio;
 
     public List<Tipo_sala> listar(){
-        return null;
+        List<Tipo_sala> tipos_sala = tipo_salaRepositorio.findAll();
+        return tipos_sala;
     }
+
     public Tipo_sala buscar(Integer id){
-        return null;
+        Tipo_sala tipo_sala = tipo_salaRepositorio.findById(id).orElse(null);
+        return tipo_sala;
     }
 
-    @Transactional
     public Tipo_sala inserir(Tipo_sala tipo_sala){
-        return null;
+        Tipo_sala tipo_salaSalva = tipo_salaRepositorio.save(tipo_sala);
+        return tipo_salaSalva;
     }
 
-    @Transactional
     public Tipo_sala atualizar(Tipo_sala tipo_sala){
-        return null;
+        Tipo_sala tipo_salaSalva = tipo_salaRepositorio.save(tipo_sala);
+        return tipo_salaSalva;
     }
 
-    @Transactional
-    public Tipo_sala deletar(Integer id){
-        return null;
+    public void deletar(Integer id){
+        tipo_salaRepositorio.deleteById(id);
     }
 
 
