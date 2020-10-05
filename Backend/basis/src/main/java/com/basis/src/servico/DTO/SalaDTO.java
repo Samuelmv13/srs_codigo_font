@@ -7,10 +7,17 @@ import lombok.Setter;
 @Setter
 public class SalaDTO {
 
+    private Integer id;
+
     private String descricao;
 
-    private Integer capacidade_pessoas;
+    private Integer idTipoSala;
 
-    private Double preco_diario;
+    private Integer capacidadePessoas;
+
+    private Double precoDiario;
+
+    private Integer disponivel;
+
 
 }

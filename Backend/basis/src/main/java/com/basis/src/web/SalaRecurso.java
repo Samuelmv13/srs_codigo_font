@@ -1,7 +1,5 @@
 package com.basis.src.web;
 
-import com.basis.src.dominio.Sala;
-import com.basis.src.dominio.Tipo_sala;
 import com.basis.src.servico.DTO.SalaDTO;
 import com.basis.src.servico.SalaServico;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SalaRecurso {
 
+
     private final SalaServico salaServico;
 
     @GetMapping
@@ -30,14 +29,14 @@ public class SalaRecurso {
     }
 
     @PostMapping
-    public ResponseEntity<SalaDTO> inserir(@RequestBody Sala sala) throws URISyntaxException {
-        SalaDTO dto = salaServico.inserir(sala);
+    public ResponseEntity<SalaDTO> inserir(@RequestBody SalaDTO salaDTO) throws URISyntaxException {
+        SalaDTO dto = salaServico.inserir(salaDTO);
         return ResponseEntity.created(new URI("/api/salas")).body(dto);
     }
 
     @PutMapping
-    public ResponseEntity<SalaDTO> atualizar(@RequestBody Sala sala) {
-        SalaDTO dto = salaServico.atualizar(sala);
+    public ResponseEntity<SalaDTO> atualizar(@RequestBody SalaDTO salaDTO) {
+        SalaDTO dto = salaServico.atualizar(salaDTO);
         return ResponseEntity.ok(dto);
     }
 

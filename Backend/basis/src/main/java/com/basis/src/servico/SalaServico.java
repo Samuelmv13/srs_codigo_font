@@ -6,8 +6,8 @@ import com.basis.src.repositorio.SalaRepositorio;
 import com.basis.src.servico.DTO.SalaDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -30,16 +30,18 @@ public class SalaServico {
         return salaDTO;
     }
 
-    public SalaDTO inserir(Sala sala){
+    public SalaDTO inserir(SalaDTO salaDTO){
+        Sala sala = salaMapper.toEntity(salaDTO);
         Sala salaSalva = salaRepositorio.save(sala);
-        SalaDTO salaDTO = salaMapper.toDto(salaSalva);
-        return salaDTO;
+        SalaDTO dto = salaMapper.toDto(salaSalva);
+        return dto;
     }
 
-    public SalaDTO atualizar(Sala sala){
+    public SalaDTO atualizar(SalaDTO salaDTO){
+        Sala sala = salaMapper.toEntity(salaDTO);
         Sala salaSalva = salaRepositorio.save(sala);
-        SalaDTO salaDTO = salaMapper.toDto(salaSalva);
-        return salaDTO;
+        SalaDTO dto = salaMapper.toDto(salaSalva);
+        return dto;
     }
 
     public void deletar(Integer id){

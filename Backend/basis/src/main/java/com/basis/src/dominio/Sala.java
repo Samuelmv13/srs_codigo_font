@@ -13,22 +13,25 @@ import java.io.Serializable;
 public class Sala implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "sq_sala", allocationSize = 1, sequenceName = "sq_sala")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_sala")
+    @SequenceGenerator(name = "sala_sequence", allocationSize = 1, sequenceName = "sala_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sala_sequence")
     @Column(name = "id")
     private Integer id;
 
     @Column(name = "descricao")
     private String descricao;
 
-    @Column(name = "id_tipo_sala")
-    private Tipo_sala id_tipo_sala;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_sala")
+    private TipoSala tipoSala;
 
     @Column(name = "capacidade_pessoas")
-    private Integer capacidade_pessoas;
+    private Integer capacidadePessoas;
 
     @Column(name = "preco_diario")
-    private Double preco_diario;
+    private Double precoDiario;
 
+    @Column(name = "disponivel")
+    private Integer disponivel;
 
 }
