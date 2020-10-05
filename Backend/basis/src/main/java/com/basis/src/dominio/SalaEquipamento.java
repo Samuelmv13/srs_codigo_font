@@ -1,33 +1,32 @@
 package com.basis.src.dominio;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-    @Data
-    @Table(name="sala_equipamento")
-    @Getter
-    @Setter
+@Table(name = "sala_equipamento")
+@Getter
+@Setter
 
-public class SalaEquipamento {
+public class SalaEquipamento implements Serializable {
 
-        @Embeddable
-        private SalaEquipamentoKey id;
+    @Embeddable
+    private SalaEquipamentoKey id;
 
-    @Column(name="quantidade")
-    private int quantidade;
+    @Column(name = "quantidade")
+    private Integer quantidade;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("idSala")
-    @JoinColumn(name="id_sala")
+    @JoinColumn(name = "id_sala")
     private Sala sala;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("idEquipamento")
-    @JoinColumn(name="id_equipamento")
-    private Equipamento equipamento;
+    @JoinColumn(name = "id_equipamento")
+    private Equipamento idEquipamento;
 }
 ;

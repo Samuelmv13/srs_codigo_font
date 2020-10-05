@@ -12,9 +12,9 @@ import java.io.Serializable;
 @Setter
 public class SalaEquipamentoKey implements Serializable {
 
-    @Column(name="id_sala")
+    @Column(name = "id_sala")
     private Integer idSala;
 
-    @Column(name="id_equipamento")
+    @Column(name = "id_equipamento")
     private Integer idEquipamento;
 }

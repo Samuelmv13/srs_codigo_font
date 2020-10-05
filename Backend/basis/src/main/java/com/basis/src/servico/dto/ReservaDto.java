@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 @Setter
 public class ReservaDto {
 
+    private Integer id;
 
     private ClienteDto cliente;
 
@@ -19,4 +20,7 @@ public class ReservaDto {
     private Timestamp dataFim;
 
     private double total;
+
+    public Object toDto(ReservaDto reservaDto) {
+    }
 }

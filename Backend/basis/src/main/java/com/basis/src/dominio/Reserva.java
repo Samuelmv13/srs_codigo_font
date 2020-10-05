@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Data
-@Table(name="Reserva")
+@Table(name = "Reserva")
 @Getter
 @Setter
 public class Reserva implements Serializable {
@@ -19,11 +19,15 @@ public class Reserva implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "sq_reserva", allocationSize = 1, sequenceName = "sq_reserva")
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_sala")
+    private Sala id_sala;
 
     @Column(name = "data_ini")
     private Timestamp dataIni;
