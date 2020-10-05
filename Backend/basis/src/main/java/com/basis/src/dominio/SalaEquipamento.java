@@ -12,7 +12,6 @@ import javax.persistence.*;
     @Getter
     @Setter
 
-//autor = "paulo.teotonio"
 public class SalaEquipamento {
 
         @Embeddable
@@ -31,3 +30,4 @@ public class SalaEquipamento {
     @JoinColumn(name="id_equipamento")
     private Equipamento equipamento;
 }
+;

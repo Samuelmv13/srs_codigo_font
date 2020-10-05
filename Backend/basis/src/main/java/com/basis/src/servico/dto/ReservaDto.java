@@ -7,13 +7,16 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-//autor = "paulo.teotonio"
 public class ReservaDto {
 
 
-    private Cliente cliente;
+    private ClienteDto cliente;
+
+    private SalaDto sala;
 
     private Timestamp dataIni;
 
     private Timestamp dataFim;
+
+    private double total;
 }

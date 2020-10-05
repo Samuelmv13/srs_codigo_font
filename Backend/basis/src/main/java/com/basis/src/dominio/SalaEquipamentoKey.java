@@ -10,14 +10,11 @@ import java.io.Serializable;
 @Embeddable
 @Getter
 @Setter
-//autor = "paulo.teotonio"
 public class SalaEquipamentoKey implements Serializable {
 
     @Column(name="id_sala")
     private Integer idSala;
 
     @Column(name="id_equipamento")
-    private Integer idEquipamento
-
-
+    private Integer idEquipamento;
 }

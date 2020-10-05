@@ -1,43 +1,38 @@
 package com.basis.src.servico;
 
+import com.basis.src.repositorio.ReservaRepositorio;
+import com.basis.src.servico.dto.ReservaDTO;
+import com.basis.src.servico.mapper.ReservaMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 @Transactional
-//autor = "paulo.teotonio"
 public class ReservaServico {
 
-    private final ReservaRepositorio reservaRepositorio;
-    private final ReservaMapper ReservaMapper;
+    private ReservaRepositorio reservaRepositorio;
+    private ReservaMapper reservaMapper;
 
-    public List<ReservaDTO> listar() {
-        List<Reserva> Reservas = ReservaRepositorio.findAll();
-        List<ReservaDTO> ReservasDto = ReservaMapper.toDto(Reservas);
-        return ReservasDto;
+    public List<ReservaDTO> listar(){
+        List<ReservaDTO> reservaDto = reservaMapper.entityToDto(reservaRepositorio.findAll());
+        return reservaDto;
     }
 
-    public ReservaDTO buscar(Integer id) {
-        Reserva Reserva = ReservaRepositorio.findById(id).orElse(null);
-        ReservaDTO ReservaDto = ReservaMapper.toDto(Reserva);
-        return ReservaDto;
+    public ReservaDTO buscar(Integer id){
+        ReservaDTO reservaDto = reservaMapper.entityToDto(reservaRepositorio.findById(id).orElse(null));
+        return reservaDto;
     }
 
-    public ReservaDTO adicionar(Reserva Reserva) {
-        Reserva ReservaSalvo = ReservaRepositorio.save(Reserva);
-        return ReservaMapper.toDto(ReservaSalvo);
+    public ReservaDTO inserir(ReservaDTO reservaDto){
+        reservaRepositorio.save(reservaMapper.dtoToEntity(reservaDto));
+        return reservaDto;
     }
 
-    public ReservaDTO atualizar(Reserva Reserva) {
-        Reserva ReservaSalvo = ReservaRepositorio.save(Reserva);
-        ReservaDTO ReservaDto = ReservaMapper.toDto(ReservaSalvo);
-        return ReservaDto;
-    }
-
-    public void remover(Integer id) {
-        ReservaRepositorio.deleteById(id);
+    public void deletar(Integer id){
+        reservaRepositorio.deleteById(id);
     }
 }

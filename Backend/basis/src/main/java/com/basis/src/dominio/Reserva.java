@@ -13,7 +13,6 @@ import java.sql.Timestamp;
 @Table(name="Reserva")
 @Getter
 @Setter
-//autor = "paulo.teotonio"
 public class Reserva implements Serializable {
 
     @Id()
