@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Embeddable
 @Getter
 @Setter
-#//autor = "paulo.teotonio"
+//autor = "paulo.teotonio"
 public class SalaEquipamentoKey implements Serializable {
 
     @Column(name="id_sala")

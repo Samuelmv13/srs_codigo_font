@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 @Service
 @Transactional
-#//autor = "paulo.teotonio"
+//autor = "paulo.teotonio"
 public class ReservaServico {
 
     private final ReservaRepositorio reservaRepositorio;

@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController@RequestMapping("api/reserva")
 @RequiredArgsConstructor
-#//autor = "paulo.teotonio"
+//autor = "paulo.teotonio"
 public class ReservaRecurso {
 
     @GetMapping("/{id}")

@@ -12,7 +12,7 @@ import javax.persistence.*;
     @Getter
     @Setter
 
-#//autor = "paulo.teotonio"
+//autor = "paulo.teotonio"
 public class SalaEquipamento {
 
         @Embeddable
