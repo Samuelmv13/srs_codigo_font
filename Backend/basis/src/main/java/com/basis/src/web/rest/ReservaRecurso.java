@@ -1,4 +1,4 @@
-package com.basis.src.recurso;
+package com.basis.src.web.rest;
 
 
 import com.basis.src.dominio.dto.*;
@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController@RequestMapping("api/reserva")
 @RequiredArgsConstructor
+#//autor = "paulo.teotonio"
 public class ReservaRecurso {
 
     @GetMapping("/{id}")

@@ -1,15 +1,18 @@
 package com.basis.src.dominio;
 
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
-    @Entity
+
+@Entity
     @Data
     @Table(name="sala_equipamento")
     @Getter
     @Setter
+
+#//autor = "paulo.teotonio"
 public class SalaEquipamento {
 
         @Embeddable
