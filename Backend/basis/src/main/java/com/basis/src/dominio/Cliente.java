@@ -3,7 +3,13 @@ package com.basis.src.dominio;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.SequenceGenerator;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -15,8 +21,8 @@ import java.time.LocalDate;
 public class Cliente implements Serializable {
 
 	@Id
-	@SequenceGenerator(name = "sq_cliente", allocationSize = 1, sequenceName = "sq_cliente")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_cliente")
+	@SequenceGenerator(name = "cliente_sequence", allocationSize = 1, sequenceName = "cliente_sequence")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_sequence")
 	@Column(name = "id")
 	private Integer id;
 
@@ -27,12 +33,12 @@ public class Cliente implements Serializable {
 	private String cpf;
 
 	@Column(name = "dt_nasc")
-	private LocalDate dtNasc;
+	private LocalDate dt_nasc;
 
 	@Column(name = "endereco")
 	private String endereco;
 	
-	@Column(name = "e-mail")
+	@Column(name = "email")
 	private String email;
 	
 	@Column(name="telefone")

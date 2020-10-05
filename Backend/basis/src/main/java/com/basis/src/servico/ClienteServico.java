@@ -6,8 +6,8 @@ import com.basis.src.repositorio.ClienteRepositorio;
 import com.basis.src.servico.dto.ClienteDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,14 +30,15 @@ public class ClienteServico {
 		return clienteDto;
 	}
 
-	public ClienteDTO adicionar(Cliente cliente) {
+	public ClienteDTO adicionar(ClienteDTO clienteDto) {
+		Cliente cliente = clienteMapper.toEntity(clienteDto);
 		Cliente clienteSalvo = clienteRepositorio.save(cliente);
 		return clienteMapper.toDto(clienteSalvo);
 	}
 
-	public ClienteDTO atualizar(Cliente cliente) {
+	public ClienteDTO atualizar(ClienteDTO clienteDto) {
+		Cliente cliente = clienteMapper.toEntity(clienteDto);
 		Cliente clienteSalvo = clienteRepositorio.save(cliente);
-		ClienteDTO clienteDto = clienteMapper.toDto(clienteSalvo);
 		return clienteDto;
 	}
 

@@ -9,13 +9,15 @@ import java.sql.Date;
 @Setter
 public class ClienteDTO {
 
+	private Integer id;
+
 	private String nome;
 
 	private String cpf;
 
 	private Date dt_nasc;
 
-	private String end;
+	private String endereco;
 
 	private String email;
 

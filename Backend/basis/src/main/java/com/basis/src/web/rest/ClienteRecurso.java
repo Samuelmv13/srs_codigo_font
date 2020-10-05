@@ -1,6 +1,5 @@
 package com.basis.src.web.rest;
 
-import com.basis.src.dominio.Cliente;
 import com.basis.src.servico.ClienteServico;
 import com.basis.src.servico.dto.ClienteDTO;
 import lombok.RequiredArgsConstructor;
@@ -29,14 +28,14 @@ public class ClienteRecurso {
 	}
 
 	@PostMapping
-	public ResponseEntity<ClienteDTO> inserir(@RequestBody Cliente cliente) throws URISyntaxException {
-		ClienteDTO dto = clienteServico.adicionar(cliente);
+	public ResponseEntity<ClienteDTO> inserir(@RequestBody ClienteDTO clienteDto) throws URISyntaxException {
+		ClienteDTO dto = clienteServico.adicionar(clienteDto);
 		return ResponseEntity.created(new URI("/api/clientes")).body(dto);
 	}
 
 	@PutMapping
-	public ResponseEntity<ClienteDTO> atualizar(@RequestBody Cliente cliente) {
-		ClienteDTO dto = clienteServico.atualizar(cliente);
+	public ResponseEntity<ClienteDTO> atualizar(@RequestBody ClienteDTO clienteDto) {
+		ClienteDTO dto = clienteServico.atualizar(clienteDto);
 		return ResponseEntity.ok(dto);
 	}
 

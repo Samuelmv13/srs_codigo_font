@@ -4,7 +4,7 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <changeSet id="1" author="samuel.medeiros">
+    <changeSet id="1" author="lucas.morais">
         <createTable remarks="tabela de clientes" tableName="cliente">
             <column name="id" type="number"> <constraints nullable="false"/></column>
             <column name="nome" type="varchar(255)"> <constraints nullable="false"/></column>
@@ -15,7 +15,7 @@
             <column name="telefone" type="varchar(12)"> <constraints nullable="false"/></column>
             <column name="rg" type="varchar(7)"> <constraints nullable="false"/></column>
         </createTable>
-        <addPrimaryKey  columnNames="id" constraintName="pk_client" tableName="cliente"/>
+        <addPrimaryKey  columnNames="id" constraintName="pk_cliente" tableName="cliente"/>
     </changeSet>
 
     <changeSet id="2" author="samuel.medeiros">
@@ -49,6 +49,26 @@
             <column name="descricao" type="text"> <constraints nullable="false"/></column>
         </createTable>
         <addPrimaryKey columnNames="id" constraintName="pk_tipo_sala" tableName="tipo_sala"/>
+        <insert tableName="tipo_sala">
+            <column  name="id"  value="1"/>
+            <column  name="descricao"  value="reuniao"/>
+        </insert>
+        <insert tableName="tipo_sala">
+            <column  name="id"  value="2"/>
+            <column  name="descricao"  value="trabalho"/>
+        </insert>
+        <insert tableName="tipo_sala">
+            <column  name="id"  value="3"/>
+            <column  name="descricao"  value="video"/>
+        </insert>
+        <insert tableName="tipo_sala">
+            <column  name="id"  value="4"/>
+            <column  name="descricao"  value="palestra"/>
+        </insert>
+        <insert tableName="tipo_sala">
+            <column  name="id"  value="5"/>
+            <column  name="descricao"  value="auditorio"/>
+        </insert>
     </changeSet>
 
     <changeSet id="5" author="samuel.medeiros">
@@ -86,6 +106,18 @@
                 constraintName="fk_equipamento"
                 referencedColumnNames="id"
                 referencedTableName="equipamento"/>
+        <insert tableName="tipo_equipamento">
+            <column  name="id"  value="1"/>
+            <column  name="descricao"  value="movel"/>
+        </insert>
+        <insert tableName="tipo_equipamento">
+            <column  name="id"  value="2"/>
+            <column  name="descricao"  value="eletrodomestico"/>
+        </insert>
+        <insert tableName="tipo_equipamento">
+            <column  name="id"  value="3"/>
+            <column  name="descricao"  value="informatica"/>
+        </insert>
     </changeSet>
 
     <changeSet id="7" author="samuel.medeiros">
@@ -110,7 +142,7 @@
                 referencedColumnNames="id"
                 referencedTableName="sala"/>
     </changeSet>
-    <changeSet  author="liquibase-docs"  id="8">
+    <changeSet  author="lucas.morais"  id="8">
         <createSequence  cacheSize="20"
                          cycle="false"
                          incrementBy="1"
