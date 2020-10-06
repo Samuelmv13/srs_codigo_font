@@ -1,7 +1,7 @@
 package com.basis.src.mapper;
 
 import com.basis.src.dominio.Sala;
-import com.basis.src.servico.DTO.SalaDTO;
+import com.basis.src.servico.dto.SalaDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

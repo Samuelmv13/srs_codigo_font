@@ -1,14 +1,13 @@
-package com.basis.src.servico.mapper;
+package com.basis.src.mapper;
 
 import java.util.List;
 
-public interface EntityMapper<Dto, Entity> {
+public interface EntityMapper<D, E> {
+    E toEntity(D dto);
 
-    Dto entityToDto(Entity entity);
+    D toDto(E entity);
 
-    Entity dtoToEntity(Dto dto);
+    List<E> toEntity(List<D> dtoList);
 
-    List<Entity> dtoToEntity(List<Dto> dtoList);
-
-    List<Dto> entityToDto(List<Entity> entityList);
+    List<D> toDto(List<E> entityList);
 }

@@ -1,4 +1,4 @@
-package com.basis.src.servico.mapper;
+package com.basis.src.mapper;
 
 import com.basis.src.dominio.Equipamento;
 import com.basis.src.servico.dto.EquipamentoDTO;
@@ -9,11 +9,10 @@ import org.mapstruct.Mapping;
 public interface EquipamentoMapper extends EntityMapper<EquipamentoDTO, Equipamento> {
 
     @Override
-    @Mapping(source = "idTipoEquipamento", target = "tipoEquipamento.id")
-    Equipamento dtoToEntity(EquipamentoDTO equipamentoDTO);
+    @Mapping(source = "idTipoEquipamento" , target = "tipoEquipamento.id")
+    Equipamento toEntity(EquipamentoDTO equipamentoDTO);
 
     @Override
     @Mapping(target = "idTipoEquipamento", source = "tipoEquipamento.id")
-    EquipamentoDTO entityToDto(Equipamento equipamento);
+    EquipamentoDTO toDto(Equipamento equipamento);
 }
-

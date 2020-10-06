@@ -1,6 +1,6 @@
-package com.basis.src.web;
+package com.basis.src.web.rest;
 
-import com.basis.src.servico.DTO.SalaDTO;
+import com.basis.src.servico.dto.SalaDTO;
 import com.basis.src.servico.SalaServico;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
