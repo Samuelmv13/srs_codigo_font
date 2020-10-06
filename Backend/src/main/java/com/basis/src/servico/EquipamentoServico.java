@@ -1,5 +1,6 @@
 package com.basis.src.servico;
 
+import com.basis.src.dominio.Equipamento;
 import com.basis.src.repositorio.EquipamentoRepositorio;
 import com.basis.src.servico.dto.EquipamentoDTO;
 import com.basis.src.servico.mapper.EquipamentoMapper;
@@ -26,9 +27,10 @@ public class EquipamentoServico {
         return equipamentoDTO;
     }
 
-    public EquipamentoDTO inserir(EquipamentoDTO equipamento){
-        equipamentoRepositorio.save(equipamentoMapper.toEntity(equipamento));
-        return equipamento;
+    public EquipamentoDTO inserir(EquipamentoDTO equipamentoDTO){
+        Equipamento equipamento = equipamentoMapper.toEntity(equipamentoDTO);
+        equipamentoRepositorio.save(equipamento);
+        return equipamentoMapper.toDto(equipamento);
     }
 
     public void deletar(Integer id){
