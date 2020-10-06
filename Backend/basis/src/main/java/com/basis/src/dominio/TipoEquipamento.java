@@ -12,7 +12,7 @@ public class TipoEquipamento  implements Serializable {
 
     @Id  @GeneratedValue(strategy = GenerationType.SEQUENCE )
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "descricao")
     private String descricao;

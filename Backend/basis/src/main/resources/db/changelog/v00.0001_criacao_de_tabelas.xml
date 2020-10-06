@@ -314,22 +314,22 @@
         <createSequence  cacheSize="20"
                          cycle="false"
                          incrementBy="1"
-                         sequenceName="cliente_sequence"
+                         sequenceName="sq_cliente"
                          startValue="1"/>
         <createSequence  cacheSize="20"
                          cycle="false"
                          incrementBy="1"
-                         sequenceName="sala_sequence"
+                         sequenceName="sq_sala"
                          startValue="1"/>
         <createSequence  cacheSize="20"
                          cycle="false"
                          incrementBy="1"
-                         sequenceName="equipamento_sequence"
+                         sequenceName="sq_equipamento"
                          startValue="1"/>
         <createSequence  cacheSize="20"
                          cycle="false"
                          incrementBy="1"
-                         sequenceName="reserva_sequence"
+                         sequenceName="sq_reserva"
                          startValue="1"/>
     </changeSet>
 </databaseChangeLog>

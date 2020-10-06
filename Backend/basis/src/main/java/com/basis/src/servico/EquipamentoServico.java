@@ -1,37 +1,33 @@
 package com.basis.src.servico;
 
-import com.basis.src.dominio.Equipamento;
 import com.basis.src.repositorio.EquipamentoRepositorio;
 import com.basis.src.servico.dto.EquipamentoDTO;
 import com.basis.src.servico.mapper.EquipamentoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class EquipamentoService {
+public class EquipamentoServico {
 
-    private EquipamentoRepositorio equipamentoRepositorio;
-    private EquipamentoMapper equipamentoMapper;
+    private final EquipamentoRepositorio equipamentoRepositorio;
+    private final EquipamentoMapper equipamentoMapper;
 
     public List<EquipamentoDTO> listar(){
-        List<Equipamento> equipamentos = equipamentoRepositorio.findAll();
-        List<EquipamentoDTO> equipamentosDto = equipamentoMapper.entityToDto(equipamentos);
+        List<EquipamentoDTO> equipamentosDto = equipamentoMapper.entityToDto(equipamentoRepositorio.findAll());
         return equipamentosDto;
     }
 
     public EquipamentoDTO buscar(Integer id){
-        Equipamento equipamento = equipamentoRepositorio.findById(id).orElse(null);
-        EquipamentoDTO equipamentoDTO = equipamentoMapper.entityToDto(equipamento);
+        EquipamentoDTO equipamentoDTO = equipamentoMapper.entityToDto(equipamentoRepositorio.findById(id).orElse(null));
         return equipamentoDTO;
     }
 
     public EquipamentoDTO inserir(EquipamentoDTO equipamento){
-        Equipamento equipamentoSalve = equipamentoMapper.dtoToEntity(equipamento);
-        equipamentoRepositorio.save(equipamentoSalve);
+        equipamentoRepositorio.save(equipamentoMapper.dtoToEntity(equipamento));
         return equipamento;
     }
 

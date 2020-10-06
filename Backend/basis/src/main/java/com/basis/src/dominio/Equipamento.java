@@ -1,6 +1,5 @@
 package com.basis.src.dominio;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,13 +12,13 @@ import java.io.Serializable;
 public class Equipamento implements Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_equipamento")
-    @SequenceGenerator(name="sq_equipamento", allocationSize = 1, sequenceName = "equipamento_sequence")
+    @SequenceGenerator(name="sq_equipamento", allocationSize = 1, sequenceName = "sq_equipamento")
     @Column(name = "id")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="id_tipo_equipamento")
-    private TipoEquipamento idTipoEquipamento;
+    private TipoEquipamento tipoEquipamento;
 
     @Column(name ="nome")
     private String nome;
@@ -28,7 +27,7 @@ public class Equipamento implements Serializable {
     private Double preco;
 
     @Column(name ="obrigatorio")
-    private int obrigatorio;
+    private Integer obrigatorio;
 
 
 }
