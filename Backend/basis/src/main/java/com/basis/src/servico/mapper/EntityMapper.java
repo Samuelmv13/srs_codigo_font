@@ -4,11 +4,11 @@ import java.util.List;
 
 public interface EntityMapper<Dto, Entity> {
 
-    Dto entityToDto(Entity entity);
+    Dto toDto(Entity entity);
 
-    Entity dtoToEntity(Dto dto);
+    Entity toEntity(Dto dto);
 
-    List<Entity> dtoToEntity(List<Dto> dtoList);
+    List<Entity> toEntity(List<Dto> dtoList);
 
-    List<Dto> entityToDto(List<Entity> entityList);
+    List<Dto> toDto(List<Entity> entityList);
 }

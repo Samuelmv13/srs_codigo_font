@@ -10,10 +10,10 @@ public interface EquipamentoMapper extends EntityMapper<EquipamentoDTO, Equipame
 
     @Override
     @Mapping(source = "idTipoEquipamento", target = "tipoEquipamento.id")
-    Equipamento dtoToEntity(EquipamentoDTO equipamentoDTO);
+    Equipamento toEntity(EquipamentoDTO equipamentoDTO);
 
     @Override
     @Mapping(target = "idTipoEquipamento", source = "tipoEquipamento.id")
-    EquipamentoDTO entityToDto(Equipamento equipamento);
+    EquipamentoDTO toDto(Equipamento equipamento);
 }
 
