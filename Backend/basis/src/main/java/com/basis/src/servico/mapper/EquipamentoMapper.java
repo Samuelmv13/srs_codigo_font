@@ -1,4 +1,4 @@
-package com.basis.src.mapper;
+package com.basis.src.servico.mapper;
 
 import com.basis.src.dominio.Equipamento;
 import com.basis.src.servico.dto.EquipamentoDTO;

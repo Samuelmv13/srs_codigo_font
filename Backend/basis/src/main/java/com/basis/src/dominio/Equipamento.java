@@ -11,8 +11,8 @@ import java.io.Serializable;
 @Table(name ="equipamento")
 public class Equipamento implements Serializable {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_equipamento")
-    @SequenceGenerator(name="sq_equipamento", allocationSize = 1, sequenceName = "sq_equipamento")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "equipamento_sequence")
+    @SequenceGenerator(name="equipamento_sequence", allocationSize = 1, sequenceName = "equipamento_sequence")
     @Column(name = "id")
     private Integer id;
 

@@ -35,32 +35,15 @@
             <column name="obrigatorio" type="number"> <constraints nullable="false"/></column>
         </createTable>
         <addPrimaryKey  columnNames="id" constraintName="pk_equipamento" tableName="equipamento"/>
-
         <addForeignKeyConstraint
                 baseColumnNames="id_tipo_equipamento"
                 baseTableName="equipamento"
                 constraintName="fk_tipo_equipamento"
                 referencedColumnNames="id"
                 referencedTableName="tipo_equipamento"/>
-
-    </changeSet>
-    <changeSet id="inserts_equipamento" author="isaque.costa">
-        <insert tableName="tipo_equipamento">
-            <column name="id" value="1"/>
-            <column name="descricao" value="Informática"/>
-        </insert>
-        <insert tableName="tipo_equipamento">
-            <column name="id" value="2"/>
-            <column name="descricao" value="Eletrodoméstico"/>
-        </insert>
-        <insert tableName="tipo_equipamento">
-            <column name="id" value="3"/>
-            <column name="descricao" value="Móvel"/>
-        </insert>
     </changeSet>
 
     <changeSet id="4" author="samuel.medeiros">
-
         <createTable remarks="tabela de tipo de sala" tableName="tipo_sala">
             <column name="id" type="number"> <constraints nullable="false"/></column>
             <column name="descricao" type="text"> <constraints nullable="false"/></column>
@@ -85,56 +68,45 @@
         <insert tableName="tipo_sala">
             <column  name="id"  value="5"/>
             <column  name="descricao"  value="auditorio"/>
-
         </insert>
     </changeSet>
 
     <changeSet id="5" author="samuel.medeiros">
-
         <createTable remarks="tabela de salas" tableName="sala">
             <column name="id" type="number"> <constraints nullable="false"/></column>
             <column name="descricao" type="text"> <constraints nullable="false"/></column>
             <column name="id_tipo_sala" type="number"> <constraints nullable="false"/></column>
             <column name="capacidade_pessoas" type="number"> <constraints nullable="false"/></column>
             <column name="preco_diario" type="double"> <constraints nullable="false"/></column>
-
             <column name="disponivel" type="number"> <constraints nullable="false"/></column>
         </createTable>
         <addPrimaryKey columnNames="id" constraintName="pk_sala" tableName="sala"/>
-
         <addForeignKeyConstraint
                 baseColumnNames="id_tipo_sala"
                 baseTableName="sala"
                 constraintName="fk_tipo_sala"
                 referencedColumnNames="id"
                 referencedTableName="tipo_sala"/>
-
     </changeSet>
 
     <changeSet id="6" author="samuel.medeiros">
-
         <createTable remarks="tabela de equipamentos da sala" tableName="sala_equipamento">
             <column name="id_sala" type="number"> <constraints nullable="false"/></column>
             <column name="id_equipamento" type="number"> <constraints nullable="false"/></column>
             <column name="quantidade" type="number"> <constraints nullable="false"/></column>
         </createTable>
-
-        <addPrimaryKey tableName="sala_equipamento" columnNames="id_sala, id_equipamento" constraintName="pk_sala_equipamento"/>
-
         <addForeignKeyConstraint
                 baseColumnNames="id_sala"
                 baseTableName="sala_equipamento"
                 constraintName="fk_sala"
                 referencedColumnNames="id"
                 referencedTableName="sala"/>
-
         <addForeignKeyConstraint
                 baseColumnNames="id_equipamento"
                 baseTableName="sala_equipamento"
                 constraintName="fk_equipamento"
                 referencedColumnNames="id"
                 referencedTableName="equipamento"/>
-
         <insert tableName="tipo_equipamento">
             <column  name="id"  value="1"/>
             <column  name="descricao"  value="movel"/>
@@ -170,32 +142,7 @@
                 constraintName="fk_reserva_sala"
                 referencedColumnNames="id"
                 referencedTableName="sala"/>
-
     </changeSet>
-
-    <changeSet  author="liquibase-docs"  id="8">
-        <createSequence  cacheSize="20"
-                         cycle="false"
-                         incrementBy="1"
-                         sequenceName="sq_cliente"
-                         startValue="1"/>
-        <createSequence  cacheSize="20"
-                         cycle="false"
-                         incrementBy="1"
-                         sequenceName="sq_sala"
-                         startValue="1"/>
-        <createSequence  cacheSize="20"
-                         cycle="false"
-                         incrementBy="1"
-                         sequenceName="sq_equipamento"
-                         startValue="1"/>
-        <createSequence  cacheSize="20"
-                         cycle="false"
-                         incrementBy="1"
-                         sequenceName="sq_reserva"
-                         startValue="1"/>
-    </changeSet>
-
     <changeSet  author="lucas.morais"  id="8">
         <createSequence  cacheSize="20"
                          cycle="false"
@@ -219,4 +166,3 @@
                          startValue="1"/>
     </changeSet>
 </databaseChangeLog>
-

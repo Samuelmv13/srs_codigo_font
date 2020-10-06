@@ -8,7 +8,7 @@ public class EquipamentoDTO {
 
     private Integer id;
 
-    private DominioPadraoDTO tipoEquipamento;
+    //private TipoEquipamento tipoEquipamento;
 
     private String nome;
 

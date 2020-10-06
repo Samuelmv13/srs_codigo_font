@@ -1,7 +1,11 @@
-package com.basis.src.servico.DTO;
+package com.basis.src.servico.dto;
 
+import com.basis.src.dominio.Sala;
+import com.basis.src.dominio.SalaEquipamento;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,5 +23,6 @@ public class SalaDTO {
 
     private Integer disponivel;
 
+    private List<SalaEquipamento> equipamentos;
 
 }

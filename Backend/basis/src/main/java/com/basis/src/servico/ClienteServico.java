@@ -1,7 +1,7 @@
 package com.basis.src.servico;
 
 import com.basis.src.dominio.Cliente;
-import com.basis.src.mapper.ClienteMapper;
+import com.basis.src.servico.mapper.ClienteMapper;
 import com.basis.src.repositorio.ClienteRepositorio;
 import com.basis.src.servico.dto.ClienteDTO;
 import lombok.RequiredArgsConstructor;

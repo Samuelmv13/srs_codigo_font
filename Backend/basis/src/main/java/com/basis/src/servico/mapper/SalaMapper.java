@@ -1,4 +1,4 @@
-package com.basis.src.mapper;
+package com.basis.src.servico.mapper;
 
 import com.basis.src.dominio.Sala;
 import com.basis.src.servico.dto.SalaDTO;

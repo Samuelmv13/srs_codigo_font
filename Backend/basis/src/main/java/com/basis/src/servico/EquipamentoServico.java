@@ -17,17 +17,17 @@ public class EquipamentoServico {
     private final EquipamentoMapper equipamentoMapper;
 
     public List<EquipamentoDTO> listar(){
-        List<EquipamentoDTO> equipamentosDto = equipamentoMapper.entityToDto(equipamentoRepositorio.findAll());
+        List<EquipamentoDTO> equipamentosDto = equipamentoMapper.toDto(equipamentoRepositorio.findAll());
         return equipamentosDto;
     }
 
     public EquipamentoDTO buscar(Integer id){
-        EquipamentoDTO equipamentoDTO = equipamentoMapper.entityToDto(equipamentoRepositorio.findById(id).orElse(null));
+        EquipamentoDTO equipamentoDTO = equipamentoMapper.toDto(equipamentoRepositorio.findById(id).orElse(null));
         return equipamentoDTO;
     }
 
     public EquipamentoDTO inserir(EquipamentoDTO equipamento){
-        equipamentoRepositorio.save(equipamentoMapper.dtoToEntity(equipamento));
+        equipamentoRepositorio.save(equipamentoMapper.toEntity(equipamento));
         return equipamento;
     }
 

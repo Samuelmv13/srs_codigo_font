@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SalaEquipamentoDto {
-
+public class SalaEquipamentoDTO {
     private Integer idSala;
     private Integer idEquipamento;
     private Integer quantidade;
