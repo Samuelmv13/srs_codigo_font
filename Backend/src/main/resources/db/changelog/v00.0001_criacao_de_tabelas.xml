@@ -11,7 +11,7 @@
             <column name="cpf" type="varchar(11)"> <constraints nullable="false"/></column>
             <column name="dt_nasc" type="Date"> <constraints nullable="false"/></column>
             <column name="endereco" type="text"> <constraints nullable="false"/></column>
-            <column name="email" type="varchar(12)"> <constraints nullable="false"/></column>
+            <column name="email" type="varchar(255)"> <constraints nullable="false"/></column>
             <column name="telefone" type="varchar(12)"> <constraints nullable="false"/></column>
             <column name="rg" type="varchar(7)"> <constraints nullable="false"/></column>
         </createTable>
