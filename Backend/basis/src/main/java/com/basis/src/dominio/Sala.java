@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,5 +34,8 @@ public class Sala implements Serializable {
 
     @Column(name = "disponivel")
     private Integer disponivel;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<SalaEquipamento> equipamentos;
 
 }

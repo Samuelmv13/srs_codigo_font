@@ -1,4 +1,4 @@
-package com.basis.src.servico.DTO;
+package com.basis.src.servico.dto;
 
 import lombok.Getter;
 import lombok.Setter;
