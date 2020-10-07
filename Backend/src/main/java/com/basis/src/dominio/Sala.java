@@ -1,6 +1,7 @@
 package com.basis.src.dominio;
 
 
+import com.basis.src.servico.dto.SalaEquipamentoDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,7 +37,7 @@ public class Sala implements Serializable {
     @Column(name = "disponivel")
     private Integer disponivel;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "sala",cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<SalaEquipamento> equipamentos;
 
 }

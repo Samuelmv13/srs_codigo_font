@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-@Table(name = "Reserva")
+@Table(name = "reserva")
 @Getter
 @Setter
 public class Reserva implements Serializable {

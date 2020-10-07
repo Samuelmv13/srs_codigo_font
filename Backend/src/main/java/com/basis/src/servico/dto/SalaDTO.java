@@ -23,6 +23,6 @@ public class SalaDTO {
 
     private Integer disponivel;
 
-    private List<SalaEquipamento> equipamentos;
+    private List<SalaEquipamentoDTO> equipamentos;
 
 }

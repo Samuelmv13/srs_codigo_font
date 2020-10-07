@@ -18,12 +18,12 @@ public class SalaEquipamento implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @MapsId("idSala")
     @JoinColumn(name = "id_sala")
-    private Sala idSala;
+    private Sala sala;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @MapsId("idEquipamento")
     @JoinColumn(name = "id_equipamento")
-    private Equipamento idEquipamento;
+    private Equipamento equipamento;
 
     @Column(name = "quantidade")
     private Integer quantidade;

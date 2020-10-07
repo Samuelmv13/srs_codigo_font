@@ -3,6 +3,7 @@ package com.basis.src.servico;
 import com.basis.src.dominio.Sala;
 import com.basis.src.dominio.Sala;
 import com.basis.src.dominio.SalaEquipamento;
+import com.basis.src.servico.dto.SalaEquipamentoDTO;
 import com.basis.src.servico.mapper.SalaMapper;
 import com.basis.src.repositorio.SalaEquipamentoRepositorio;
 import com.basis.src.repositorio.SalaRepositorio;
@@ -41,7 +42,7 @@ public class SalaServico {
         sala.setEquipamentos(new ArrayList<>());
         salaRepositorio.save(sala);
         equipamentos.forEach(equipamento -> {
-            equipamento.setIdSala(sala);
+            equipamento.setSala(sala);
             equipamento.getId().setIdSala(sala.getId());
         });
         salaEquipamentoRepositorio.saveAll(equipamentos);

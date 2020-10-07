@@ -9,14 +9,14 @@ import org.mapstruct.Mapping;
 public interface SalaEquipamentoMapper extends EntityMapper<SalaEquipamentoDTO, SalaEquipamento>{
 
     @Override
-    @Mapping(source = "idSala", target = "idSala.id")
-    @Mapping(source = "idEquipamento", target = "idEquipamento.id")
+    @Mapping(source = "idSala", target = "sala.id")
+    @Mapping(source = "idEquipamento", target = "equipamento.id")
     @Mapping(source = "idSala", target = "id.idSala")
     @Mapping(source = "idEquipamento", target = "id.idEquipamento")
     SalaEquipamento toEntity(SalaEquipamentoDTO salaEquipamentoDTO);
 
     @Override
-    @Mapping(target = "idSala" , source = "idSala.id")
-    @Mapping(target = "idEquipamento", source = "idEquipamento.id")
+    @Mapping(target = "idSala" , source = "sala.id")
+    @Mapping(target = "idEquipamento", source = "equipamento.id")
     SalaEquipamentoDTO toDto(SalaEquipamento salaEquipamento);
 }
