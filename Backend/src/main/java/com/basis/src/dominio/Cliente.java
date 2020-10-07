@@ -33,7 +33,7 @@ public class Cliente implements Serializable {
 	private String cpf;
 
 	@Column(name = "dt_nasc")
-	private LocalDate dt_nasc;
+	private LocalDate dtNasc;
 
 	@Column(name = "endereco")
 	private String endereco;

@@ -3,7 +3,7 @@ package com.basis.src.servico.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,7 +15,7 @@ public class ClienteDTO {
 
 	private String cpf;
 
-	private Date dt_nasc;
+	private LocalDate dtNasc;
 
 	private String endereco;
 

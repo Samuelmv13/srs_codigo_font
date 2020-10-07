@@ -8,8 +8,6 @@ public class EquipamentoDTO {
 
     private Integer id;
 
-    //private TipoEquipamento tipoEquipamento;
-
     private String nome;
 
     private Double preco;
