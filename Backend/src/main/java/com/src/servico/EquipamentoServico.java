@@ -3,6 +3,7 @@ package com.src.servico;
 import com.src.dominio.Equipamento;
 import com.src.repositorio.EquipamentoRepositorio;
 import com.src.servico.dto.EquipamentoDTO;
+import com.src.servico.excecao.RegraNegocioException;
 import com.src.servico.mapper.EquipamentoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,8 @@ public class EquipamentoServico {
     }
 
     public EquipamentoDTO buscar(Integer id){
-        EquipamentoDTO equipamentoDTO = equipamentoMapper.toDto(equipamentoRepositorio.findById(id).orElse(null));
+        EquipamentoDTO equipamentoDTO = equipamentoMapper.toDto(equipamentoRepositorio.findById(id)
+                .orElseThrow(()-> new RegraNegocioException("equipamento não encontrado")));
         return equipamentoDTO;
     }
 

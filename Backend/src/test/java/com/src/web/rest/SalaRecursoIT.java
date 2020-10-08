@@ -38,7 +38,7 @@ public class SalaRecursoIT extends IntTestComum {
 
     @Test
     public void listar() throws Exception {
-        salaBuilder.construir();
+        Sala sala = salaBuilder.construir();
         getMockMvc().perform(get("/api/salas"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].id", hasSize(1)));
