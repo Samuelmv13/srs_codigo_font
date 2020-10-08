@@ -26,10 +26,10 @@ public class EquipamentoBuilder extends ConstrutorDeEntidade<Equipamento> {
     public Equipamento construirEntidade() throws ParseException {
 
         TipoEquipamento tipoEquipamento = new TipoEquipamento();
+        tipoEquipamento.setId(2);
         tipoEquipamento.setDescricao("Descrição teclado.");
 
         Equipamento equipamento = new Equipamento();
-        equipamento.setId(1);
         equipamento.setNome("teclado");
         equipamento.setObrigatorio(1);
         equipamento.setPreco(12.5);
@@ -40,7 +40,8 @@ public class EquipamentoBuilder extends ConstrutorDeEntidade<Equipamento> {
     @Override
     public Equipamento persistir(Equipamento entidade) {
         EquipamentoDTO equipamentoDTO = equipamentoMapper.toDto(entidade);
-        return equipamentoMapper.toEntity(equipamentoDTO);
+        EquipamentoDTO equipamentoSalvo = equipamentoServico.inserir(equipamentoDTO);
+        return equipamentoMapper.toEntity(equipamentoSalvo);
     }
 
     @Override
@@ -51,6 +52,7 @@ public class EquipamentoBuilder extends ConstrutorDeEntidade<Equipamento> {
 
     @Override
     public Equipamento obterPorId(Integer id) {
+
         return equipamentoMapper.toEntity(equipamentoServico.buscar(id));
     }
 

@@ -1,7 +1,6 @@
 package com.basis.src.web.rest;
 
 import com.basis.src.builder.EquipamentoBuilder;
-import com.basis.src.dominio.Cliente;
 import com.basis.src.dominio.Equipamento;
 import com.basis.src.util.IntTestComum;
 import com.basis.src.util.TestUtil;
@@ -9,7 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
@@ -37,22 +38,23 @@ public class EquipamentoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void listar() throws Exception{
-        equipamentoBuilder.construirEntidade();
+    public void listar() throws Exception {
+        equipamentoBuilder.construir();
         getMockMvc().perform(get("/api/equipamentos"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].id", hasSize(1)));
     }
 
     @Test
-    public void buscarPorId() throws Exception {
-        Equipamento equipamento = equipamentoBuilder.construirEntidade();
-        getMockMvc().perform(get("/api/equipamentos"+equipamento.getId()))
+    public void buscar() throws Exception{
+        Equipamento equipamento = equipamentoBuilder.construir();
+        getMockMvc().perform(get("/api/equipamentos/" + equipamento.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(equipamento.getId()));
     }
 
-     @Test
+
+    @Test
      public void salvar() throws Exception {
         Equipamento equipamento = equipamentoBuilder.construirEntidade();
         getMockMvc().perform(post("/api/equipamentos")
@@ -63,7 +65,7 @@ public class EquipamentoRecursoIT extends IntTestComum {
 
     @Test
     public void editar() throws Exception {
-        Equipamento equipamento = equipamentoBuilder.construirEntidade();
+        Equipamento equipamento = equipamentoBuilder.construir();
         equipamento.setNome("Teclado novo");
 
         getMockMvc().perform(put("/api/equipamentos")
@@ -74,8 +76,8 @@ public class EquipamentoRecursoIT extends IntTestComum {
 
     @Test
     public void deletarPorId() throws Exception {
-        Equipamento equipamento = equipamentoBuilder.construirEntidade();
-        getMockMvc().perform(delete("/api/equipamentos"+equipamento.getId() ))
+        Equipamento equipamento = equipamentoBuilder.construir();
+        getMockMvc().perform(delete("/api/equipamentos/"+equipamento.getId() ))
                 .andExpect(status().isOk());
     }
 
