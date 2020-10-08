@@ -1,6 +1,8 @@
 package com.src.builder;
 
+import com.src.dominio.Equipamento;
 import com.src.dominio.Sala;
+import com.src.dominio.SalaEquipamento;
 import com.src.dominio.TipoSala;
 import com.src.repositorio.SalaRepositorio;
 import com.src.servico.SalaServico;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.util.Collection;
+import java.util.Collections;
 
 
 @Component
@@ -22,22 +25,28 @@ public class SalaBuilder extends ConstrutorDeEntidade<Sala>{
     private SalaMapper salaMapper;
     @Autowired
     private SalaServico salaServico;
+    @Autowired
+    private EquipamentoBuilder equipamentoBuilder;
 
     @Override
     public Sala construirEntidade() throws ParseException {
+        Equipamento equipamentos = equipamentoBuilder.construir();
+        Sala sala = new Sala();
+        sala.setCapacidadePessoas(25);
+        sala.setDescricao("Sala descrição exemplo");
+        sala.setDisponivel(1);
+        sala.setPrecoDiario(120.90);
+
         TipoSala tipoSala = new TipoSala();
         tipoSala.setId(1);
-        tipoSala.setDescricao("Descrição tipo sala");
 
-        EquipamentoBuilder equipamentoBuilder = new EquipamentoBuilder();
+        SalaEquipamento salaEquipamento = new SalaEquipamento();
+        salaEquipamento.setSala(sala);
+        salaEquipamento.setQuantidade(20);
+        salaEquipamento.setEquipamento(equipamentos);
 
-        Sala sala = new Sala();
-        sala.setCapacidadePessoas(30);
-        sala.setDescricao("Descrição sala");
-        sala.setDisponivel(1);
-        sala.setPrecoDiario(120.0);
+        sala.setEquipamentos(Collections.singletonList(salaEquipamento));
         sala.setTipoSala(tipoSala);
-        //sala.setEquipamentos(equipamentoBuilder.obterTodos());
         return sala;
     }
 
