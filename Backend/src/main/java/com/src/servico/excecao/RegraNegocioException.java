@@ -1,4 +1,4 @@
-package com.src.servico.excessao;
+package com.src.servico.excecao;
 
 
 import org.springframework.http.HttpStatus;
