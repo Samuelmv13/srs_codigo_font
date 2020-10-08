@@ -1,6 +1,7 @@
 package com.src.servico;
 
 import com.src.dominio.Cliente;
+import com.src.servico.excecao.RegraNegocioException;
 import com.src.servico.mapper.ClienteMapper;
 import com.src.repositorio.ClienteRepositorio;
 import com.src.servico.dto.ClienteDTO;
@@ -25,7 +26,8 @@ public class ClienteServico {
 	}
 
 	public ClienteDTO buscar(Integer id) {
-		Cliente cliente = clienteRepositorio.findById(id).orElse(null);
+		Cliente cliente = clienteRepositorio.findById(id)
+				.orElseThrow(()-> new RegraNegocioException("Cliente não encontrado"));
 		ClienteDTO clienteDto = clienteMapper.toDto(cliente);
 		return clienteDto;
 	}
