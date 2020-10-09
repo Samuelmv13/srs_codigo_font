@@ -30,12 +30,17 @@ public class EquipamentoServico {
     }
 
     public EquipamentoDTO inserir(EquipamentoDTO equipamentoDTO){
+        if (equipamentoDTO.getId() != null){
+            Equipamento equipamento = equipamentoRepositorio.findById(equipamentoDTO.getId())
+                    .orElseThrow(() -> new RegraNegocioException("equipamento não encontrado"));
+        }
         Equipamento equipamento = equipamentoMapper.toEntity(equipamentoDTO);
         equipamentoRepositorio.save(equipamento);
         return equipamentoMapper.toDto(equipamento);
     }
 
     public void deletar(Integer id){
+        equipamentoRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("equipamento não encontrado"));
         equipamentoRepositorio.deleteById(id);
     }
 }

@@ -2,6 +2,7 @@ package com.src.servico;
 
 import com.src.dominio.Sala;
 import com.src.dominio.SalaEquipamento;
+import com.src.servico.excecao.RegraNegocioException;
 import com.src.servico.mapper.SalaMapper;
 import com.src.repositorio.SalaEquipamentoRepositorio;
 import com.src.repositorio.SalaRepositorio;
@@ -29,12 +30,17 @@ public class SalaServico {
     }
 
     public SalaDTO buscar(Integer id){
-        Sala sala = salaRepositorio.findById(id).orElse(null);
+        Sala sala = salaRepositorio.findById(id)
+                .orElseThrow(()-> new RegraNegocioException("sala não encontrada"));
         SalaDTO salaDTO = salaMapper.toDto(sala);
         return salaDTO;
     }
 
     public SalaDTO inserir(SalaDTO salaDTO){
+        if (salaDTO.getId() != null){
+            Sala sala = salaRepositorio.findById(salaDTO.getId())
+                    .orElseThrow(() -> new RegraNegocioException("Sala não encontrada"));
+        }
         Sala sala = salaMapper.toEntity(salaDTO);
         List<SalaEquipamento> equipamentos = sala.getEquipamentos();
         sala.setEquipamentos(new ArrayList<>());
@@ -47,14 +53,8 @@ public class SalaServico {
         return salaMapper.toDto(sala);
     }
 
-    public SalaDTO atualizar(SalaDTO salaDTO){
-        Sala sala = salaMapper.toEntity(salaDTO);
-        Sala salaSalva = salaRepositorio.save(sala);
-        SalaDTO dto = salaMapper.toDto(salaSalva);
-        return dto;
-    }
-
     public void deletar(Integer id){
+        salaRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException(("Sala não encontrada")));
         salaRepositorio.deleteById(id);
     }
 }

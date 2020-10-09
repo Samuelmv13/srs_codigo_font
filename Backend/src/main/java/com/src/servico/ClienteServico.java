@@ -33,18 +33,17 @@ public class ClienteServico {
 	}
 
 	public ClienteDTO adicionar(ClienteDTO clienteDto) {
+		if (clienteDto.getId() != null){
+			Cliente cliente = clienteRepositorio.findById(clienteDto.getId())
+					.orElseThrow(()-> new RegraNegocioException("Cliente não encontrado"));
+		}
 		Cliente cliente = clienteMapper.toEntity(clienteDto);
 		Cliente clienteSalvo = clienteRepositorio.save(cliente);
 		return clienteMapper.toDto(clienteSalvo);
 	}
 
-	public ClienteDTO atualizar(ClienteDTO clienteDto) {
-		Cliente cliente = clienteMapper.toEntity(clienteDto);
-		Cliente clienteSalvo = clienteRepositorio.save(cliente);
-		return clienteDto;
-	}
-
 	public void remover(Integer id) {
+		clienteRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Cliente não encontrado"));
 		clienteRepositorio.deleteById(id);
 	}
 }
