@@ -13,7 +13,11 @@ public class EquipamentoDTO {
     private Double preco;
 
     private Integer obrigatorio;
+<<<<<<< Updated upstream
 
+=======
+    @Min(1) @Max(3)
+>>>>>>> Stashed changes
     private Integer idTipoEquipamento;
 
 
