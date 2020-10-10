@@ -1,5 +1,6 @@
 package com.src.web.rest;
 
+
 import com.src.builder.EquipamentoBuilder;
 import com.src.dominio.Equipamento;
 import com.src.util.IntTestComum;
@@ -25,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @Transactional
 public class EquipamentoRecursoIT extends IntTestComum {
+
 
     public static final int ID_INVALIDO = 1000;
 
@@ -67,6 +69,7 @@ public class EquipamentoRecursoIT extends IntTestComum {
     public void editar() throws Exception {
         Equipamento equipamento = equipamentoBuilder.construir();
         equipamento.setNome("Teclado novo");
+
         getMockMvc().perform(put("/api/equipamentos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(equipamentoBuilder.converterToDto(equipamento))))
@@ -79,6 +82,7 @@ public class EquipamentoRecursoIT extends IntTestComum {
         getMockMvc().perform(delete("/api/equipamentos/"+equipamento.getId() ))
                 .andExpect(status().isOk());
     }
+
 
     @Test
     public void buscarInvalido() throws Exception{
@@ -113,6 +117,7 @@ public class EquipamentoRecursoIT extends IntTestComum {
                 .content(TestUtil.convertObjectToJsonBytes(equipamentoBuilder.converterToDto(equipamento))))
                 .andExpect(status().isBadRequest());
     }
+
 
 
 }
