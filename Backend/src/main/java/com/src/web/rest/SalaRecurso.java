@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -29,13 +30,13 @@ public class SalaRecurso {
     }
 
     @PostMapping
-    public ResponseEntity<SalaDTO> inserir(@RequestBody SalaDTO salaDTO) throws URISyntaxException {
+    public ResponseEntity<SalaDTO> inserir(@Valid  @RequestBody SalaDTO salaDTO) throws URISyntaxException {
         SalaDTO dto = salaServico.inserir(salaDTO);
         return ResponseEntity.created(new URI("/api/salas")).body(dto);
     }
 
     @PutMapping
-    public ResponseEntity<SalaDTO> atualizar(@RequestBody SalaDTO salaDTO) {
+    public ResponseEntity<SalaDTO> atualizar(@Valid @RequestBody SalaDTO salaDTO) {
         SalaDTO dto = salaServico.atualizar(salaDTO);
         return ResponseEntity.ok(dto);
     }

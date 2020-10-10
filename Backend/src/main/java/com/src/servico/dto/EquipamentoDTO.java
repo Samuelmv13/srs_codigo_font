@@ -18,9 +18,6 @@ public class EquipamentoDTO {
     private Double preco;
     @Min(0) @Max(1)
     private Integer obrigatorio;
-    @Min(1) @Max(2)
+    @Min(1) @Max(3)
     private Integer idTipoEquipamento;
-
-
-
 }
