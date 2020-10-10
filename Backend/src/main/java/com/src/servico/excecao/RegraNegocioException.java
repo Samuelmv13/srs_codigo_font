@@ -1,4 +1,4 @@
-package com.basis.src.servico.excecao;
+package com.src.servico.excecao;
 
 
 import org.springframework.http.HttpStatus;

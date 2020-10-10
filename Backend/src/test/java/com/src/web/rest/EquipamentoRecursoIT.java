@@ -1,32 +1,23 @@
-package com.basis.src.web.rest;
+package com.src.web.rest;
 
-<<<<<<< Updated upstream:Backend/src/test/java/com/basis/src/web/rest/EquipamentoRecursoIT.java
-import com.basis.src.builder.EquipamentoBuilder;
-import com.basis.src.dominio.Equipamento;
-import com.basis.src.util.IntTestComum;
-import com.basis.src.util.TestUtil;
-=======
 import com.src.builder.EquipamentoBuilder;
 import com.src.dominio.Equipamento;
 import com.src.util.IntTestComum;
 import com.src.util.TestUtil;
->>>>>>> Stashed changes:Backend/src/test/java/com/src/web/rest/EquipamentoRecursoIT.java
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -64,7 +55,7 @@ public class EquipamentoRecursoIT extends IntTestComum {
 
 
     @Test
-     public void salvar() throws Exception {
+    public void salvar() throws Exception {
         Equipamento equipamento = equipamentoBuilder.construirEntidade();
         getMockMvc().perform(post("/api/equipamentos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

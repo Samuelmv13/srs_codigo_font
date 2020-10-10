@@ -1,11 +1,11 @@
-package com.basis.src.builder;
+package com.src.builder;
 
-import com.basis.src.dominio.Equipamento;
-import com.basis.src.dominio.TipoEquipamento;
-import com.basis.src.repositorio.EquipamentoRepositorio;
-import com.basis.src.servico.EquipamentoServico;
-import com.basis.src.servico.dto.EquipamentoDTO;
-import com.basis.src.servico.mapper.EquipamentoMapper;
+import com.src.dominio.Equipamento;
+import com.src.dominio.TipoEquipamento;
+import com.src.repositorio.EquipamentoRepositorio;
+import com.src.servico.EquipamentoServico;
+import com.src.servico.dto.EquipamentoDTO;
+import com.src.servico.mapper.EquipamentoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
