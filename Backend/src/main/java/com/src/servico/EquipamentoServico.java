@@ -30,6 +30,7 @@ public class EquipamentoServico {
     }
 
     public EquipamentoDTO inserir(EquipamentoDTO equipamentoDTO){
+
         //método put
         if (equipamentoDTO.getId() != null){
             equipamentoRepositorio.findById(equipamentoDTO.getId())
@@ -44,6 +45,7 @@ public class EquipamentoServico {
     }
 
     public void deletar(Integer id){
+
         equipamentoRepositorio.findById(id)
                 .orElseThrow(()-> new RegraNegocioException("Equipamento não encontrado."));
         equipamentoRepositorio.deleteById(id);
