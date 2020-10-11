@@ -27,6 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 public class EquipamentoRecursoIT extends IntTestComum {
 
+
+    public static final int ID_INVALIDO = 1000;
+
     @Autowired
     private EquipamentoBuilder equipamentoBuilder;
 
@@ -78,6 +81,41 @@ public class EquipamentoRecursoIT extends IntTestComum {
         Equipamento equipamento = equipamentoBuilder.construir();
         getMockMvc().perform(delete("/api/equipamentos/"+equipamento.getId() ))
                 .andExpect(status().isOk());
+    }
+
+
+    @Test
+    public void buscarInvalido() throws Exception{
+        Equipamento equipamento = equipamentoBuilder.construir();
+        getMockMvc().perform(get("/api/equipamentos/" + ID_INVALIDO))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void deletarPorIdInvalido() throws Exception {
+        Equipamento equipamento = equipamentoBuilder.construir();
+        getMockMvc().perform(delete("/api/equipamentos/"+ ID_INVALIDO))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void salvarInvalido() throws Exception {
+        Equipamento equipamento = equipamentoBuilder.construirEntidade();
+        equipamento.setId(ID_INVALIDO);
+        getMockMvc().perform(post("/api/equipamentos")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(equipamentoBuilder.converterToDto(equipamento))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void salvarNull() throws Exception {
+        Equipamento equipamento = equipamentoBuilder.construirEntidade();
+        equipamento.setNome(null);
+        getMockMvc().perform(post("/api/equipamentos")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(equipamentoBuilder.converterToDto(equipamento))))
+                .andExpect(status().isBadRequest());
     }
 
 

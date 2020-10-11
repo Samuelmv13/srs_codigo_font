@@ -25,14 +25,19 @@ public class EquipamentoServico {
 
     public EquipamentoDTO buscar(Integer id){
         EquipamentoDTO equipamentoDTO = equipamentoMapper.toDto(equipamentoRepositorio.findById(id)
-                .orElseThrow(()-> new RegraNegocioException("equipamento não encontrado")));
+                .orElseThrow(()-> new RegraNegocioException("Equipamento não encontrado, tente novamente.") ));
         return equipamentoDTO;
     }
 
     public EquipamentoDTO inserir(EquipamentoDTO equipamentoDTO){
+
+        //método put
         if (equipamentoDTO.getId() != null){
-            Equipamento equipamento = equipamentoRepositorio.findById(equipamentoDTO.getId())
-                    .orElseThrow(() -> new RegraNegocioException("equipamento não encontrado"));
+            equipamentoRepositorio.findById(equipamentoDTO.getId())
+                    .orElseThrow(()-> new RegraNegocioException("Equipamento não encontrado."));
+            //Não deixa espaço null
+        }else if(verificaNull(equipamentoDTO)){
+            throw new RegraNegocioException("Preencha todas as informações corretamente.");
         }
         Equipamento equipamento = equipamentoMapper.toEntity(equipamentoDTO);
         equipamentoRepositorio.save(equipamento);
@@ -40,7 +45,19 @@ public class EquipamentoServico {
     }
 
     public void deletar(Integer id){
-        equipamentoRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("equipamento não encontrado"));
+
+        equipamentoRepositorio.findById(id)
+                .orElseThrow(()-> new RegraNegocioException("Equipamento não encontrado."));
         equipamentoRepositorio.deleteById(id);
+    }
+
+    public boolean verificaNull(EquipamentoDTO equipamentoDTO) {
+        boolean verificado = false;
+        if (equipamentoDTO.getNome().equals(null) ||
+                equipamentoDTO.getIdTipoEquipamento() == null ||
+                equipamentoDTO.getObrigatorio() == null) {
+            verificado = true;
+        }
+        return verificado;
     }
 }

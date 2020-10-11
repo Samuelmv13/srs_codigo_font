@@ -31,14 +31,18 @@ public class SalaRecurso {
     }
 
     @PostMapping
+
     public ResponseEntity<SalaDTO> inserir(@Valid @RequestBody SalaDTO salaDTO) throws URISyntaxException {
+
         SalaDTO dto = salaServico.inserir(salaDTO);
         return ResponseEntity.created(new URI("/api/salas")).body(dto);
     }
 
     @PutMapping
     public ResponseEntity<SalaDTO> atualizar(@Valid @RequestBody SalaDTO salaDTO) {
+
         SalaDTO dto = salaServico.inserir(salaDTO);
+
         return ResponseEntity.ok(dto);
     }
 

@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 public class DominioPadraoDTO {
 
     private Integer id;
-
     @NotNull
     private String descricao;
 

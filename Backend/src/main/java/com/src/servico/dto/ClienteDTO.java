@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -14,12 +15,12 @@ import java.time.LocalDate;
 @Setter
 public class ClienteDTO {
 
+
 	private Integer id;
-	@NotNull
+	@NotEmpty
 	@Size(max=120)
 	private String nome;
-	@CPF
-	@NotNull
+	@CPF @NotNull
 	private String cpf;
 	@NotNull @Past
 	private LocalDate dtNasc;
