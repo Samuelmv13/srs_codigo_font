@@ -67,13 +67,11 @@ public class ReservaRecursoIT extends IntTestComum {
     @Test
     public void atualizar()throws Exception{
         Reserva reserva = reservaBuilder.construir();
-        ReservaDTO dto = reservaBuilder.converterToDto(reserva);
-        getMockMvc().perform(put("/api/reservas/")
+        getMockMvc().perform(put("/api/reservas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(reservaBuilder.converterToDto(reserva)))
         )
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(reserva.getId()));
+                .andExpect(status().isOk());
     }
 
     //buscarPorId

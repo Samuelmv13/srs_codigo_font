@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SalaEquipamentoRepositorio extends JpaRepository<SalaEquipamento, Integer> {
+    void deleteAllBySalaId(Integer id);
+    boolean existsByEquipamentoId(Integer id);
 }

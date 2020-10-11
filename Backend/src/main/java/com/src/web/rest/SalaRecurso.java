@@ -21,7 +21,8 @@ public class SalaRecurso {
 
     @GetMapping
     public ResponseEntity<List<SalaDTO>> listar() {
-        return ResponseEntity.ok(salaServico.listar());
+        List<SalaDTO> salaDTOS = salaServico.listar();
+        return ResponseEntity.ok(salaDTOS);
     }
 
     @GetMapping("/{id}")
@@ -42,7 +43,7 @@ public class SalaRecurso {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
+    public ResponseEntity<SalaDTO> deletar(@PathVariable Integer id) {
         salaServico.deletar(id);
         return ResponseEntity.ok().build();
     }

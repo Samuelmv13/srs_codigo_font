@@ -1,9 +1,16 @@
 package com.src.web.rest;
 
+import com.src.builder.ReservaBuilder;
 import com.src.builder.SalaBuilder;
+import com.src.dominio.Reserva;
 import com.src.dominio.Sala;
+import com.src.servico.SalaServico;
+import com.src.servico.dto.ReservaDTO;
+import com.src.servico.mapper.ReservaMapper;
 import com.src.util.IntTestComum;
 import com.src.util.TestUtil;
+import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -11,17 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-
-
-import java.util.Collection;
 
 @RunWith(SpringRunner.class)
 @Transactional
@@ -30,18 +32,26 @@ public class SalaRecursoIT extends IntTestComum {
     @Autowired
     private SalaBuilder salaBuilder;
 
+    @Autowired
+    private ReservaBuilder reservaBuilder;
+
+    @Autowired
+    private ReservaMapper reservaMapper;
+
+    @Autowired
+    private SalaServico salaServico;
+
     @BeforeEach
     public void limparBanco(){
-        Collection<Sala> lista = salaBuilder.obterTodos();
-        lista.forEach(sala -> salaBuilder.deletarPorId(sala.getId()));
+        salaBuilder.deletarBanco();
     }
 
     @Test
     public void listar() throws Exception {
-        Sala sala = salaBuilder.construir();
+        salaBuilder.construir();
         getMockMvc().perform(get("/api/salas"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[*].id", hasSize(1)));
+                .andExpect(jsonPath("$[*].id", Matchers.hasSize(1)));
     }
 
     @Test
@@ -64,8 +74,7 @@ public class SalaRecursoIT extends IntTestComum {
 
     @Test
     public void editar() throws Exception {
-        Sala sala = salaBuilder.construir();
-        sala.setDescricao("descrição sala novo");
+        Sala sala = salaBuilder.construirEntidade();
 
         getMockMvc().perform(put("/api/salas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -74,9 +83,44 @@ public class SalaRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void deletarPorId() throws Exception {
+    public void deletar() throws Exception {
         Sala sala = salaBuilder.construir();
-        getMockMvc().perform(delete("/api/salas/"+ sala.getId() ))
+        getMockMvc().perform(delete("/api/salas/"+ sala.getId()))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void isReservada() throws Exception {
+        Reserva reserva = reservaBuilder.construir();
+        boolean valor = false;
+        valor = salaServico.isReservada(reserva.getSala().getId());
+        Assert.assertTrue(valor);
+    }
+
+    @Test
+    public void salvarSalasIguais() throws Exception {
+        Sala sala = salaBuilder.construirEntidade();
+        getMockMvc().perform(post("/api/salas")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(salaBuilder.converterToDto(sala))));
+        getMockMvc().perform(post("/api/salas")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(salaBuilder.converterToDto(sala))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void buscarInexistente() throws Exception {
+        Sala sala = salaBuilder.construir();
+        getMockMvc().perform(get("/api/salas/" + 89))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void deletarSalaInexistente() throws Exception {
+        Sala sala = salaBuilder.construir();
+        getMockMvc().perform(delete("/api/salas/" + 131313))
+                .andExpect(status().isBadRequest());
+    }
+    
 }
