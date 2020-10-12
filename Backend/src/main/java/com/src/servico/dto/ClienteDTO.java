@@ -18,11 +18,11 @@ public class ClienteDTO {
 
 	private Integer id;
 
-	@NotEmpty
+	@NotNull
 	@Size(max=120)
 	private String nome;
 
-	@CPF @NotNull @Size(min = 11, max = 11)
+	@CPF @NotNull
 	private String cpf;
 
 	@NotNull @Past

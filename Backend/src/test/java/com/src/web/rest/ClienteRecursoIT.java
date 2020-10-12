@@ -54,36 +54,36 @@ public class ClienteRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void cadastrarCpfIgual() throws Exception {
+    public void salvarCpfIgual() throws Exception {
         Cliente cliente1 = clienteBuilder.construir();
         Cliente cliente2 = clienteBuilder.construirEntidade();
         postBadRequest(cliente2);
     }
 
     @Test
-    public void cadastrarRgIgual() throws Exception {
+    public void salvarRgIgual() throws Exception {
         Cliente cliente1 = clienteBuilder.construir();
-        Cliente cliente2 = clienteBuilder.construirEntidade();;
+        Cliente cliente2 = clienteBuilder.construirEntidade();
         cliente2.setCpf("49824393030");
         postBadRequest(cliente2);
     }
 
     @Test
-    public void cadastrarEmailIgual() throws Exception {
-        Cliente cliente = clienteBuilder.construir();
+    public void salvarEmailIgual() throws Exception {
+        Cliente cliente1 = clienteBuilder.construir();
         Cliente cliente2 = clienteBuilder.construirEntidade();
         cliente2.setCpf("49824393030");
         cliente2.setRg("123321");
         postBadRequest(cliente2);
     }
     @Test
-    public void cadastrarRgComLetra() throws Exception {
+    public void salvarRgComLetra() throws Exception {
         Cliente cliente2 = clienteBuilder.construirEntidade();
         cliente2.setRg("123321A");
         postBadRequest(cliente2);
     }
     @Test
-    public void cadastrarCPFComLetra() throws Exception {
+    public void salvarCPFInvalido() throws Exception {
         Cliente cliente2 = clienteBuilder.construirEntidade();
         cliente2.setCpf("4982439303A");
         postBadRequest(cliente2);
@@ -98,12 +98,27 @@ public class ClienteRecursoIT extends IntTestComum {
     }
 
     @Test
+    public void buscarIdInexistente() throws Exception {
+        Cliente cliente = clienteBuilder.construir();
+        cliente.setId(4568);
+        getMockMvc().perform(get("/api/clientes/" + cliente.getId()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void atualizar() throws Exception {
         Cliente cliente = clienteBuilder.construir();
         getMockMvc().perform(put("/api/clientes")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(clienteBuilder.converterToDto(cliente)))
         ).andExpect(status().isOk());
+    }
+    @Test
+    public void atualizarIdInexistente() throws Exception {
+        Cliente cliente = clienteBuilder.construir();
+        cliente.setId(654684);
+        getMockMvc().perform(put("/api/clientes"))
+            .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -112,6 +127,15 @@ public class ClienteRecursoIT extends IntTestComum {
         getMockMvc().perform(delete("/api/clientes/" + cliente.getId()))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void deletarIdInexistent() throws Exception {
+        Cliente cliente = clienteBuilder.construir();
+        cliente.setId(654684);
+        getMockMvc().perform(delete("/api/clientes/" + cliente.getId()))
+                .andExpect(status().isBadRequest());
+    }
+
     @Test
     public void deletarComReserva() throws Exception {
         Reserva reserva = reservaBuilder.construir();

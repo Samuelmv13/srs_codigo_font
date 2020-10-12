@@ -34,7 +34,12 @@ public class ClienteServico {
     }
 
     public ClienteDTO adicionar(ClienteDTO clienteDto) {
-        validarCliente(clienteDto);
+        if (clienteDto.getId() != null) {
+            verificaRepeticao(clienteDto.getId());
+            validarClientePut(clienteDto);
+        }
+        else
+            validarClientePost(clienteDto);
         Cliente cliente = clienteMapper.toEntity(clienteDto);
         Cliente clienteSalvo = clienteRepositorio.save(cliente);
         return clienteMapper.toDto(clienteSalvo);
@@ -67,18 +72,27 @@ public class ClienteServico {
         return reservaRepositorioo.existsByCliente(cliente);
     }
 
-    private void validarCliente(ClienteDTO clienteDto) {
-        if (clienteDto.getId() != null) {
-            verificaRepeticao(clienteDto.getId());
-        } else if (clienteRepositorio.existsByCpf(clienteDto.getCpf()))
-            throw new RegraNegocioException("Cpf cadastrado no sistema!");
-        else if (clienteRepositorio.existsByRg(clienteDto.getRg()))
-            throw new RegraNegocioException("Rg cadastrado no sistema!");
-        else if (clienteRepositorio.existsByEmail(clienteDto.getEmail()))
-            throw new RegraNegocioException("Email cadastrado no sistema!");
-        else if (!isNumber(clienteDto.getRg()))
-            throw new RegraNegocioException("O campo Rg só pode conter números!");
-        else if (!isNumber(clienteDto.getCpf()))
-            throw new RegraNegocioException("O campo Cpf só pode conter números!");
+    private void validarClientePost(ClienteDTO clienteNovo) {
+        if (clienteRepositorio.existsByCpf(clienteNovo.getCpf()))
+            throw new RegraNegocioException("Este CPF já está cadastrado no sistema!");
+        else if (clienteRepositorio.existsByRg(clienteNovo.getRg()))
+            throw new RegraNegocioException("Este RG já está cadastrado no sistema!");
+        else if (clienteRepositorio.existsByEmail(clienteNovo.getEmail()))
+            throw new RegraNegocioException("Este email já está cadastrado no sistema!");
+        else if (!isNumber(clienteNovo.getRg()))
+            throw new RegraNegocioException("RG inválido!");
     }
+
+    private void validarClientePut(ClienteDTO clienteNovo) {
+        ClienteDTO clienteAntigo = buscar(clienteNovo.getId());
+        if (clienteRepositorio.existsByCpf(clienteNovo.getCpf()) && !clienteAntigo.getCpf().equals(clienteNovo.getCpf()))
+            throw new RegraNegocioException("Este CPF já está cadastrado no sistema!");
+        else if (clienteRepositorio.existsByRg(clienteNovo.getRg()) && !clienteAntigo.getRg().equals(clienteNovo.getRg()))
+            throw new RegraNegocioException("Este RG já está cadastrado no sistema!");
+        else if (clienteRepositorio.existsByEmail(clienteNovo.getEmail()) && !clienteAntigo.getEmail().equals(clienteNovo.getEmail()))
+            throw new RegraNegocioException("Este email já está cadastrado no sistema!");
+        else if (!isNumber(clienteNovo.getRg()))
+            throw new RegraNegocioException("RG inválido!");
+    }
+
 }
