@@ -16,7 +16,7 @@ import java.time.LocalDate;
 
 
 @Entity
-@Table(name = "cliente", uniqueConstraints={@UniqueConstraint(columnNames={"cpf"})})
+@Table(name = "cliente")
 @Getter
 @Setter
 public class Cliente implements Serializable {
