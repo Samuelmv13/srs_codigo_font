@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-//import com.basis.src.servico.mapper.ReservaMapper;
 
 @Service
 @RequiredArgsConstructor
@@ -28,18 +27,28 @@ public class ReservaServico {
     }
 
     public ReservaDTO buscar(Integer id) {
+
         ReservaDTO reservaDto = reservaMapper.toDto(reservaRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Reserva não encontrada!")));
+
         return reservaDto;
     }
 
     public ReservaDTO inserir(ReservaDTO reservaDto) {
+
+        if (reservaDto.getId() != null){
+            Reserva reserva = reservaRepositorio.findById(reservaDto.getId())
+                    .orElseThrow(()-> new RegraNegocioException("reserva não encontrada"));
+        }
+
         Reserva reserva = reservaMapper.toEntity(reservaDto);
         reservaRepositorio.save(reserva);
         return reservaMapper.toDto(reserva);
     }
 
     public void deletar(Integer id) {
+
         reservaRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Reserva não encontrada!"));
+
         reservaRepositorio.deleteById(id);
     }
 }

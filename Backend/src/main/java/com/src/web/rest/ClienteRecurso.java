@@ -37,7 +37,9 @@ public class ClienteRecurso {
 
 	@PutMapping
 	public ResponseEntity<ClienteDTO> atualizar(@Valid @RequestBody ClienteDTO clienteDto) {
+
 		ClienteDTO dto = clienteServico.adicionar(clienteDto);
+
 		return ResponseEntity.ok(dto);
 	}
 

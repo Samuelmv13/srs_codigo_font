@@ -15,16 +15,24 @@ import java.util.List;
 public class SalaDTO {
 
     private Integer id;
+
+
     @NotNull
     private String descricao;
-    @Min(1) @Max(5)
+
+    @NotNull
     private Integer idTipoSala;
+
     @Positive @NotNull
     private Integer capacidadePessoas;
+
     @NotNull
     private Double precoDiario;
+
+    @NotNull
     @Min(0) @Max(1)
     private Integer disponivel;
+
     @NotNull
     private List<SalaEquipamentoDTO> equipamentos;
 

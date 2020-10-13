@@ -18,6 +18,7 @@ public class ClienteDTO {
 
 	private Integer id;
 
+
 	@NotNull
 	@Size(max=120)
 	private String nome;
@@ -37,6 +38,8 @@ public class ClienteDTO {
 	@NotNull @Size(max = 13, min = 13)
 	private String telefone;
 
+
+	
 	@NotNull @Size(max = 7,min = 7)
 	private String rg;
 

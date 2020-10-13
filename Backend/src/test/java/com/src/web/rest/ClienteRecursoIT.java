@@ -13,7 +13,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.Matchers.hasSize;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -26,10 +28,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 public class ClienteRecursoIT extends IntTestComum {
 
+
     @Autowired
     private ClienteBuilder clienteBuilder;
     @Autowired
     private ReservaBuilder reservaBuilder;
+
 
     @BeforeEach
     public void limparBanco(){
@@ -90,6 +94,7 @@ public class ClienteRecursoIT extends IntTestComum {
     }
 
     @Test
+
     public void buscar() throws Exception {
         Cliente cliente = clienteBuilder.construir();
         getMockMvc().perform(get("/api/clientes/" + cliente.getId()))
@@ -106,6 +111,7 @@ public class ClienteRecursoIT extends IntTestComum {
     }
 
     @Test
+
     public void atualizar() throws Exception {
         Cliente cliente = clienteBuilder.construir();
         getMockMvc().perform(put("/api/clientes")
@@ -113,6 +119,7 @@ public class ClienteRecursoIT extends IntTestComum {
                 .content(TestUtil.convertObjectToJsonBytes(clienteBuilder.converterToDto(cliente)))
         ).andExpect(status().isOk());
     }
+
     @Test
     public void atualizarIdInexistente() throws Exception {
         Cliente cliente = clienteBuilder.construir();
@@ -148,5 +155,6 @@ public class ClienteRecursoIT extends IntTestComum {
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(clienteBuilder.converterToDto(cliente)))
         ).andExpect(status().isBadRequest());
+
     }
 }

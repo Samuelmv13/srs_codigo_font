@@ -31,6 +31,7 @@ public class ClienteBuilder extends ConstrutorDeEntidade<Cliente> {
         cliente.setEmail("lucas@gmail.com");
         cliente.setCpf("56581427098");
         cliente.setDtNasc(LocalDate.of(2000,8,23));
+
         return cliente;
     }
 
