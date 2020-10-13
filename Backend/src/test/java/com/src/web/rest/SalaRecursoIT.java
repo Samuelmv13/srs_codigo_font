@@ -122,5 +122,5 @@ public class SalaRecursoIT extends IntTestComum {
         getMockMvc().perform(delete("/api/salas/" + 131313))
                 .andExpect(status().isBadRequest());
     }
-    
+
 }
