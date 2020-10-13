@@ -20,29 +20,35 @@ public class ReservaServico {
     private final ReservaRepositorio reservaRepositorio;
     private final ReservaMapper reservaMapper;
 
+
     public List<ReservaDTO> listar() {
         List<ReservaDTO> listaDto = reservaMapper.toDto(reservaRepositorio.findAll());
         return listaDto;
     }
 
     public ReservaDTO buscar(Integer id) {
-        ReservaDTO reservaDto = reservaMapper.toDto(reservaRepositorio.findById(id)
-                .orElseThrow(()-> new RegraNegocioException("reserva não encontrada")));
+
+        ReservaDTO reservaDto = reservaMapper.toDto(reservaRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Reserva não encontrada!")));
+
         return reservaDto;
     }
 
     public ReservaDTO inserir(ReservaDTO reservaDto) {
+
         if (reservaDto.getId() != null){
             Reserva reserva = reservaRepositorio.findById(reservaDto.getId())
                     .orElseThrow(()-> new RegraNegocioException("reserva não encontrada"));
         }
+
         Reserva reserva = reservaMapper.toEntity(reservaDto);
         reservaRepositorio.save(reserva);
         return reservaMapper.toDto(reserva);
     }
 
     public void deletar(Integer id) {
-        reservaRepositorio.findById(id).orElseThrow(()-> new RegraNegocioException("reserva não encontrada"));
+
+        reservaRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Reserva não encontrada!"));
+
         reservaRepositorio.deleteById(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.src.servico;
 
+
 import com.src.dominio.Equipamento;
 import com.src.dominio.Sala;
 import com.src.dominio.SalaEquipamento;
@@ -26,6 +27,7 @@ import java.util.List;
 @Transactional
 public class SalaServico {
 
+
     private final SalaRepositorio salaRepositorio;
     private final SalaEquipamentoRepositorio salaEquipamentoRepositorio;
     private final SalaMapper salaMapper;
@@ -42,9 +44,11 @@ public class SalaServico {
     public SalaDTO buscar(Integer id){
         Sala sala = salaRepositorio.findById(id)
                 .orElseThrow(()-> new RegraNegocioException("sala não encontrada"));
+
         SalaDTO salaDTO = salaMapper.toDto(sala);
         return salaDTO;
     }
+
 
     public SalaDTO inserir(SalaDTO salaDTO) throws RegraNegocioException{
         Sala novaSala = salaMapper.toEntity(salaDTO);

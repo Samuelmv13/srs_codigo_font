@@ -2,6 +2,7 @@ package com.src.web.rest;
 
 import com.src.servico.ClienteServico;
 import com.src.servico.dto.ClienteDTO;
+import com.src.servico.excecao.RegraNegocioException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

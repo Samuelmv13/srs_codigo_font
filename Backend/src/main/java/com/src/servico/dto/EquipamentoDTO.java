@@ -20,4 +20,5 @@ public class EquipamentoDTO {
     private Integer obrigatorio;
     @Min(1) @Max(3)
     private Integer idTipoEquipamento;
+
 }

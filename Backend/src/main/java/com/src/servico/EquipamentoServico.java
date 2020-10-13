@@ -3,6 +3,7 @@ package com.src.servico;
 import com.src.dominio.Equipamento;
 import com.src.repositorio.EquipamentoRepositorio;
 import com.src.servico.dto.EquipamentoDTO;
+
 import com.src.servico.excecao.RegraNegocioException;
 import com.src.servico.mapper.EquipamentoMapper;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,10 @@ public class EquipamentoServico {
     }
 
     public EquipamentoDTO buscar(Integer id){
+
         EquipamentoDTO equipamentoDTO = equipamentoMapper.toDto(equipamentoRepositorio.findById(id)
                 .orElseThrow(()-> new RegraNegocioException("Equipamento não encontrado, tente novamente.") ));
+
         return equipamentoDTO;
     }
 
@@ -39,12 +42,14 @@ public class EquipamentoServico {
         }else if(verificaNull(equipamentoDTO)){
             throw new RegraNegocioException("Preencha todas as informações corretamente.");
         }
+
         Equipamento equipamento = equipamentoMapper.toEntity(equipamentoDTO);
         equipamentoRepositorio.save(equipamento);
         return equipamentoMapper.toDto(equipamento);
     }
 
     public void deletar(Integer id){
+
 
         equipamentoRepositorio.findById(id)
                 .orElseThrow(()-> new RegraNegocioException("Equipamento não encontrado."));
@@ -60,4 +65,5 @@ public class EquipamentoServico {
         }
         return verificado;
     }
+
 }

@@ -24,13 +24,14 @@ public class ClienteBuilder extends ConstrutorDeEntidade<Cliente> {
     public Cliente construirEntidade() throws ParseException {
 
         Cliente cliente = new Cliente();
-        cliente.setNome("lucas");
-        cliente.setTelefone("1234567890123");
+        cliente.setNome("Lucas");
+        cliente.setTelefone("1234567891011");
         cliente.setRg("1234567");
         cliente.setEndereco("teste");
-        cliente.setEmail("basis@basis");
-        cliente.setCpf("12388809088");
-        cliente.setDtNasc(LocalDate.now());
+        cliente.setEmail("lucas@gmail.com");
+        cliente.setCpf("56581427098");
+        cliente.setDtNasc(LocalDate.of(2000,8,23));
+
         return cliente;
     }
 

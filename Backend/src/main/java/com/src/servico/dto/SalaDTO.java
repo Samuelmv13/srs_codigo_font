@@ -16,6 +16,7 @@ public class SalaDTO {
 
     private Integer id;
 
+
     @NotNull
     private String descricao;
 

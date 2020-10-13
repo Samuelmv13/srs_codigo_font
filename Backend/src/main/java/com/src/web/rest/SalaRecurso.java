@@ -21,8 +21,10 @@ public class SalaRecurso {
 
     @GetMapping
     public ResponseEntity<List<SalaDTO>> listar() {
+
         List<SalaDTO> salaDTOS = salaServico.listar();
         return ResponseEntity.ok(salaDTOS);
+
     }
 
     @GetMapping("/{id}")
@@ -32,7 +34,9 @@ public class SalaRecurso {
 
     @PostMapping
 
+
     public ResponseEntity<SalaDTO> inserir(@Valid @RequestBody SalaDTO salaDTO) throws URISyntaxException {
+
 
         SalaDTO dto = salaServico.inserir(salaDTO);
         return ResponseEntity.created(new URI("/api/salas")).body(dto);
@@ -41,13 +45,17 @@ public class SalaRecurso {
     @PutMapping
     public ResponseEntity<SalaDTO> atualizar(@Valid @RequestBody SalaDTO salaDTO) {
 
+
         SalaDTO dto = salaServico.inserir(salaDTO);
+
 
         return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/{id}")
+
     public ResponseEntity<SalaDTO> deletar(@PathVariable Integer id) {
+
         salaServico.deletar(id);
         return ResponseEntity.ok().build();
     }

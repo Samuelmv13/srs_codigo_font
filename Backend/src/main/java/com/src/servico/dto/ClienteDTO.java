@@ -17,19 +17,29 @@ public class ClienteDTO {
 
 
 	private Integer id;
-	@NotEmpty
+
+
+	@NotNull
 	@Size(max=120)
 	private String nome;
+
 	@CPF @NotNull
 	private String cpf;
+
 	@NotNull @Past
 	private LocalDate dtNasc;
-	@NotNull
+
+	@NotNull @Size(max = 255)
 	private String endereco;
-	@NotNull @Email
+
+	@NotNull @Email @Size(max = 255)
 	private String email;
+
 	@NotNull @Size(max = 13, min = 13)
 	private String telefone;
+
+
+	
 	@NotNull @Size(max = 7,min = 7)
 	private String rg;
 
