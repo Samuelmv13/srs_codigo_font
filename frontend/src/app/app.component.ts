@@ -50,7 +50,11 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
         this.zone.runOutsideAngular(() => { this.bindRipple(); });
 
         this.menuService.itens = [
-            { label: 'Dashboard', icon: 'dashboard', routerLink: ['/'] }
+            { label: 'Dashboard', icon: 'dashboard', routerLink: ['/']},
+            { label: 'Clientes', icon: 'people', routerLink: ['/api/clientes']},
+            { label: 'Equipamentos', icon: 'laptop', routerLink: ['/api/clientes']},
+            { label: 'Salas', icon: 'business', routerLink: ['/api/clientes']},
+            { label: 'Reservas', icon: 'content_paste', routerLink: ['/api/clientes']}
         ];
     }
 
