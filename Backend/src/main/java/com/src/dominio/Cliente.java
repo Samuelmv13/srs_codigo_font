@@ -3,7 +3,6 @@ package com.src.dominio;
 import lombok.Getter;
 import lombok.Setter;
 
-<<<<<<< HEAD
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,15 +14,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 
-=======
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.SequenceGenerator;
->>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 import java.io.Serializable;
 import java.time.LocalDate;
 

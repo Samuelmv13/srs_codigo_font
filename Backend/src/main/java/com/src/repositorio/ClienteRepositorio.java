@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClienteRepositorio extends JpaRepository<Cliente, Integer> {
 
-<<<<<<< HEAD
 
     boolean existsByCpf(String cpf);
 
@@ -15,6 +14,4 @@ public interface ClienteRepositorio extends JpaRepository<Cliente, Integer> {
 
     boolean existsByEmail(String email);
 
-=======
->>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 }

@@ -9,7 +9,6 @@ if (environment.production) {
     enableProdMode();
 }
 
-<<<<<<< HEAD
 
 //bootstrapSecurity(environment.auth, () => {
     platformBrowserDynamic()
@@ -17,10 +16,3 @@ if (environment.production) {
         .catch(err => console.log(err));
 //});
 
-=======
-bootstrapSecurity(environment.auth, () => {
-    platformBrowserDynamic()
-        .bootstrapModule(AppModule)
-        .catch(err => console.log(err));
-});
->>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be

@@ -15,7 +15,6 @@ import java.util.List;
 public class SalaDTO {
 
     private Integer id;
-<<<<<<< HEAD
 
 
     @NotNull
@@ -34,18 +33,6 @@ public class SalaDTO {
     @Min(0) @Max(1)
     private Integer disponivel;
 
-=======
-    @NotNull
-    private String descricao;
-    @Min(1) @Max(5)
-    private Integer idTipoSala;
-    @Positive @NotNull
-    private Integer capacidadePessoas;
-    @NotNull
-    private Double precoDiario;
-    @Min(0) @Max(1)
-    private Integer disponivel;
->>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
     @NotNull
     private List<SalaEquipamentoDTO> equipamentos;
 

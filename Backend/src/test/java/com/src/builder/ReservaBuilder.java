@@ -35,7 +35,6 @@ public class ReservaBuilder extends ConstrutorDeEntidade<Reserva>{
     public Reserva construirEntidade() throws ParseException {
 
         Reserva reserva = new Reserva();
-<<<<<<< HEAD
         reserva.setDataFim(LocalDate.now().plusDays(1));
         reserva.setDataIni(LocalDate.now().plusDays(90));
         reserva.setTotal(455.00);
@@ -46,16 +45,6 @@ public class ReservaBuilder extends ConstrutorDeEntidade<Reserva>{
         reserva.setSala(sala);
 
         reserva.getSala().setDisponivel(0);
-=======
-
-        Cliente cliente = clienteBuilder.construir();
-        reserva.setCliente(cliente);
-        Sala sala = salaBuilder.construir();
-        reserva.setSala(sala);
-        reserva.setDataFim(LocalDate.of(2020,11,8));
-        reserva.setDataIni(LocalDate.of(2020,11,7));
-        reserva.setTotal(455.00);
->>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
         return reserva;
     }
 

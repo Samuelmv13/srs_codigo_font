@@ -5,11 +5,7 @@
 
 export const environment = {
     production: false,
-<<<<<<< HEAD
     apiUrl: 'http://localhost:8080/api',
-=======
-    apiUrl: '/api',
->>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
     auth: {
         baseUrl: '',
         loginUrl: '/api/sso/login',
