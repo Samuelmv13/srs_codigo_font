@@ -1,9 +1,13 @@
 package com.src.web.rest;
 
 import com.src.builder.ClienteBuilder;
+<<<<<<< HEAD
 import com.src.builder.ReservaBuilder;
 import com.src.dominio.Cliente;
 import com.src.dominio.Reserva;
+=======
+import com.src.dominio.Cliente;
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 import com.src.util.IntTestComum;
 import com.src.util.TestUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,9 +18,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.Matchers.hasSize;
+<<<<<<< HEAD
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
+=======
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -24,17 +31,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 @RunWith(SpringRunner.class)
 @Transactional
 public class ClienteRecursoIT extends IntTestComum {
 
+<<<<<<< HEAD
 
     @Autowired
     private ClienteBuilder clienteBuilder;
     @Autowired
     private ReservaBuilder reservaBuilder;
 
+=======
+    @Autowired
+    private ClienteBuilder clienteBuilder;
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 
     @BeforeEach
     public void limparBanco(){
@@ -59,6 +74,7 @@ public class ClienteRecursoIT extends IntTestComum {
     }
 
     @Test
+<<<<<<< HEAD
     public void salvarCpfIgual() throws Exception {
         Cliente cliente1 = clienteBuilder.construir();
         Cliente cliente2 = clienteBuilder.construirEntidade();
@@ -96,6 +112,8 @@ public class ClienteRecursoIT extends IntTestComum {
 
     @Test
 
+=======
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
     public void buscar() throws Exception {
         Cliente cliente = clienteBuilder.construir();
         getMockMvc().perform(get("/api/clientes/" + cliente.getId()))
@@ -104,6 +122,7 @@ public class ClienteRecursoIT extends IntTestComum {
     }
 
     @Test
+<<<<<<< HEAD
     public void buscarIdInexistente() throws Exception {
         Cliente cliente = clienteBuilder.construir();
         cliente.setId(4568);
@@ -113,6 +132,8 @@ public class ClienteRecursoIT extends IntTestComum {
 
     @Test
 
+=======
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
     public void atualizar() throws Exception {
         Cliente cliente = clienteBuilder.construir();
         getMockMvc().perform(put("/api/clientes")
@@ -122,6 +143,7 @@ public class ClienteRecursoIT extends IntTestComum {
     }
 
     @Test
+<<<<<<< HEAD
     public void atualizarIdInexistente() throws Exception {
         Cliente cliente = clienteBuilder.construir();
         cliente.setId(654684);
@@ -157,5 +179,12 @@ public class ClienteRecursoIT extends IntTestComum {
                 .content(TestUtil.convertObjectToJsonBytes(clienteBuilder.converterToDto(cliente)))
         ).andExpect(status().isBadRequest());
 
+=======
+    public void delete() throws Exception {
+        Cliente cliente = clienteBuilder.construir();
+        getMockMvc().perform(get("/api/clientes/" + cliente.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(cliente.getId()));
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
     }
 }

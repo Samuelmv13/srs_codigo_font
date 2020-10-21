@@ -1,5 +1,6 @@
 package com.src.servico;
 
+<<<<<<< HEAD
 
 import com.src.dominio.Equipamento;
 import com.src.dominio.Sala;
@@ -11,6 +12,10 @@ import com.src.servico.dto.SalaEquipamentoDTO;
 import com.src.servico.excecao.RegraNegocioException;
 import com.src.servico.mapper.EquipamentoMapper;
 import com.src.servico.mapper.SalaEquipamentoMapper;
+=======
+import com.src.dominio.Sala;
+import com.src.dominio.SalaEquipamento;
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 import com.src.servico.mapper.SalaMapper;
 import com.src.repositorio.SalaEquipamentoRepositorio;
 import com.src.repositorio.SalaRepositorio;
@@ -27,6 +32,7 @@ import java.util.List;
 @Transactional
 public class SalaServico {
 
+<<<<<<< HEAD
 
     private final SalaRepositorio salaRepositorio;
     private final SalaEquipamentoRepositorio salaEquipamentoRepositorio;
@@ -42,10 +48,25 @@ public class SalaServico {
         Sala sala = salaRepositorio.findById(id)
                 .orElseThrow(()-> new RegraNegocioException("sala não encontrada"));
 
+=======
+    private final SalaEquipamentoRepositorio salaEquipamentoRepositorio;
+    private final SalaRepositorio salaRepositorio;
+    private final SalaMapper salaMapper;
+
+    public List<SalaDTO> listar(){
+        List<Sala> salas = salaRepositorio.findAll();
+        List<SalaDTO> salasDTO = salaMapper.toDto(salas);
+        return salasDTO;
+    }
+
+    public SalaDTO buscar(Integer id){
+        Sala sala = salaRepositorio.findById(id).orElse(null);
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
         SalaDTO salaDTO = salaMapper.toDto(sala);
         return salaDTO;
     }
 
+<<<<<<< HEAD
 
     public SalaDTO inserir(SalaDTO salaDTO) throws RegraNegocioException{
         Sala novaSala = salaMapper.toEntity(salaDTO);
@@ -87,4 +108,29 @@ public class SalaServico {
         return false;
     }
 
+=======
+    public SalaDTO inserir(SalaDTO salaDTO){
+        Sala sala = salaMapper.toEntity(salaDTO);
+        List<SalaEquipamento> equipamentos = sala.getEquipamentos();
+        sala.setEquipamentos(new ArrayList<>());
+        salaRepositorio.save(sala);
+        equipamentos.forEach(equipamento -> {
+            equipamento.setSala(sala);
+            equipamento.getId().setIdSala(sala.getId());
+        });
+        salaEquipamentoRepositorio.saveAll(equipamentos);
+        return salaMapper.toDto(sala);
+    }
+
+    public SalaDTO atualizar(SalaDTO salaDTO){
+        Sala sala = salaMapper.toEntity(salaDTO);
+        Sala salaSalva = salaRepositorio.save(sala);
+        SalaDTO dto = salaMapper.toDto(salaSalva);
+        return dto;
+    }
+
+    public void deletar(Integer id){
+        salaRepositorio.deleteById(id);
+    }
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 }

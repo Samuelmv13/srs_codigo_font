@@ -21,10 +21,14 @@ public class SalaRecurso {
 
     @GetMapping
     public ResponseEntity<List<SalaDTO>> listar() {
+<<<<<<< HEAD
 
         List<SalaDTO> salaDTOS = salaServico.listar();
         return ResponseEntity.ok(salaDTOS);
 
+=======
+        return ResponseEntity.ok(salaServico.listar());
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
     }
 
     @GetMapping("/{id}")
@@ -33,29 +37,41 @@ public class SalaRecurso {
     }
 
     @PostMapping
+<<<<<<< HEAD
 
 
     public ResponseEntity<SalaDTO> inserir(@Valid @RequestBody SalaDTO salaDTO) throws URISyntaxException {
 
 
+=======
+    public ResponseEntity<SalaDTO> inserir(@Valid  @RequestBody SalaDTO salaDTO) throws URISyntaxException {
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
         SalaDTO dto = salaServico.inserir(salaDTO);
         return ResponseEntity.created(new URI("/api/salas")).body(dto);
     }
 
     @PutMapping
     public ResponseEntity<SalaDTO> atualizar(@Valid @RequestBody SalaDTO salaDTO) {
+<<<<<<< HEAD
 
 
         SalaDTO dto = salaServico.inserir(salaDTO);
 
 
+=======
+        SalaDTO dto = salaServico.atualizar(salaDTO);
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
         return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/{id}")
+<<<<<<< HEAD
 
     public ResponseEntity<SalaDTO> deletar(@PathVariable Integer id) {
 
+=======
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
         salaServico.deletar(id);
         return ResponseEntity.ok().build();
     }

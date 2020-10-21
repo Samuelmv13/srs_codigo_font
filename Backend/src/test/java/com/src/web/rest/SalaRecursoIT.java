@@ -1,5 +1,6 @@
 package com.src.web.rest;
 
+<<<<<<< HEAD
 import com.src.builder.ReservaBuilder;
 import com.src.builder.SalaBuilder;
 import com.src.dominio.Reserva;
@@ -11,6 +12,12 @@ import com.src.util.IntTestComum;
 import com.src.util.TestUtil;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
+=======
+import com.src.builder.SalaBuilder;
+import com.src.dominio.Sala;
+import com.src.util.IntTestComum;
+import com.src.util.TestUtil;
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +25,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+<<<<<<< HEAD
+=======
+import static org.hamcrest.Matchers.hasSize;
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -25,6 +36,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+<<<<<<< HEAD
+=======
+
+
+import java.util.Collection;
+
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 @RunWith(SpringRunner.class)
 @Transactional
 public class SalaRecursoIT extends IntTestComum {
@@ -32,6 +50,7 @@ public class SalaRecursoIT extends IntTestComum {
     @Autowired
     private SalaBuilder salaBuilder;
 
+<<<<<<< HEAD
     @Autowired
     private ReservaBuilder reservaBuilder;
 
@@ -44,14 +63,27 @@ public class SalaRecursoIT extends IntTestComum {
     @BeforeEach
     public void limparBanco(){
         salaBuilder.deletarBanco();
+=======
+    @BeforeEach
+    public void limparBanco(){
+        Collection<Sala> lista = salaBuilder.obterTodos();
+        lista.forEach(sala -> salaBuilder.deletarPorId(sala.getId()));
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
     }
 
     @Test
     public void listar() throws Exception {
+<<<<<<< HEAD
         salaBuilder.construir();
         getMockMvc().perform(get("/api/salas"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].id", Matchers.hasSize(1)));
+=======
+        Sala sala = salaBuilder.construir();
+        getMockMvc().perform(get("/api/salas"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*].id", hasSize(1)));
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
     }
 
     @Test
@@ -74,7 +106,12 @@ public class SalaRecursoIT extends IntTestComum {
 
     @Test
     public void editar() throws Exception {
+<<<<<<< HEAD
         Sala sala = salaBuilder.construirEntidade();
+=======
+        Sala sala = salaBuilder.construir();
+        sala.setDescricao("descrição sala novo");
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 
         getMockMvc().perform(put("/api/salas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -83,6 +120,7 @@ public class SalaRecursoIT extends IntTestComum {
     }
 
     @Test
+<<<<<<< HEAD
     public void deletar() throws Exception {
         Sala sala = salaBuilder.construir();
         getMockMvc().perform(delete("/api/salas/"+ sala.getId()))
@@ -123,4 +161,11 @@ public class SalaRecursoIT extends IntTestComum {
                 .andExpect(status().isBadRequest());
     }
     
+=======
+    public void deletarPorId() throws Exception {
+        Sala sala = salaBuilder.construir();
+        getMockMvc().perform(delete("/api/salas/"+ sala.getId() ))
+                .andExpect(status().isOk());
+    }
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 }

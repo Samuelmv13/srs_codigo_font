@@ -2,7 +2,10 @@ package com.src.web.rest;
 
 import com.src.servico.ClienteServico;
 import com.src.servico.dto.ClienteDTO;
+<<<<<<< HEAD
 import com.src.servico.excecao.RegraNegocioException;
+=======
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,9 +40,13 @@ public class ClienteRecurso {
 
 	@PutMapping
 	public ResponseEntity<ClienteDTO> atualizar(@Valid @RequestBody ClienteDTO clienteDto) {
+<<<<<<< HEAD
 
 		ClienteDTO dto = clienteServico.adicionar(clienteDto);
 
+=======
+		ClienteDTO dto = clienteServico.atualizar(clienteDto);
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 		return ResponseEntity.ok(dto);
 	}
 

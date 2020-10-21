@@ -18,9 +18,13 @@
         <addPrimaryKey  columnNames="id" constraintName="pk_cliente" tableName="cliente"/>
     </changeSet>
 
+<<<<<<< HEAD
 
     <changeSet id="2" author="isaque.costa">
 
+=======
+    <changeSet id="2" author="isaque.costa">
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
         <createTable remarks="tabela de tipo de equipamento" tableName="tipo_equipamento">
             <column name="id" type="number"> <constraints nullable="false"/></column>
             <column name="descricao" type="varchar(255)"> <constraints nullable="false"/></column>
@@ -28,14 +32,22 @@
         <addPrimaryKey  columnNames="id" constraintName="pk_tipo_equipamento" tableName="tipo_equipamento"/>
     </changeSet>
 
+<<<<<<< HEAD
 
     <changeSet id="3" author="isaque.costa">
 
+=======
+    <changeSet id="3" author="isaque.costa">
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
         <createTable remarks="tabela de equipamentos" tableName="equipamento">
             <column name="id" type="number"> <constraints nullable="false"/></column>
             <column name="nome" type="varchar(255)"> <constraints nullable="false"/></column>
             <column name="preco_diario" type="double"> <constraints nullable="false"/></column>
             <column name="id_tipo_equipamento" type="number"> <constraints nullable="false"/></column>
+<<<<<<< HEAD
+=======
+            <column name="obrigatorio" type="number"> <constraints nullable="false"/></column>
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
         </createTable>
         <addPrimaryKey  columnNames="id" constraintName="pk_equipamento" tableName="equipamento"/>
         <addForeignKeyConstraint

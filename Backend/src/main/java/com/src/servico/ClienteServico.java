@@ -1,10 +1,13 @@
 package com.src.servico;
 
 import com.src.dominio.Cliente;
+<<<<<<< HEAD
 
 import com.src.repositorio.ReservaRepositorio;
 import com.src.servico.excecao.RegraNegocioException;
 
+=======
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 import com.src.servico.mapper.ClienteMapper;
 import com.src.repositorio.ClienteRepositorio;
 import com.src.servico.dto.ClienteDTO;
@@ -19,6 +22,7 @@ import java.util.List;
 @Transactional
 public class ClienteServico {
 
+<<<<<<< HEAD
 
     private final ClienteRepositorio clienteRepositorio;
     private final ClienteMapper clienteMapper;
@@ -98,4 +102,36 @@ public class ClienteServico {
             throw new RegraNegocioException("RG inválido!");
     }
 
+=======
+	private final ClienteRepositorio clienteRepositorio;
+	private final ClienteMapper clienteMapper;
+
+	public List<ClienteDTO> listar() {
+		List<Cliente> clientes = clienteRepositorio.findAll();
+		List<ClienteDTO> clientesDto = clienteMapper.toDto(clientes);
+		return clientesDto;
+	}
+
+	public ClienteDTO buscar(Integer id) {
+		Cliente cliente = clienteRepositorio.findById(id).orElse(null);
+		ClienteDTO clienteDto = clienteMapper.toDto(cliente);
+		return clienteDto;
+	}
+
+	public ClienteDTO adicionar(ClienteDTO clienteDto) {
+		Cliente cliente = clienteMapper.toEntity(clienteDto);
+		Cliente clienteSalvo = clienteRepositorio.save(cliente);
+		return clienteMapper.toDto(clienteSalvo);
+	}
+
+	public ClienteDTO atualizar(ClienteDTO clienteDto) {
+		Cliente cliente = clienteMapper.toEntity(clienteDto);
+		Cliente clienteSalvo = clienteRepositorio.save(cliente);
+		return clienteDto;
+	}
+
+	public void remover(Integer id) {
+		clienteRepositorio.deleteById(id);
+	}
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 }

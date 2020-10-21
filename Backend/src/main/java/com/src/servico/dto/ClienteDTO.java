@@ -17,6 +17,7 @@ public class ClienteDTO {
 
 
 	private Integer id;
+<<<<<<< HEAD
 
 
 	@NotNull
@@ -40,6 +41,21 @@ public class ClienteDTO {
 
 
 	
+=======
+	@NotEmpty
+	@Size(max=120)
+	private String nome;
+	@CPF @NotNull
+	private String cpf;
+	@NotNull @Past
+	private LocalDate dtNasc;
+	@NotNull
+	private String endereco;
+	@NotNull @Email
+	private String email;
+	@NotNull @Size(max = 13, min = 13)
+	private String telefone;
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
 	@NotNull @Size(max = 7,min = 7)
 	private String rg;
 

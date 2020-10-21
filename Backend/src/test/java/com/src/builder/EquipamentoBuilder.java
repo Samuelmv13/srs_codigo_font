@@ -31,6 +31,10 @@ public class EquipamentoBuilder extends ConstrutorDeEntidade<Equipamento> {
 
         Equipamento equipamento = new Equipamento();
         equipamento.setNome("teclado");
+<<<<<<< HEAD
+=======
+        equipamento.setObrigatorio(1);
+>>>>>>> 7933ea607a2a5275ae05af77a4004d275265d1be
         equipamento.setPreco(12.5);
         equipamento.setTipoEquipamento(tipoEquipamento);
         return equipamento;
