@@ -1,0 +1,154 @@
+
+<p-tabView>
+    <p-tabPanel leftIcon="pi pi-list" header="Reservas">
+        <p>
+            <p-table #dt [value]="listaReservas" dataKey="id" [responsive]=true editMode="row" [rowHover]="true"
+                [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
+                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} reserva"
+                [filterDelay]="100">
+
+
+                <ng-template pTemplate="caption">
+                    <div id='buttonNew'> <button pButton type="button" icon="pi pi-plus" label="Nova Reserva"
+                            class="ui-button-success" (click)="config=true" style="width: 11rem"></button> </div>
+                    <div id="titulo"> Reservas </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+
+                        <th  pSortableColumn="id">Id<p-sortIcon field="id"></p-sortIcon>
+                        </th>
+                        <th  pSortableColumn="dataIni">Data Inicio<p-sortIcon field="dataIni"></p-sortIcon>
+                        </th>
+                        
+                        <th pSortableColumn="dataFim">Data Fim<p-sortIcon
+                                field="dataFim">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="idCliente">Cliente<p-sortIcon field="idCliente"></p-sortIcon>
+                        </th>
+                        <th   pSortableColumn="idSala">Sala<p-sortIcon field="idSala"></p-sortIcon>
+                        </th>
+                        <th  pSortableColumn="total">Total<p-sortIcon field="total"></p-sortIcon>
+                        </th> 
+                        <th>Ações</th> 
+                    </tr>
+                    <tr>
+                        <th>
+                            <input style="width: 6rem" pInputText type="text" (input)="dt.filter($event.target.value, 'id', 'startsWith')"
+                                placeholder="Buscar ID" class="p-column-filter">
+                        </th>
+                        <th>
+                            <input style="width: 6rem" pInputText type="text" (input)="dt.filter($event.target.value, 'dataIni', 'startsWith')"
+                                placeholder="dd/mm/yyyy" class="p-column-filter">
+                        </th>
+                        <th>
+                            <input style="width: 6rem" pInputText type="text"
+                                (input)="dt.filter($event.target.value, 'dataFim', 'startsWith')"
+                                placeholder="dd/mm/yyyy" class="p-column-filter">
+                        </th>
+                        <th>
+                            <input style="width: 6rem" pInputText type="text"
+                                (input)="dt.filter($event.target.value, 'idCliente', 'startsWith')"
+                                placeholder="Buscar Cliente" class="p-column-filter">
+                        </th>
+                        <th>
+                            <input style="width: 6rem" pInputText type="text"
+                                (input)="dt.filter($event.target.value, 'idSala', 'startsWith')"
+                                placeholder="Buscar Sala" class="p-column-filter">
+                        </th>
+                        <th>
+                            <input style="width: 6rem" pInputText type="text"
+                                (input)="dt.filter($event.target.value, 'total', 'startsWith')"
+                                placeholder="Buscar Total" class="p-column-filter">
+                        </th>
+                        <th>
+                        </th>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-reserva let-editing="editing" let-ri="rowIndex">
+                    <tr [pEditableRow]="reserva">
+                        <td>
+                            {{reserva.id}}
+                        </td>
+                        <td>
+                          {{reserva.dataIni}}
+                        </td>
+                        
+                        <td>
+                            {{reserva.dataFim}}
+                        </td>
+                        <td>
+                            {{reserva.idCliente}}
+                        </td>
+                        <td>
+                            {{reserva.idSala}}
+                        </td>
+                        <td>
+                            {{reserva.total}}
+                        </td>
+                        <td style="text-align:center">
+                            <span class="p-buttonset">
+                                <button pButton pRipple  icon="pi pi-pencil"></button>
+                                <button pButton pRipple (click)="removerReserva(reserva.id)" icon="pi pi-trash" style="margin-left: 15px;"></button>
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="7">Nenhuma reserva cadastrada.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div style="text-align: right; font-size: 16px;">
+                        Total de {{listaReservas ? listaReservas.length : 0 }} reserva(s).
+                    </div>
+                </ng-template>
+            </p-table>
+        </p>
+    </p-tabPanel>
+
+</p-tabView>
+
+<!-- <p-dialog [(visible)]="config">
+    <p-toolbar style="text-align:center">
+        <p>
+            Cadastro
+        </p>
+    </p-toolbar>
+    <form [formGroup]="formEquipamento">
+        <fieldset style="margin-top: 20px;">
+            <fieldset class="grupo">
+                <div class="campo">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" style="width: 10em" value="">
+                </div>
+            </fieldset>
+            <div class="campo">
+                <label for="preco">Preço Diário</label>
+                <input type="number" id="preco" name="preco" style="width: 10em" value="">
+            </div>
+
+            <fieldset class="grupo">
+                <div class="campo">
+                    <label for="estado">Tipo de Equipamento</label>
+                    <select name="idTipoEquipamento" id="idTipoEquipamento" placeholder="Selecionar tipo">
+                        <option value="">--</option>
+                        <option value="1">Móvel</option>
+                        <option value="2">Eletrodoméstico</option>
+                        <option value="3">Informática</option>
+                    </select>
+                </div>
+            </fieldset>
+            <button  style="left: 2px;" pButton type="button" icon="pi pi-check" label="Enviar"
+                class="ui-button-success" (click)="salvar()"></button>
+
+            <button style="margin-left: 2px;" pButton type="button" icon="pi pi-times" label="Cancelar"
+                class="ui-button-danger" (click)="resetar()"></button>
+
+            
+        </fieldset>
+    </form>
+</p-dialog> -->
