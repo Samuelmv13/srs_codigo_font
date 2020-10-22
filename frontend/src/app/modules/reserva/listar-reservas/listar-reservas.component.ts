@@ -10,6 +10,7 @@ import { ReservaService } from '../services/reserva.service';
 })
 export class ListarReservasComponent implements OnInit {
   listaReservas: ListarReservaModel[]=[];
+  config: boolean;
   constructor(
     private reservaService: ReservaService,
     private messageService: MessageService

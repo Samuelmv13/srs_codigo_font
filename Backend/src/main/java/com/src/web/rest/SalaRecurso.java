@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/salas")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class SalaRecurso {
 
 
