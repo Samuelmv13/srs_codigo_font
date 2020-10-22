@@ -15,7 +15,7 @@ public class EquipamentoDTO {
     @NotNull
     private String nome;
     @NotNull @Min(0)
-    private Double preco;
+    private Double precoDiaria;
     @Min(1) @Max(3)
     private Integer idTipoEquipamento;
 
