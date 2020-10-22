@@ -17,31 +17,31 @@ export class ReservaService {
   ) { }
 
   listarReservas(): Observable<ListarReservaModel[]> {
-    // return of<ListarReservaModel[]>([{
-    // id:1,
-    // idCliente:1,
-    // idSala:2,
-    // dataIni:"15/05/2020",
-    // dataFim:"20/05/2020",
-    // total:500
-    // },
-    // {
-    //   id:2,
-    //   idCliente:1,
-    //   idSala:1,
-    //   dataIni:"22/06/2020",
-    //   dataFim:"17/07/2020",
-    //   total:20
-    //   },
-    //   {
-    //     id:3,
-    //     idCliente:2,
-    //     idSala:3,
-    //     dataIni:"23/06/2020",
-    //     dataFim:"29/11/2020",
-    //     total:2000
-    //     }])
-    return this.http.get<ListarReservaModel[]>(`${environment.apiUrl}/reservas`);
+    return of<ListarReservaModel[]>([{
+    id:1,
+    idCliente:1,
+    idSala:2,
+    dataIni:"15/05/2020",
+    dataFim:"20/05/2020",
+    total:500
+    },
+    {
+      id:2,
+      idCliente:1,
+      idSala:1,
+      dataIni:"22/06/2020",
+      dataFim:"17/07/2020",
+      total:20
+      },
+      {
+        id:3,
+        idCliente:2,
+        idSala:3,
+        dataIni:"23/06/2020",
+        dataFim:"29/11/2020",
+        total:2000
+        }])
+    // return this.http.get<ListarReservaModel[]>(`${environment.apiUrl}/reservas`);
   }
 
   cadastrarReserva(cadastroReserva: CadastrarReservaModel): Observable<InfoReservaModel> {

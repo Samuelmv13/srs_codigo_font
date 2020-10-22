@@ -105,7 +105,7 @@
                 <td style="text-align:center">
                     <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" style="margin-right: 14px"></button>                
                     <button *ngIf="!editing" pButton type="button" icon="pi pi-trash" (click)="deletarSala(sala)"></button>
-                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="handleSubmit()" style="margin-right: 14px" class="ui-button-rounded ui-button-success"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="handleSubmit(sala)" style="margin-right: 14px" class="ui-button-rounded ui-button-success"></button>
                     <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="listar()" class="ui-button-rounded ui-button-danger"></button>
                 </td>
             </tr>
@@ -162,7 +162,7 @@
                         <input type="number" id="" name="" style="width: 9em" value="" >                        
                     </div>
                 </fieldset>
-                <button pButton pRipple label="Cadastrar" icon="pi pi-check" class="p-button-text" (click)="adicionarSala()" style="left: 2px;"></button>
+                <button pButton pRipple label="Cadastrar" icon="pi pi-check" class="p-button-text" (click)="adicionarSala(sala)" style="left: 2px;"></button>
                 <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="showForm()" style="left: 2cm;"></button>
             </fieldset>
         </form>
