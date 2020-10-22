@@ -12,6 +12,11 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
+import { ReservaModule } from './modules/reserva/reserva.module';
+import {TabViewModule} from 'primeng/tabview';
+import {PanelModule} from 'primeng/panel';
+import {TableModule} from 'primeng/table';
+import {ListboxModule} from 'primeng/listbox';
 import { BlockUIModule } from 'ng-block-ui';
 import { InputTextModule, InputTextareaModule, DropdownModule } from 'primeng';
 import { CheckboxModule } from "primeng/checkbox";
@@ -54,6 +59,11 @@ import { ToastModule } from 'primeng/toast';
         VersionTagModule,
         SecurityModule.forRoot(environment.auth),
         MenuModule,
+        ReservaModule,
+        TabViewModule,
+        PanelModule,
+        TableModule,
+        ListboxModule
         ToolbarModule,
         InputTextModule,
         CheckboxModule,
