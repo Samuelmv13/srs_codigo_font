@@ -31,13 +31,13 @@ export class EquipamentoService {
     return of<ListarEquipamentoModel[]>([{
       id: 1,
       nome: "Geladeira",
-      preco: 1290.90,
+      precoDiaria: 1290.90,
       idTipoEquipamento: 2
     },
     {
       id: 2,
       nome: "NoteBook",
-      preco: 2590.90,
+      precoDiaria: 2590.90,
       idTipoEquipamento: 3
     }]);
     return this.http.get<ListarEquipamentoModel[]>(`${environment.apiUrl}/equipamentos`);

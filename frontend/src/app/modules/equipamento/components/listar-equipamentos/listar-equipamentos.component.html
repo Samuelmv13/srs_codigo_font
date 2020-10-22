@@ -16,7 +16,7 @@
 
                 <ng-template pTemplate="caption">
                     <div id='buttonNew'> <button pButton type="button" icon="pi pi-plus" label="Novo Equipamento"
-                            class="ui-button-success" (click)="config=true" style="width: 11rem"></button> </div>
+                            class="ui-button-success" (click)="cadastro=true" style="width: 11rem"></button> </div>
                     <div id="titulo"> Equipamentos </div>
                 </ng-template>
 
@@ -31,7 +31,7 @@
                                 field="idTipoEquipamento">
                             </p-sortIcon>
                         </th>
-                        <th pSortableColumn="preco">Preço Diário<p-sortIcon field="preco"></p-sortIcon>
+                        <th pSortableColumn="precoDiaria">Preço Diário<p-sortIcon field="precoDiaria"></p-sortIcon>
                         </th>
                         <th style="width: 13rem">Ações</th>
                     </tr>
@@ -99,21 +99,21 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="equipamento.preco" required minlength="7"
+                                    <input pInputText type="text" [(ngModel)]="equipamento.precoDiaria" required minlength="7"
                                         maxlength="7" size="5">
                                 </ng-template>
                                 <ng-template pTemplate="output">R$
-                                    {{equipamento.preco}}
+                                    {{equipamento.precoDiaria}}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
                         <td style="text-align:center">
-                            <button *ngIf="!editing" pButton type="button" (click)="showConfirm()" (click)="id=equipamento.id"
+                            <button *ngIf="!editing" pButton type="button" (click)="showConfirm()" (click)="idDelete=equipamento.id"
                                  icon="pi pi-trash" style="margin-right: 14px"></button>
                             <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
                                 class="p-button-rounded p-button-text"></button>
                             <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
-                                (click)="salvar()"
+                                (click)="salvar()" (click)="equipamentoModel=equipamento" 
                                 class="p-button-rounded p-button-text p-button-success p-mr-2"
                                 style="margin-right: 12px"></button>
                             <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
@@ -169,8 +169,8 @@
 
                     <fieldset class="grupo" style="margin-left: 20px; ">
                         <div class="campo">
-                            <label for="preco" style="text-align:center;">Preço Diário</label>
-                            <input type="text" id="preco" name="preco" style="width: 10em" value=""  >
+                            <label for="precoDiaria" style="text-align:center;">Preço Diário</label>
+                            <input  id="precoDiaria" name="precoDiaria" type="text" style="width: 10em" value=""  >
                         </div>
                     </fieldset>
 
@@ -186,7 +186,7 @@
 
 
 
-<p-toast position="top-center"  key="c" (onClose)="onReject()" [baseZIndex]="5000">
+<p-toast position="top-center"  key="c" (onClose)="deleteReject()" [baseZIndex]="5000">
     <ng-template let-message pTemplate="message">
         <div class="p-flex p-flex-column" style="flex: 1">
             <div style="text-align:center">
@@ -197,9 +197,9 @@
             <div class="p-grid p-fluid">
                
                 <div >
-                    <button type="button" pButton (click)="onConfirm()"  label="Yes" class="ui-button-success"></button>
+                    <button type="button" pButton (click)="deleteConfirm()"  label="Yes" class="ui-button-success"></button>
 
-                    <button  type="button" pButton (click)="onReject()" label="No" class="ui-button-danger" ></button >
+                    <button  type="button" pButton (click)="deleteReject()" label="No" class="ui-button-danger" ></button >
                 </div>
             </div>
         </div>

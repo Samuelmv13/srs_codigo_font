@@ -13,7 +13,7 @@ import { EquipamentoService } from '../../services/equipamento.service';
 export class ListarEquipamentosComponent implements OnInit {
 
   listaEquipamentos: ListarEquipamentoModel[];
-  equipamento: ListarEquipamentoModel;
+  equipamentoModel: ListarEquipamentoModel;
   cadastro: boolean;
   formEquipamento: FormGroup;
   idDelete: number;
@@ -48,7 +48,7 @@ export class ListarEquipamentosComponent implements OnInit {
       this.messageService.add({severity:'success', summary: 'Success', detail: 'Reserva removida com sucesso.'});
       this.consultarEquipamentos();
     },response => {      
-      this.messageService.add({severity:'error', summary:'Error',detail:'algo de errado não está certo'})
+      this.messageService.add({severity:'error', summary:'Error',detail:response.error.message})
     });
   }
 
@@ -75,7 +75,7 @@ export class ListarEquipamentosComponent implements OnInit {
   recuperarEquipamento(id: number) {
     this.equipamentoService.recuperarEquipamento(id)
       .subscribe(equipamento => {
-        this.equipamento = equipamento;
+        this.equipamentoModel = equipamento;
         this.formEquipamento.patchValue(equipamento);
       })
   }
@@ -116,10 +116,10 @@ export class ListarEquipamentosComponent implements OnInit {
   private editarCliente() {
     this.equipamentoService.editarEquipamento(
       {
-        id: this.equipamento.id,
+        id: this.equipamentoModel.id,
         nome: this.formEquipamento.get('nome').value,
         idTipoEquipamento: this.formEquipamento.get('idTipoEquipamento').value,
-        preco: this.formEquipamento.get('preco').value
+        precoDiaria: this.formEquipamento.get('precoDiaria').value
       }
     ).subscribe(
       () => {
@@ -131,44 +131,32 @@ export class ListarEquipamentosComponent implements OnInit {
       })
   }
 
-  edit(id: number) {
-    this.equipamentoService.recuperarEquipamento(id).forEach(n => {
-      this.formEquipamento.setValue({
-        nome: n.nome,
-        idTipoEquipamento: n.idTipoEquipamento,
-        preco: n.preco
-      })
-    })
-  }
-
-
   private cadastrarEquipamento() {
     this.equipamentoService.cadastrarEquipamento(
       {
         nome: this.formEquipamento.get('nome').value,
         idTipoEquipamento: this.formEquipamento.get('idTipoEquipamento').value,
-        preco: this.formEquipamento.get('preco').value
+        precoDiaria: this.formEquipamento.get('precoDiaria').value
       }
     ).subscribe(
       () => {
-        console.log('Equipamento Cadastrado');
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Equipamento removida com sucesso.'});
         this.router.navigate(['../equipamentos']);
       },
       () => {
-        console.log('Erro ao chamar serviço');
-      })
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Equipamento removida com defeito.'});      })
   }
 
   isEditar(): boolean {
-    return this.equipamento != null;
+    return this.equipamentoModel != null;
   }
 
-  onConfirm() {
+  deleteConfirm() {
     this.messageService.clear('c');
     this.deletarEquipamento(this.idDelete);
   }
 
-  onReject() {
+  deleteReject() {
     this.messageService.clear('c');
   }
 

@@ -1,5 +1,5 @@
 export interface CadastroEquipamentoModel {
     nome: string;
-    preco: number;
+    precoDiaria: number;
     idTipoEquipamento: number;
 }

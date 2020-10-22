@@ -1,6 +1,6 @@
 export interface EditarEquipamentoModel {
     id: number,
     nome: string;
-    preco: number;
+    precoDiaria: number;
     idTipoEquipamento: number;
 }

@@ -13,9 +13,9 @@
     padding: 0;
 }
 
-fieldset {
+* fieldset {
     border: 0;
-}
+} 
 
 body, input, select, textarea, button {
     font-family: sans-serif;
@@ -45,6 +45,7 @@ fieldset.grupo .campo {
     float:  left;
     margin-right: 1em;
 }
+
 
 .campo input[type="text"],
 .campo input[type="email"],
