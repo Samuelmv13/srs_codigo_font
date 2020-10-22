@@ -1,6 +1,7 @@
 package com.src.web.rest;
 
 import com.src.builder.ClienteBuilder;
+import com.src.builder.ReservaBuilder;
 import com.src.dominio.Cliente;
 import com.src.dominio.Reserva;
 import com.src.util.IntTestComum;

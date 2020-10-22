@@ -36,7 +36,6 @@
             <column name="nome" type="varchar(255)"> <constraints nullable="false"/></column>
             <column name="preco_diario" type="double"> <constraints nullable="false"/></column>
             <column name="id_tipo_equipamento" type="number"> <constraints nullable="false"/></column>
-            <column name="obrigatorio" type="number"> <constraints nullable="false"/></column>
         </createTable>
         <addPrimaryKey  columnNames="id" constraintName="pk_equipamento" tableName="equipamento"/>
         <addForeignKeyConstraint

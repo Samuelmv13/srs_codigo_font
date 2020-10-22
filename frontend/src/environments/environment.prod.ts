@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    apiUrl: '/api',
+    apiUrl: 'http://157.88.55.22:8080',
     auth: {
         baseUrl: '',
         authUrl: '/login/cas',

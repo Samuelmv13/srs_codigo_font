@@ -59,8 +59,7 @@ public class EquipamentoServico {
     public boolean verificaNull(EquipamentoDTO equipamentoDTO) {
         boolean verificado = false;
         if (equipamentoDTO.getNome().equals(null) ||
-                equipamentoDTO.getIdTipoEquipamento() == null ||
-                equipamentoDTO.getObrigatorio() == null) {
+                equipamentoDTO.getIdTipoEquipamento() == null) {
             verificado = true;
         }
         return verificado;
