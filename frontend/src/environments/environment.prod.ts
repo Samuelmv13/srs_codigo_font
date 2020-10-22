@@ -2,7 +2,7 @@ export const environment = {
     production: true,
     apiUrl: '/api',
     auth: {
-        baseUrl: '',
+        baseUrl: '/',
         authUrl: '/login/cas',
         loginUrl: '/login/cas',
         logoutUrl: '/cas/logout',

@@ -1,6 +1,6 @@
-export class ClienteModel{
+export interface CadastrarClienteModel {
     nome: String;
-    cpf: number;
+    cpf: String;
     dtNasc: Date;
     endereco: String;
     email: String;
