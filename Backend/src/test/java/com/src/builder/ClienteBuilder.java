@@ -25,11 +25,11 @@ public class ClienteBuilder extends ConstrutorDeEntidade<Cliente> {
 
         Cliente cliente = new Cliente();
         cliente.setNome("Lucas");
-        cliente.setTelefone("1234567891011");
-        cliente.setRg("1234567");
+        cliente.setTelefone("+12 034 56789-1011");
+        cliente.setRg("123.456-7");
         cliente.setEndereco("teste");
         cliente.setEmail("lucas@gmail.com");
-        cliente.setCpf("56581427098");
+        cliente.setCpf("565.814.270-98");
         cliente.setDtNasc(LocalDate.of(2000,8,23));
 
         return cliente;

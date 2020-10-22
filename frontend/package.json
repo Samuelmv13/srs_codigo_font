@@ -17,7 +17,7 @@
     "private": true,
     "dependencies": {
         "@angular/animations": "9.1.0",
-        "@angular/cdk": "9.1.0",
+        "@angular/cdk": "^9.1.0",
         "@angular/common": "9.1.0",
         "@angular/compiler": "9.1.0",
         "@angular/core": "9.1.0",
@@ -46,6 +46,7 @@
         "@angular/compiler-cli": "9.1.0",
         "@angular/language-service": "9.1.0",
         "@compodoc/compodoc": "^1.1.11",
+        "@schematics/angular": "^10.1.7",
         "@types/jasmine": "~3.5.0",
         "@types/jasminewd2": "~2.0.3",
         "@types/node": "^12.11.1",

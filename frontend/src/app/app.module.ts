@@ -12,6 +12,10 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
+import { BlockUIModule } from 'ng-block-ui';
+import { ToolbarModule } from 'primeng/toolbar';
+import { OrderListModule } from 'primeng/orderlist';
+import { ClienteModule } from './modules/cliente/cliente.module';
 import { AppFooterComponent } from './components/footer/app.footer.component';
 import { AppTopbarComponent } from './components/topbar/app.topbar.component';
 import { EquipamentoModule } from './modules/equipamento/equipamento.module';
@@ -19,12 +23,13 @@ import { SharedModule } from './shared/shared.module';
 import {InputNumberModule} from 'primeng/inputnumber';
 import { ToastModule } from 'primeng/toast';
 
+
 @NgModule({
     declarations: [
         AppComponent,
         AppTopbarComponent,
         AppFooterComponent,
-        DiarioErrosComponent
+        DiarioErrosComponent,
     ],
     imports: [
         BlockUIModule.forRoot({
@@ -43,11 +48,10 @@ import { ToastModule } from 'primeng/toast';
         MenuModule,
         ToolbarModule,
         OrderListModule,
+        ClienteModule,
         EquipamentoModule,
         InputNumberModule,
         ToastModule
-
-        
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }

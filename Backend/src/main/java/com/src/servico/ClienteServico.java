@@ -61,13 +61,18 @@ public class ClienteServico {
             throw new RegraNegocioException("Id não encontrado!");
     }
 
-    private boolean isNumber(String string) {
-        try {
-            Long numero = Long.parseLong(string);
-            return true;
-        } catch (Exception E) {
+    public static boolean isNumber(String string) {
+        String possiveis = "123456789.-";
+
+        if (string.length() > 14) {
             return false;
         }
+        for (char s : string.toCharArray()) {
+            if (!possiveis.contains(s + "")) {
+                return false;
+            }
+        }
+        return true;
     }
     
 
