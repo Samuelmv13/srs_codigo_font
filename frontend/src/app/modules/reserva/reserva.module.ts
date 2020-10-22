@@ -12,6 +12,8 @@ import {PanelModule} from 'primeng/panel';
 import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
 import {ToastModule} from 'primeng/toast';
+import {DialogModule} from 'primeng/dialog';
+import {ListboxModule} from 'primeng/listbox';
 
 @NgModule({
   declarations: [ListarReservasComponent, CadastrarReservaComponent],
@@ -27,7 +29,9 @@ import {ToastModule} from 'primeng/toast';
     PanelModule,
     ButtonModule,
     TableModule,
-    ToastModule
+    ToastModule,
+    DialogModule,
+    ListboxModule
     
     
   ]

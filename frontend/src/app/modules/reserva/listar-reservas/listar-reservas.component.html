@@ -90,7 +90,8 @@
                         </td>
                         <td style="text-align:center">
                             <span class="p-buttonset">
-                                <button pButton pRipple  icon="pi pi-pencil"></button>
+                                <button pButton pRipple  icon="pi pi-pencil"
+                                ></button>
                                 <button pButton pRipple (click)="removerReserva(reserva.id)" icon="pi pi-trash" style="margin-left: 15px;"></button>
                             </span>
                         </td>
@@ -112,43 +113,54 @@
 
 </p-tabView>
 
-<!-- <p-dialog [(visible)]="config">
+<p-dialog [(visible)]="config">
     <p-toolbar style="text-align:center">
         <p>
-            Cadastro
+            Realizar reserva
         </p>
     </p-toolbar>
-    <form [formGroup]="formEquipamento">
+    <form [formGroup]="">
         <fieldset style="margin-top: 20px;">
             <fieldset class="grupo">
                 <div class="campo">
-                    <label for="nome">Nome</label>
-                    <input type="text" id="nome" name="nome" style="width: 10em" value="">
+                    <label for="nome">Data Inicio</label>
+                    <input type="text" id="dataIni" name="dataIni" style="width: 10em" value="">
                 </div>
             </fieldset>
             <div class="campo">
-                <label for="preco">Preço Diário</label>
-                <input type="number" id="preco" name="preco" style="width: 10em" value="">
+                <label for="preco">Data Fim</label>
+                <input type="text" id="dataFim" name="dataFim" style="width: 10em" value="">
             </div>
 
             <fieldset class="grupo">
                 <div class="campo">
-                    <label for="estado">Tipo de Equipamento</label>
+                    <label for="estado">Cliente</label>
                     <select name="idTipoEquipamento" id="idTipoEquipamento" placeholder="Selecionar tipo">
                         <option value="">--</option>
-                        <option value="1">Móvel</option>
-                        <option value="2">Eletrodoméstico</option>
-                        <option value="3">Informática</option>
+                        <option value="1">cliente 1</option>
+                        <option value="2">cliente 2</option>
+                        <option value="3">cliente 3</option>
                     </select>
                 </div>
+                <div class="campo">
+                    <label for="estado">Sala</label>
+                    <select name="idTipoEquipamento" id="idTipoEquipamento" placeholder="Selecionar tipo">
+                        <option value="">--</option>
+                        <option value="1">sala 1</option>
+                        <option value="2">sala 2</option>
+                        <option value="3">sala 3</option>
+                    </select>
+                </div>
+                <!-- <h5>Single</h5>
+<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem'}"></p-listbox> -->
             </fieldset>
             <button  style="left: 2px;" pButton type="button" icon="pi pi-check" label="Enviar"
                 class="ui-button-success" (click)="salvar()"></button>
 
-            <button style="margin-left: 2px;" pButton type="button" icon="pi pi-times" label="Cancelar"
+            <button style="margin-left: 15px;" pButton type="button" icon="pi pi-times" label="Cancelar"
                 class="ui-button-danger" (click)="resetar()"></button>
 
             
         </fieldset>
     </form>
-</p-dialog> -->
+</p-dialog>

@@ -21,6 +21,8 @@ import {TabViewModule} from 'primeng/tabview';
 import {PanelModule} from 'primeng/panel';
 import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
+import {DialogModule} from 'primeng/dialog';
+import {ListboxModule} from 'primeng/listbox';
 
 
 @NgModule({
@@ -52,7 +54,9 @@ import {TableModule} from 'primeng/table';
         TabViewModule,
         PanelModule,
         ButtonModule,
-        TableModule
+        TableModule,
+        DialogModule,
+        ListboxModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }
