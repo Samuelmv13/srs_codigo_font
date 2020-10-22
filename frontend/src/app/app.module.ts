@@ -14,7 +14,6 @@ import { AppComponent } from './app.component';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { AppFooterComponent } from './components/footer/app.footer.component';
 import { AppTopbarComponent } from './components/topbar/app.topbar.component';
-import { ClienteModule } from './modules/cliente/cliente.module';
 import { ReservaModule } from './modules/reserva/reserva.module';
 import { SharedModule } from './shared/shared.module';
 import {TabViewModule} from 'primeng/tabview';
@@ -48,7 +47,6 @@ import {ListboxModule} from 'primeng/listbox';
         SecurityModule.forRoot(environment.auth),
         MenuModule,
         OrderListModule,
-        ClienteModule,
         ReservaModule,
         ToolbarModule,
         TabViewModule,
