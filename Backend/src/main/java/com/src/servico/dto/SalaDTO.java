@@ -30,10 +30,6 @@ public class SalaDTO {
     private Double precoDiario;
 
     @NotNull
-    @Min(0) @Max(1)
-    private Integer disponivel;
-
-    @NotNull
     private List<SalaEquipamentoDTO> equipamentos;
 
 }

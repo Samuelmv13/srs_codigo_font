@@ -7,6 +7,9 @@ import { MenusService, MenuOrientation } from '@nuvem/primeng-components';
     templateUrl: './app.component.html'
 })
 export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
+  title(title: any) {
+    throw new Error("Method not implemented.");
+  }
 
     layoutCompact = true;
 
@@ -55,7 +58,6 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
             { label: 'Equipamentos', icon: 'laptop', routerLink: ['equipamentos']},
             { label: 'Salas', icon: 'business', routerLink: ['salas']},
             { label: 'Reservas', icon: 'content_paste', routerLink: ['reservas']}
-
         ];
     }
 

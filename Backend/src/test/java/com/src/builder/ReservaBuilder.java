@@ -44,7 +44,6 @@ public class ReservaBuilder extends ConstrutorDeEntidade<Reserva>{
         reserva.setCliente(cliente);
         reserva.setSala(sala);
 
-        reserva.getSala().setDisponivel(0);
         return reserva;
     }
 

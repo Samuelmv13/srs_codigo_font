@@ -13,6 +13,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { BlockUIModule } from 'ng-block-ui';
+import { InputTextModule, InputTextareaModule, DropdownModule } from 'primeng';
+import { CheckboxModule } from "primeng/checkbox";
+import { ButtonModule } from "primeng/button";
+import { RadioButtonModule } from "primeng/radiobutton";
+import { FormsModule } from '@angular/forms';
+import { SalaModule } from './modules/sala/sala.module';
+import {CardModule} from 'primeng/card';
+import {DialogModule} from 'primeng/dialog';
 import { ToolbarModule } from 'primeng/toolbar';
 import { OrderListModule } from 'primeng/orderlist';
 import { ClienteModule } from './modules/cliente/cliente.module';
@@ -47,11 +55,22 @@ import { ToastModule } from 'primeng/toast';
         SecurityModule.forRoot(environment.auth),
         MenuModule,
         ToolbarModule,
+        InputTextModule,
+        CheckboxModule,
+        ButtonModule,
+        RadioButtonModule,
+        FormsModule,
+		    InputTextareaModule,
+        DropdownModule,
+        SalaModule,
+        CardModule,
+        DialogModule,
         OrderListModule,
         ClienteModule,
         EquipamentoModule,
         InputNumberModule,
         ToastModule
+
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }
