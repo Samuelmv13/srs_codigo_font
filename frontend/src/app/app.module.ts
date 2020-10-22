@@ -12,16 +12,29 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
-import { AppFooterComponent } from './components/footer/app.footer.component';
-import { AppTopbarComponent } from './components/topbar/app.topbar.component';
 import { ReservaModule } from './modules/reserva/reserva.module';
-import { SharedModule } from './shared/shared.module';
 import {TabViewModule} from 'primeng/tabview';
 import {PanelModule} from 'primeng/panel';
-import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
-import {DialogModule} from 'primeng/dialog';
 import {ListboxModule} from 'primeng/listbox';
+import { BlockUIModule } from 'ng-block-ui';
+import { InputTextModule, InputTextareaModule, DropdownModule } from 'primeng';
+import { CheckboxModule } from "primeng/checkbox";
+import { ButtonModule } from "primeng/button";
+import { RadioButtonModule } from "primeng/radiobutton";
+import { FormsModule } from '@angular/forms';
+import { SalaModule } from './modules/sala/sala.module';
+import {CardModule} from 'primeng/card';
+import {DialogModule} from 'primeng/dialog';
+import { ToolbarModule } from 'primeng/toolbar';
+import { OrderListModule } from 'primeng/orderlist';
+import { ClienteModule } from './modules/cliente/cliente.module';
+import { AppFooterComponent } from './components/footer/app.footer.component';
+import { AppTopbarComponent } from './components/topbar/app.topbar.component';
+import { EquipamentoModule } from './modules/equipamento/equipamento.module';
+import { SharedModule } from './shared/shared.module';
+import {InputNumberModule} from 'primeng/inputnumber';
+import { ToastModule } from 'primeng/toast';
 
 
 @NgModule({
@@ -29,7 +42,7 @@ import {ListboxModule} from 'primeng/listbox';
         AppComponent,
         AppTopbarComponent,
         AppFooterComponent,
-        DiarioErrosComponent
+        DiarioErrosComponent,
     ],
     imports: [
         BlockUIModule.forRoot({
@@ -46,15 +59,28 @@ import {ListboxModule} from 'primeng/listbox';
         VersionTagModule,
         SecurityModule.forRoot(environment.auth),
         MenuModule,
-        OrderListModule,
         ReservaModule,
-        ToolbarModule,
         TabViewModule,
         PanelModule,
-        ButtonModule,
         TableModule,
-        DialogModule,
         ListboxModule
+        ToolbarModule,
+        InputTextModule,
+        CheckboxModule,
+        ButtonModule,
+        RadioButtonModule,
+        FormsModule,
+		    InputTextareaModule,
+        DropdownModule,
+        SalaModule,
+        CardModule,
+        DialogModule,
+        OrderListModule,
+        ClienteModule,
+        EquipamentoModule,
+        InputNumberModule,
+        ToastModule
+
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }
