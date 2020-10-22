@@ -138,69 +138,6 @@
 
 </p-tabView>
 
-<!-- <p-dialog [(visible)]="cadastro" header="Adicionar Equipamento">
-
-
-    <p-toolbar>
-        <div class="p-toolbar-group-left" style="text-align:center; font-size: 13px;">Faça o Cadastro
-        </div>
-    </p-toolbar>
-
-    <form [formGroup]="formEquipamento"  (ngSubmit)="cadastrarEquipamento(formEquipamento.value)">
-        <fieldset style="margin-left: 20px; margin-top: 20px;">
-            <fieldset class="grupo">
-                <div class="campo" style="text-align:center;">
-                    <label for="nome">Nome</label>
-                    <input type="text" class="formInput" id="nome" name="nome" style="width: 10em" value="" style="text-align:center;">
-                     <div *ngIf="!nome.pristine && nome.errors" class="custom-cadastro">
-                        <p *ngIf="nome.errors.required">
-                            Nome é obrigatório.
-                        </p>
-                        <p *ngIf="nome.errors.minlength">
-                            Nome deve ter no mínimo 3 caracters.
-                        </p>
-                    </div> -->
-<!-- </div>
-            </fieldset>
-
-            <fieldset class="grupo" style="margin-left: 20px; ">
-                <div class="campo">
-                    <label for="estado" style="text-align:center;">Tipo de Equipamento</label>
-                    <select class="formInput" name="idTipoEquipamento" id="idTipoEquipamento" style="width: 10em">
-                        <option value="">{{getTipo(0)}}</option>
-                        <option value="1">{{getTipo(1)}}</option>
-                        <option value="2">{{getTipo(2)}}</option>
-                        <option value="3">{{getTipo(3)}}</option>
-                    </select>
-                   - <div *ngIf="!tipoEquipamento.pristine && tipoEquipamento.errors">
-                        <p *ngIf="tipoEquipamento.errors.required" class="custom-cadastro">
-                            Tipo de Equipamento é obrigatório.
-                        </p>
-                    </div> 
-                </div>
-            </fieldset>
-
-            <fieldset class="grupo" style="margin-left: 20px; ">
-                <div class="campo">
-                    <label for="precoDiaria" style="text-align:center;">Preço Diário</label>
-                    <input id="precoDiaria"  mode="currency" currency="BRL" [minFractionDigits]="2" [maxFractionDigits]="2" class="formInput" name="precoDiaria" type="text" style="width: 10em" value="">
-                     <div *ngIf="!precoDiaria.pristine && precoDiaria.errors">
-                        <p *ngIf="precoDiaria.errors.required" class="custom-cadastro">
-                            Preço Diário é obrigatório.
-                        </p>
-                    </div> -->
-<!-- </div>
-            </fieldset>
-
-
-            <fieldset style="text-align:center;margin-right: 5px;">
-                <button pButton type="button" label="Enviar" class="ui-button-success"></button>
-            </fieldset>
-
-        </fieldset>
-    </form>
-</p-dialog> -->
-
 <p-dialog header="Adicionar Equipamento" [(visible)]="cadastro">
     <form [formGroup]="formEquipamento" >
         <p-toolbar>

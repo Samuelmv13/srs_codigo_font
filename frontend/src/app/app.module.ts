@@ -14,7 +14,6 @@ import { AppComponent } from './app.component';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { AppFooterComponent } from './components/footer/app.footer.component';
 import { AppTopbarComponent } from './components/topbar/app.topbar.component';
-import { ClienteModule } from './modules/cliente/cliente.module';
 import { EquipamentoModule } from './modules/equipamento/equipamento.module';
 import { SharedModule } from './shared/shared.module';
 import {InputNumberModule} from 'primeng/inputnumber';
@@ -43,8 +42,7 @@ import { ToastModule } from 'primeng/toast';
         SecurityModule.forRoot(environment.auth),
         MenuModule,
         ToolbarModule,
-        OrderListModule,
-        ClienteModule,
+        OrderListModule,,
         EquipamentoModule,
         InputNumberModule,
         ToastModule
