@@ -152,6 +152,14 @@
                         <div class="campo"  style="text-align:center;">
                             <label for="nome">Nome</label>
                             <input type="text" id="nome" name="nome" style="width: 10em" value="" style="text-align:center;">
+                            <div *ngIf="!nome.pristine && nome.errors"  class="custom-cadastro">
+                                <p *ngIf="nome.errors.required" >
+                                  Nome é obrigatório.
+                                </p>
+                                <p *ngIf="nome.errors.minlength" >
+                                  Nome deve ter no mínimo 3 caracters.
+                                </p>
+                            </div>
                         </div>
                     </fieldset>
 
@@ -164,6 +172,11 @@
                                 <option value="2">{{getTipo(2)}}</option>
                                 <option value="3">{{getTipo(3)}}</option>
                             </select>
+                            <div *ngIf="!tipoEquipamento.pristine && tipoEquipamento.errors">
+                                <p *ngIf="tipoEquipamento.errors.required" class="custom-cadastro">
+                                  Tipo de Equipamento é obrigatório.
+                                </p>
+                            </div>
                         </div>
                     </fieldset > 
 
@@ -171,6 +184,11 @@
                         <div class="campo">
                             <label for="precoDiaria" style="text-align:center;">Preço Diário</label>
                             <input  id="precoDiaria" name="precoDiaria" type="text" style="width: 10em" value=""  >
+                            <div *ngIf="!precoDiaria.pristine && precoDiaria.errors">
+                                <p *ngIf="precoDiaria.errors.required"  class="custom-cadastro">
+                                  Preço Diário é obrigatório.
+                                </p>
+                            </div>
                         </div>
                     </fieldset>
 

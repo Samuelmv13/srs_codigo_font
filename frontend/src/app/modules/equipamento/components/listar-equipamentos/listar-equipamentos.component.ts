@@ -83,7 +83,7 @@ export class ListarEquipamentosComponent implements OnInit {
   criarFormulario() {
     this.formEquipamento = this.formBuilder.group({
       nome: [null, Validators.required, Validators.minLength(3)],
-      preco: [null, Validators.required],
+      precoDiaria: [null, Validators.required],
       idTipoEquipamento: [null, Validators.required]
     })
   }
@@ -142,8 +142,7 @@ export class ListarEquipamentosComponent implements OnInit {
       () => {
         this.messageService.add({severity:'success', summary: 'Success', detail: 'Equipamento removida com sucesso.'});
         this.router.navigate(['../equipamentos']);
-      },
-      () => {
+      },response => {
         this.messageService.add({severity:'success', summary: 'Success', detail: 'Equipamento removida com defeito.'});      })
   }
 
@@ -160,10 +159,26 @@ export class ListarEquipamentosComponent implements OnInit {
     this.messageService.clear('c');
   }
 
+  close(): boolean{
+    this.resetar();
+    return true;
+  }
 
   showConfirm() {
     this.messageService.clear();
     this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'apagar', detail: 'Confirm to proceed' });
+  }
+
+  get nome() {
+    return this.formEquipamento.get('nome');
+  }
+
+  get tipoEquipamento() {
+    return this.formEquipamento.get('idTipoEquipamento');
+  }
+
+  get precoDiaria() {
+    return this.formEquipamento.get('precoDiaria');
   }
 
 }

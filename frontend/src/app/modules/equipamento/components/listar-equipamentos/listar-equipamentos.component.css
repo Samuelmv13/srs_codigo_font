@@ -47,11 +47,10 @@ fieldset.grupo .campo {
 }
 
 
+
 .campo input[type="text"],
-.campo input[type="email"],
-.campo input[type="url"],
-.campo input[type="tel"],
 .campo select,
+.campo input[type="text"],
 .campo textarea {
     padding: 0.2em;
     border: 1px solid #CCC;
@@ -63,7 +62,11 @@ fieldset.grupo .campo {
     padding-right: 1em;
 }
 
-
+.custom-cadastro {
+   font-size: 10px; 
+   text-align: center; 
+   color: #af3333;
+}
 
 .campo label.checkbox {
     color: #000;
