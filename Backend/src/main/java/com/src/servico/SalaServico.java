@@ -72,13 +72,8 @@ public class SalaServico {
 
     public void deletar(Integer id){
         Sala sala = salaRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Sala com o id " + id + " não existe"));
-        if (sala.getDisponivel() == 0) {
-            throw new RegraNegocioException("Esta sala não pode ser deletada devido a estar reservada.");
-        }
-        else {
             salaEquipamentoRepositorio.deleteAllBySalaId(id);
             salaRepositorio.deleteById(id);
-        }
     }
 
     public boolean isReservada(Integer id){

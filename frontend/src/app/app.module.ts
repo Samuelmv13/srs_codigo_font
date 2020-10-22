@@ -13,6 +13,18 @@ import { PageNotificationModule, BreadcrumbModule, MenuModule, ErrorStackModule 
 import { SecurityModule, VersionTagModule } from '@nuvem/angular-base';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { BlockUIModule } from 'ng-block-ui';
+import {ToolbarModule} from 'primeng/toolbar';
+import { InputTextModule, InputTextareaModule, DropdownModule } from 'primeng';
+import { CheckboxModule } from "primeng/checkbox";
+import { ButtonModule } from "primeng/button";
+import { RadioButtonModule } from "primeng/radiobutton";
+import { FormsModule } from '@angular/forms';
+import { SalaModule } from './modules/sala/sala.module';
+import {CardModule} from 'primeng/card';
+import {DialogModule} from 'primeng/dialog';
+
+
+
 
 @NgModule({
     declarations: [
@@ -35,7 +47,18 @@ import { BlockUIModule } from 'ng-block-ui';
         ErrorStackModule,
         VersionTagModule,
         SecurityModule.forRoot(environment.auth),
-        MenuModule
+        MenuModule,
+        ToolbarModule,
+        InputTextModule,
+        CheckboxModule,
+        ButtonModule,
+        RadioButtonModule,
+        FormsModule,
+		InputTextareaModule,
+        DropdownModule,
+        SalaModule,
+        CardModule,
+        DialogModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }
