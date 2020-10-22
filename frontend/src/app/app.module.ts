@@ -42,7 +42,7 @@ import { ToastModule } from 'primeng/toast';
         SecurityModule.forRoot(environment.auth),
         MenuModule,
         ToolbarModule,
-        OrderListModule,,
+        OrderListModule,
         EquipamentoModule,
         InputNumberModule,
         ToastModule
