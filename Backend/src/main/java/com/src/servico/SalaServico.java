@@ -31,7 +31,11 @@ public class SalaServico {
     private final SalaRepositorio salaRepositorio;
     private final SalaEquipamentoRepositorio salaEquipamentoRepositorio;
     private final SalaMapper salaMapper;
+    private final EquipamentoRepositorio equipamentoRepositorio;
+    private final ReservaRepositorio reservaRepositorio;
     private final ReservaServico reservaServico;
+    private final EquipamentoServico equipamentoServico;
+
 
     public List<SalaDTO> listar(){
         List<Sala> salas = salaRepositorio.findAll();
