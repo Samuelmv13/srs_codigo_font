@@ -59,14 +59,14 @@ public class ClienteRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarCpfIgual() throws Exception {
+    public void erroSalvarCpfIgual() throws Exception {
         Cliente cliente1 = clienteBuilder.construir();
         Cliente cliente2 = clienteBuilder.construirEntidade();
         postBadRequest(cliente2);
     }
 
     @Test
-    public void salvarRgIgual() throws Exception {
+    public void erroSalvarRgIgual() throws Exception {
         Cliente cliente1 = clienteBuilder.construir();
         Cliente cliente2 = clienteBuilder.construirEntidade();
         cliente2.setCpf("49824393030");
@@ -74,7 +74,7 @@ public class ClienteRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarEmailIgual() throws Exception {
+    public void erroSalvarEmailIgual() throws Exception {
         Cliente cliente1 = clienteBuilder.construir();
         Cliente cliente2 = clienteBuilder.construirEntidade();
         cliente2.setCpf("49824393030");
@@ -82,15 +82,15 @@ public class ClienteRecursoIT extends IntTestComum {
         postBadRequest(cliente2);
     }
     @Test
-    public void salvarRgComLetra() throws Exception {
+    public void erroSalvarRgComLetra() throws Exception {
         Cliente cliente2 = clienteBuilder.construirEntidade();
-        cliente2.setRg("123321A");
+        cliente2.setRg("123.321-A");
         postBadRequest(cliente2);
     }
     @Test
-    public void salvarCPFInvalido() throws Exception {
+    public void erroSalvarCPFInvalido() throws Exception {
         Cliente cliente2 = clienteBuilder.construirEntidade();
-        cliente2.setCpf("4982439303A");
+        cliente2.setCpf("796.256.370-2A");
         postBadRequest(cliente2);
     }
 
@@ -104,7 +104,7 @@ public class ClienteRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void buscarIdInexistente() throws Exception {
+    public void erroIdInexistente() throws Exception {
         Cliente cliente = clienteBuilder.construir();
         cliente.setId(4568);
         getMockMvc().perform(get("/api/clientes/" + cliente.getId()))
@@ -122,7 +122,7 @@ public class ClienteRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void atualizarIdInexistente() throws Exception {
+    public void erroAtualizarIdInexistente() throws Exception {
         Cliente cliente = clienteBuilder.construir();
         cliente.setId(654684);
         getMockMvc().perform(put("/api/clientes"))
@@ -137,7 +137,7 @@ public class ClienteRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void deletarIdInexistent() throws Exception {
+    public void erroDeletarIdInexistent() throws Exception {
         Cliente cliente = clienteBuilder.construir();
         cliente.setId(654684);
         getMockMvc().perform(delete("/api/clientes/" + cliente.getId()))
@@ -145,7 +145,7 @@ public class ClienteRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void deletarComReserva() throws Exception {
+    public void erroDeletarComReserva() throws Exception {
         Reserva reserva = reservaBuilder.construir();
         getMockMvc().perform(delete("/api/clientes/"+ reserva.getCliente().getId()))
                 .andExpect(status().isBadRequest());

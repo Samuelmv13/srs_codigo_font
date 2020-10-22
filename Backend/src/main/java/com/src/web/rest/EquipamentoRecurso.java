@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/equipamentos")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class EquipamentoRecurso {
 
     private final EquipamentoServico equipamentoService;

@@ -15,9 +15,7 @@ import java.time.LocalDate;
 @Setter
 public class ClienteDTO {
 
-
 	private Integer id;
-
 
 	@NotNull
 	@Size(max=120)
@@ -35,12 +33,10 @@ public class ClienteDTO {
 	@NotNull @Email @Size(max = 255)
 	private String email;
 
-	@NotNull @Size(max = 13, min = 13)
+	@NotNull @Size(max = 18, min = 18)
 	private String telefone;
 
-
-	
-	@NotNull @Size(max = 7,min = 7)
+	@NotNull @Size(max = 9,min = 9)
 	private String rg;
 
 }
