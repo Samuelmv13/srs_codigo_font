@@ -95,13 +95,44 @@ export class ListarEquipamentosComponent implements OnInit {
       }
     ).subscribe(
       () => {
-        console.log('Equipamento Atualizado');
+        this.consultarEquipamentos();
+        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Equipamento alterado com sucesso.' });
         this.router.navigate(['../equipamentos']);
-      },
-      () => {
-        console.log('Erro ao chamar serviço');
+      }, response => {
+        let msg = response.error.message;
+        if (this.validNameEditor() && this.validTypeEditor() && this.validPriceEditor()) {
+          msg = 'Preencha o cadastro.';
+        } else if (this.validNameEditor()) {
+          msg = 'Nome informado inválido.';
+        } else if (this.validTypeEditor()) {
+          msg = 'Tipo de equipamento inválido.';
+        } else if (this.validPriceEditor()) {
+          msg = 'Preço informado inválido.';
+        }
+        this.messageService.add({ severity: 'error', summary: 'Erro', detail: msg })
       })
-      
+
+  }
+
+  validNameEditor(): boolean{
+    if (this.equipamentoModel.nome == null || this.equipamentoModel.nome.length < 3) {
+      return true;
+    }
+    return false;
+  }
+
+  validTypeEditor(): boolean{
+    if (this.equipamentoModel.idTipoEquipamento == null || this.equipamentoModel.idTipoEquipamento > 3 || this.equipamentoModel.idTipoEquipamento < 1) {
+      return true;
+    }
+    return false;
+  }
+
+  validPriceEditor(): boolean{
+    if (this.equipamentoModel.precoDiaria == null) {
+      return true;
+    }
+    return false;
   }
 
   cadastrarEquipamento(value) {
@@ -112,17 +143,19 @@ export class ListarEquipamentosComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Equipamento cadastrado com sucesso.' });
         this.router.navigate(['../equipamentos']);
       }, response => {
-        if (this.nome.invalid && this.tipoEquipamento.invalid && this.precoDiaria.invalid) {
-          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Preencha o cadastro.' })
+        let msg = response.error.message;
+        if (this.nome.invalid && 
+          this.tipoEquipamento.invalid 
+          && this.precoDiaria.invalid) {
+          msg = 'Preencha o cadastro.';
         } else if (this.nome.invalid) {
-          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Nome informado inválido.' });
+          msg = 'Nome informado inválido.';
         } else if (this.tipoEquipamento.invalid) {
-          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Tipo de equipamento inválido.' });
+          msg = 'Tipo de equipamento inválido.';
         } else if (this.precoDiaria.invalid) {
-          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Preço informado inválido.' });
-        } else {
-          this.messageService.add({ severity: 'error', summary: 'Erro', detail: response.error.message })
+          msg = 'Preço informado inválido.';
         }
+        this.messageService.add({ severity: 'error', summary: 'Erro', detail: msg })
       })
   }
 

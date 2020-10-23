@@ -10,8 +10,7 @@
         <p>
             <p-table #dt [value]="listaEquipamentos" dataKey="id" [responsive]=true editMode="row" [rowHover]="true"
                 [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
-                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} equipamentos"
-                [filterDelay]="0">
+                currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0">
 
 
                 <ng-template pTemplate="caption">
@@ -22,38 +21,32 @@
 
                 <ng-template pTemplate="header">
                     <tr>
-
-                        <th style="width: 6rem" pSortableColumn="id">Id<p-sortIcon field="id"></p-sortIcon>
+                        <th style="width: 18rem" pSortableColumn="nome">Nome<p-sortIcon field="nome"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="nome">Nome<p-sortIcon field="nome"></p-sortIcon>
-                        </th>
-                        <th style="width: 8.8rem" pSortableColumn="idTipoEquipamento">Tipo<p-sortIcon
+                        <th style="width: 18rem" pSortableColumn="idTipoEquipamento">Tipo<p-sortIcon
                                 field="idTipoEquipamento">
                             </p-sortIcon>
                         </th>
-                        <th pSortableColumn="precoDiaria">Preço Diário<p-sortIcon field="precoDiaria"></p-sortIcon>
+                        <th style="width: 18rem" pSortableColumn="precoDiaria">Preço Diário<p-sortIcon
+                                field="precoDiaria"></p-sortIcon>
                         </th>
-                        <th style="width: 13rem">Ações</th>
+                        <th style="width: 11.85rem">Ações</th>
                     </tr>
                     <tr>
 
-                        <th>
-                            <input pInputText type="text" (input)="dt.filter($event.target.value, 'id', 'startsWith')"
-                                placeholder="Buscar ID" class="p-column-filter">
-                        </th>
                         <th>
                             <input pInputText type="text" (input)="dt.filter($event.target.value, 'nome', 'startsWith')"
                                 placeholder="Buscar Nome" class="p-column-filter">
                         </th>
                         <th>
                             <input pInputText type="text"
-                                (input)="dt.filter($event.target.value, 'getTipo(equipamento.idTipoEquipamento)', 'startsWith')"
+                                (input)="dt.filter($event.target.value, 'idTipoEquipamento', 'startsWith')"
                                 placeholder="Buscar Tipo" class="p-column-filter">
                         </th>
                         <th>
-                            <input pInputText type="text"
-                                (input)="dt.filter($event.target.value, 'preco', 'startsWith')"
-                                placeholder="Buscar Preço" class="p-column-filter">
+                            <input mode="currency" currency="BRL" pInputText type="text"
+                                (input)="dt.filter($event.target.value, 'idTipoEquipamento', 'startsWith')"
+                                placeholder="Buscar Tipo" class="p-column-filter">
                         </th>
                         <th>
                         </th>
@@ -62,18 +55,6 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-equipamento let-editing="editing" let-ri="rowIndex">
                     <tr [pEditableRow]="equipamento">
-
-                        <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="equipamento.id" required maxlength="120"
-                                        size="25">
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{equipamento.id}}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
@@ -89,7 +70,7 @@
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
                                     <input pInputText type="select" [(ngModel)]="equipamento.idTipoEquipamento" required
-                                        maxlength="3" minlength="1">
+                                    maxlength="3" minlength="1">
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{getTipo(equipamento.idTipoEquipamento)}}
@@ -99,26 +80,28 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="equipamento.precoDiaria" required>
+                                    <p-inputNumber mode="currency" currency="BRL" [(ngModel)]="equipamento.precoDiaria"
+                                        required [minFractionDigits]="2" [maxFractionDigits]="2" id="precoDiaria">
+                                    </p-inputNumber>
                                 </ng-template>
-                                <ng-template pTemplate="output">R$
+                                <ng-template pTemplate="output" value="equipamento.precoDiaria">R$
                                     {{equipamento.precoDiaria}}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
                         <td style="text-align:center">
-                            <button *ngIf="!editing" pButton type="button" (click)="showConfirm()"
-                                (click)="idDelete=equipamento.id" icon="pi pi-trash"
+                            <button *ngIf="!editing" pButton type="button" pTooltip="Excluir" (click)="showConfirm()"
+                                (click)="idDelete=equipamento.id" (click)="consultarEquipamentos()" icon="pi pi-trash"
                                 style="margin-right: 14px"></button>
-                            <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
-                                (click)= "equipamentoModel=equipamento" click
+                            <button *ngIf="!editing" pButton pRipple type="button" pTooltip="Editar" pInitEditableRow icon="pi pi-pencil"
+                                (click)="equipamentoModel=equipamento" (click)="consultarEquipamentos()"
                                 class="p-button-rounded p-button-text"></button>
-                            <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
-                                (click)="editarEquipamento()"
-                                class="p-button-rounded p-button-text p-button-success p-mr-2"
-                                style="margin-right: 12px"></button>
-                            <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
-                                class="p-button-rounded p-button-text p-button-danger"></button>
+                            <button *ngIf="editing" pButton pRipple pTooltip="Confirmar" type="button" pSaveEditableRow
+                                icon="pi pi-check" (click)="editarEquipamento()" style="margin-right: 14px"
+                                class="ui-button-rounded ui-button-success"></button>
+                            <button *ngIf="editing" pButton pRipple pTooltip="Cancelar" type="button"
+                                pCancelEditableRow icon="pi pi-times" (click)="consultarEquipamentos()"
+                                class="ui-button-rounded ui-button-danger"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -141,7 +124,7 @@
 
 
 <p-dialog header="Adicionar Equipamento" [(visible)]="cadastro">
-    <form [formGroup]="formEquipamento" >
+    <form [formGroup]="formEquipamento">
         <p-toolbar>
             <div class="p-toolbar-group-left" style="text-align:center; font-size: 13px;">Faça o Cadastro</div>
         </p-toolbar>
@@ -149,11 +132,13 @@
         <div class="grupo" style="margin-left: 20px; margin-top: 20px;">
             <div class="campo" style="text-align:center;">
                 <label for="nome">Nome</label>
-                <input type="text" id="nome" class="formInput" style="width: 12.5em; text-align:center;" formControlName="nome" class="p-invalid" pInputText>
+                <input type="text" id="nome" class="formInput" style="width: 12.5em; text-align:center;"
+                    formControlName="nome" class="p-invalid" pInputText>
             </div>
             <div class="campo" style="text-align:center;">
                 <label for="estado" style="text-align:center;">Tipo de Equipamento</label>
-                <select  class="formInput" formControlName="idTipoEquipamento" id="idTipoEquipamento" style="width: 12.5em;">
+                <select class="formInput" formControlName="idTipoEquipamento" id="idTipoEquipamento"
+                    style="width: 12.5em;">
                     <option value="1">{{getTipo(1)}}</option>
                     <option value="2">{{getTipo(2)}}</option>
                     <option value="3">{{getTipo(3)}}</option>
@@ -161,34 +146,37 @@
             </div>
             <div class="campo" style="text-align:center;">
                 <label for="precoDiaria">Preço Diário</label>
-                <p-inputNumber class="fieldset" formControlName="precoDiaria" mode="currency" currency="BRL" [minFractionDigits]="2"
-                    [maxFractionDigits]="2" id="precoDiaria" class="formInput"> </p-inputNumber> 
-            </div > 
-            <div>          
-                <button pButton pRipple type="button" (click)= "cadastrarEquipamento(formEquipamento.value)" label="Enviar" style="width:5rem; left: 5px;" class="ui-button-success"></button>
-                <button pButton pRipple type="button" (click)="resetar()" label="Limpar" style="width:5rem; margin-left: auto;" class="ui-button-danger"></button>
+                <p-inputNumber class="fieldset" formControlName="precoDiaria" mode="currency" currency="BRL"
+                    [minFractionDigits]="2" [maxFractionDigits]="2" id="precoDiaria" class="formInput"> </p-inputNumber>
             </div>
-            
-            </div>
+        </div>
+
+        <button style="left: 2px;" pButton type="button" (click)="cadastrarEquipamento(formEquipamento.value)"
+            icon="pi pi-check" label="Enviar" class="ui-button-success"></button>
+
+        <button style="margin-left: 15px;" pButton type="button" (click)="resetar()" icon="pi pi-times" label="Limpar"
+            class="ui-button-danger"></button>
+
     </form>
 </p-dialog>
 
 
 <p-toast position="top-center" [style]="{marginTop: '120px'}" key="c" (onClose)="deleteReject()" [baseZIndex]="5000">
-    <ng-template let-message pTemplate="message">
-        <div class="p-flex p-flex-column" style="flex: 1">
+    <ng-template pTemplate="message">
+        <div class="p-flex p-flex-column">
             <div style="text-align:center">
                 <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
-                <h4>{{message.summary}}</h4>
-                <p>{{message.detail}}</p>
+                <p>Tem certeza que deseja excluir este equipamento?</p>
             </div>
             <div class="p-grid p-fluid">
 
                 <div>
-                    <button type="button" pButton (click)="deleteConfirm()" label="Yes"
-                        class="ui-button-success"></button>
 
-                    <button type="button" pButton (click)="deleteReject()" label="No" class="ui-button-danger"></button>
+                    <button style="left: 2px;" pButton type="button" (click)="deleteConfirm()" icon="pi pi-check"
+                        label="Sim" class="ui-button-success"></button>
+
+                    <button style="margin-left: 100px;" pButton type="button" (click)="deleteReject()"
+                        icon="pi pi-times" label="Não" class="ui-button-danger"></button>
                 </div>
             </div>
         </div>
