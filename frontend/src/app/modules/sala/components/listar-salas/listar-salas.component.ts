@@ -18,6 +18,8 @@ export class ListarSalasComponent implements OnInit {
 
   selecionarEquipamentoDialog: boolean;
 
+  selecionarSalaEquipamentoDialog: boolean;
+
   listaSalas: salaModel[];
 
   listaSala: salaModel;
@@ -69,23 +71,6 @@ export class ListarSalasComponent implements OnInit {
       disponivel: listaSala.disponivel,
       equipamentos: listaSala.equipamentos,
     });
-  }
-
-  getTipo(n: number) {
-    switch (n) {
-      case 1:
-        return "Reunião";
-      case 2:
-        return "Trabalho";
-      case 3:
-        return "Vídeo";
-      case 4:
-        return "Palestra";
-      case 5:
-        return "Auditório";
-      default:
-        return "Selecionar Tipo";
-    }
   }
 
   handleSubmit(value) {
@@ -140,4 +125,20 @@ export class ListarSalasComponent implements OnInit {
     this.displayForm = true;
   }
 
+  getTipo(n: number) {
+    switch (n) {
+      case 1:
+        return "Reunião";
+      case 2:
+        return "Trabalho";
+      case 3:
+        return "Vídeo";
+      case 4:
+        return "Palestra";
+      case 5:
+        return "Auditório";
+      default:
+        return "Selecionar Tipo";
+    }
+  }
 }

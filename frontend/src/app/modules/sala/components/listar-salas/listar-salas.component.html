@@ -151,15 +151,7 @@
                 
                 <fieldset class="grupo">
                     <div class="campo">
-                        <label for="equipamentos.id">Nome do equipamento</label>
-                        <select id="" name="" style="width: 10em;" size="equipamentos.size" multiple>
-                            <option value="">teste</option>
-                            <option value="">teste</option>
-                        </select>
-                    </div>
-                    <div class="campo">
-                        <label for="">Quantidade</label>
-                        <input type="number" id="" name="" style="width: 9em" value="" >                        
+                        <button pButton type="button" icon="pi pi-plus" label="Adicionar Equipamentos" (click) = "selecionarSalaEquipamentoDialog = true"></button>
                     </div>
                 </fieldset>
                 <button pButton pRipple label="Cadastrar" icon="pi pi-check" class="p-button-text" (click)="adicionarSala(sala)" style="left: 2px;"></button>
@@ -168,12 +160,13 @@
         </form>
     </p-dialog>
 
-    <p-dialog [(visible)]="selecionarEquipamentoDialog" header="Equipamentos" >
+    <p-dialog [(visible)]="selecionarEquipamentoDialog" >
+        <div class="titulodiv">Equipamentos Obrigatórios</div>
         <form>
             <p-table [value]="">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Nome</th>
+                        <th>Nome do equipamento</th>
                         <th>Quantidade</th>
                     </tr>
                 </ng-template>
@@ -184,5 +177,27 @@
                     </tr>
                 </ng-template>
             </p-table>
+        </form>
+    </p-dialog>
+
+<p-dialog [(visible)]="selecionarSalaEquipamentoDialog" [style]="{width: '50vw'}">
+        <form>
+            <div class="titulodiv">Equipamentos</div>
+                <p-table [value]="">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Nome do equipamento</th>
+                            <th>Quantidade</th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-sala>
+                        <tr>
+                            <td>{{""}}</td>
+                            <td>{{""}}</td>
+                            <td></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
         </form>
     </p-dialog>
