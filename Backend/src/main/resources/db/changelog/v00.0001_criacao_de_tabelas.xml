@@ -81,7 +81,6 @@
             <column name="id_tipo_sala" type="number"> <constraints nullable="false"/></column>
             <column name="capacidade_pessoas" type="number"> <constraints nullable="false"/></column>
             <column name="preco_diario" type="double"> <constraints nullable="false"/></column>
-            <column name="disponivel" type="number"> <constraints nullable="false"/></column>
         </createTable>
         <addPrimaryKey columnNames="id" constraintName="pk_sala" tableName="sala"/>
         <addForeignKeyConstraint
@@ -147,7 +146,27 @@
                 referencedColumnNames="id"
                 referencedTableName="sala"/>
     </changeSet>
-    <changeSet  author="lucas.morais"  id="8">
+    <changeSet id="8" author="lucas.morais">
+        <createTable remarks="tabela de equipamentos da reserva" tableName="reserva_equipamento">
+            <column name="id_reserva" type="number"> <constraints nullable="false"/></column>
+            <column name="id_equipamento" type="number"> <constraints nullable="false"/></column>
+            <column name="quantidade" type="number"> <constraints nullable="false"/></column>
+        </createTable>
+        <addForeignKeyConstraint
+                baseColumnNames="id_reserva"
+                baseTableName="reserva_equipamento"
+                constraintName="fk_reserva"
+                referencedColumnNames="id"
+                referencedTableName="reserva"/>
+        <addForeignKeyConstraint
+                baseColumnNames="id_equipamento"
+                baseTableName="reserva_equipamento"
+                constraintName="fk_equipamento"
+                referencedColumnNames="id"
+                referencedTableName="equipamento"/>
+    </changeSet>
+
+    <changeSet  author="lucas.morais"  id="9">
         <createSequence  cacheSize="20"
                          cycle="false"
                          incrementBy="1"

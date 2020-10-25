@@ -19,4 +19,5 @@ public class EquipamentoDTO {
     @Min(1) @Max(3)
     private Integer idTipoEquipamento;
 
+
 }

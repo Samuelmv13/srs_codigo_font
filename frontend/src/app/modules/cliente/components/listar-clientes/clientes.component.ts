@@ -8,9 +8,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { InfoClienteModel } from '../../models/info-cliente.model';
 
 @Component({
-  selector: 'app-listar-clientes',
-  templateUrl: './listar-clientes.component.html',
-  styleUrls: ['./listar-clientes.component.css']
+  selector: 'app-clientes',
+  templateUrl: './clientes.component.html',
+  styleUrls: ['./clientes.component.css']
 })
 export class ListarClientesComponent implements OnInit {
   listaClientes: ListarClientesModel[];
@@ -34,7 +34,6 @@ export class ListarClientesComponent implements OnInit {
 
   constructor(
     private clienteService: ClienteService,
-    private router: Router,
     private messageService: MessageService,
     private formBuilder: FormBuilder
   ) { }

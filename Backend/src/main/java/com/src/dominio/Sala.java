@@ -33,9 +33,6 @@ public class Sala implements Serializable {
     @Column(name = "preco_diario")
     private Double precoDiario;
 
-    @Column(name = "disponivel")
-    private Integer disponivel;
-
     @OneToMany(mappedBy = "sala",cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<SalaEquipamento> equipamentos;
 

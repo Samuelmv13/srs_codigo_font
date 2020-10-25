@@ -22,7 +22,7 @@ public class ClienteServico {
 
     private final ClienteRepositorio clienteRepositorio;
     private final ClienteMapper clienteMapper;
-    private final ReservaRepositorio reservaRepositorioo;
+    private final ReservaRepositorio reservaRepositorio;
 
     public List<ClienteDTO> listar() {
         List<Cliente> clientes = clienteRepositorio.findAll();
@@ -74,10 +74,9 @@ public class ClienteServico {
         }
         return true;
     }
-    
 
     private boolean existReserva(Cliente cliente) {
-        return reservaRepositorioo.existsByCliente(cliente);
+        return reservaRepositorio.existsByCliente(cliente);
     }
 
     private void validarClientePost(ClienteDTO clienteNovo) {

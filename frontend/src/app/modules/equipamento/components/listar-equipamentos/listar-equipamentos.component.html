@@ -164,8 +164,9 @@
                 <p-inputNumber class="fieldset" formControlName="precoDiaria" mode="currency" currency="BRL" [minFractionDigits]="2"
                     [maxFractionDigits]="2" id="precoDiaria" class="formInput"> </p-inputNumber> 
             </div > 
-            <div style="text-align:center; margin-left: 0 25px;">          
-                <button pButton pRipple type="button" (click)= "cadastrarEquipamento(formEquipamento.value)" label="Enviar" style="width:5rem" class="ui-button-success"></button><button pButton pRipple type="button" (click)="resetar()" label="Limpar" style="width:5rem" class="ui-button-danger"></button>
+            <div>          
+                <button pButton pRipple type="button" (click)= "cadastrarEquipamento(formEquipamento.value)" label="Enviar" style="width:5rem; left: 5px;" class="ui-button-success"></button>
+                <button pButton pRipple type="button" (click)="resetar()" label="Limpar" style="width:5rem; margin-left: auto;" class="ui-button-danger"></button>
             </div>
             
             </div>

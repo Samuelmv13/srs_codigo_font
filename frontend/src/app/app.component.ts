@@ -8,6 +8,10 @@ import { MenusService, MenuOrientation } from '@nuvem/primeng-components';
 })
 export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
+  title(title: any) {
+    throw new Error("Method not implemented.");
+  }
+
     layoutCompact = true;
 
     darkMenu = false;
@@ -50,12 +54,12 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
         this.zone.runOutsideAngular(() => { this.bindRipple(); });
 
         this.menuService.itens = [
+
             { label: 'Dashboard', icon: 'dashboard', routerLink: ['../'],},
             { label: 'Clientes', icon: 'people', routerLink: ['clientes']},
             { label: 'Equipamentos', icon: 'laptop', routerLink: ['equipamentos']},
             { label: 'Salas', icon: 'business', routerLink: ['salas']},
             { label: 'Reservas', icon: 'content_paste', routerLink: ['reservas']}
-
         ];
     }
 
