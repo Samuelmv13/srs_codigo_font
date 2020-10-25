@@ -88,7 +88,9 @@ export class CadastrarReservaComponent implements OnInit {
       {
         dataIni: this.formreserva.get('dataIni').value,
         dataFim: this.formreserva.get('dataFim').value,
-        total: this.formreserva.get('total').value
+        total: this.formreserva.get('total').value,
+        idCliente:1,
+        idSala:2
       }
     ).subscribe(
       () => {

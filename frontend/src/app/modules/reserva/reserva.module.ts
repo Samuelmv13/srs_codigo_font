@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule, Table } from 'primeng';
+
 import { CadastrarReservaComponent } from './cadastrar-reserva/cadastrar-reserva.component';
 import { ListarReservasComponent } from './listar-reservas/listar-reservas.component';
 import { ReservaRoutingModule } from './reserva-routing.module';
@@ -14,6 +14,7 @@ import {TableModule} from 'primeng/table';
 import {ToastModule} from 'primeng/toast';
 import {DialogModule} from 'primeng/dialog';
 import {ListboxModule} from 'primeng/listbox';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [ListarReservasComponent, CadastrarReservaComponent],
@@ -32,6 +33,7 @@ import {ListboxModule} from 'primeng/listbox';
     ToastModule,
     DialogModule,
     ListboxModule
+    
     
     
   ]

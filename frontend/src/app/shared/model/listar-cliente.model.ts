@@ -1,7 +1,7 @@
-export class ClienteModel{
+export interface ListarClientesModel {
     id: number;
     nome: String;
-    cpf: number;
+    cpf: String;
     dtNasc: Date;
     endereco: String;
     email: String;
