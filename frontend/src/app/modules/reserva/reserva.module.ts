@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule, Table } from 'primeng';
+import { SharedModule } from 'primeng';
 import { CadastrarReservaComponent } from './cadastrar-reserva/cadastrar-reserva.component';
 import { ListarReservasComponent } from './listar-reservas/listar-reservas.component';
 import { ReservaRoutingModule } from './reserva-routing.module';

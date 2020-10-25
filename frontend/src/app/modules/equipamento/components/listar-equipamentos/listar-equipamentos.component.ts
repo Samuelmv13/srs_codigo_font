@@ -17,8 +17,9 @@ export class ListarEquipamentosComponent implements OnInit {
   cadastro: boolean;
   formEquipamento: FormGroup;
   idDelete: number;
-
-
+  filterTipos: any[];
+  selectTipo: any[];
+  displayDelete: boolean;
 
   constructor(
     private messageService: MessageService,
@@ -32,6 +33,25 @@ export class ListarEquipamentosComponent implements OnInit {
     this.consultarEquipamentos();
     this.criarFormulario();
     this.recuperarIdRota();
+
+  }
+
+  selecionarTipo() {
+    this.selectTipo = [
+      { label: 'Selecionar ', value: null },
+      { label: 'Móvel', value: '1' },
+      { label: 'Eletromésticos', value: '2' },
+      { label: 'Informática', value: '3' }];
+    return this.selectTipo;
+  }
+
+  buscarTipo() {
+    this.filterTipos = [
+      { label: 'Buscar por categoria', value: null },
+      { label: 'Móvel', value: '1' },
+      { label: 'Eletromésticos', value: '2' },
+      { label: 'Informática', value: '3' }];
+    return this.filterTipos;
   }
 
   consultarEquipamentos() {
@@ -114,21 +134,21 @@ export class ListarEquipamentosComponent implements OnInit {
 
   }
 
-  validNameEditor(): boolean{
+  validNameEditor(): boolean {
     if (this.equipamentoModel.nome == null || this.equipamentoModel.nome.length < 3) {
       return true;
     }
     return false;
   }
 
-  validTypeEditor(): boolean{
+  validTypeEditor(): boolean {
     if (this.equipamentoModel.idTipoEquipamento == null || this.equipamentoModel.idTipoEquipamento > 3 || this.equipamentoModel.idTipoEquipamento < 1) {
       return true;
     }
     return false;
   }
 
-  validPriceEditor(): boolean{
+  validPriceEditor(): boolean {
     if (this.equipamentoModel.precoDiaria == null) {
       return true;
     }
@@ -144,8 +164,8 @@ export class ListarEquipamentosComponent implements OnInit {
         this.router.navigate(['../equipamentos']);
       }, response => {
         let msg = response.error.message;
-        if (this.nome.invalid && 
-          this.tipoEquipamento.invalid 
+        if (this.nome.invalid &&
+          this.tipoEquipamento.invalid
           && this.precoDiaria.invalid) {
           msg = 'Preencha o cadastro.';
         } else if (this.nome.invalid) {
@@ -170,10 +190,12 @@ export class ListarEquipamentosComponent implements OnInit {
   deleteConfirm() {
     this.messageService.clear('c');
     this.deletarEquipamento(this.idDelete);
+    this.displayDelete=false;
   }
 
   deleteReject() {
     this.messageService.clear('c');
+    this.displayDelete=false;
   }
 
   showConfirm() {
