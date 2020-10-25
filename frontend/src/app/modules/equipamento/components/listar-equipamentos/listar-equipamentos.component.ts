@@ -20,6 +20,8 @@ export class ListarEquipamentosComponent implements OnInit {
   filterTipos: any[];
   selectTipo: any[];
   displayDelete: boolean;
+  filtroPreco: any[];
+  filterP: any[];
 
   constructor(
     private messageService: MessageService,
@@ -52,6 +54,46 @@ export class ListarEquipamentosComponent implements OnInit {
       { label: 'Eletromésticos', value: '2' },
       { label: 'Informática', value: '3' }];
     return this.filterTipos;
+  }
+
+  buscarPreco() {
+    this.filterP = [
+      { label: 'Buscar Preço', value: this.faixaPreco(0) },
+      { label: '0-100', value: this.faixaPreco(1) },
+      { label: '100-200', value: this.faixaPreco(2) },
+      { label: '200-500', value: this.faixaPreco(3) },
+      { label: '500-800', value: this.faixaPreco(4) },
+      { label: '800-1000', value: this.faixaPreco(5) }];
+    return this.filterp;
+  }
+
+  faixaPreco(i: number) {
+    this.listaEquipamentos.forEach(n => {
+      let vlr = n.precoDiaria;
+      switch (i) {
+
+        case 1:
+          if (vlr >= 0 && vlr <= 100)
+            this.filtroPreco.push(n);
+        case 2:
+          if (vlr > 100 && vlr <= 200)
+            this.filtroPreco.push(n);
+        case 3:
+          if (vlr > 200 && vlr <= 500)
+            this.filtroPreco.push(n);
+        case 4:
+          if (vlr > 500 && vlr <= 800)
+            this.filtroPreco.push(n);
+        case 5:
+          if (vlr > 800 && vlr <= 1000)
+            this.filtroPreco.push(n);
+      }
+      if (i != 0) {
+        return this.filtroPreco;
+      } else {
+        return this.consultarEquipamentos();
+      }
+    })
   }
 
   consultarEquipamentos() {
@@ -179,9 +221,6 @@ export class ListarEquipamentosComponent implements OnInit {
       })
   }
 
-  isEditar(): boolean {
-    return this.equipamentoModel != null;
-  }
 
   resetar() {
     this.formEquipamento.reset();
@@ -190,12 +229,12 @@ export class ListarEquipamentosComponent implements OnInit {
   deleteConfirm() {
     this.messageService.clear('c');
     this.deletarEquipamento(this.idDelete);
-    this.displayDelete=false;
+    this.displayDelete = false;
   }
 
   deleteReject() {
     this.messageService.clear('c');
-    this.displayDelete=false;
+    this.displayDelete = false;
   }
 
   showConfirm() {
