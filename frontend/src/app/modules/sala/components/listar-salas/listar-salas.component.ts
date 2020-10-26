@@ -52,9 +52,9 @@ export class ListarSalasComponent implements OnInit {
   ngOnInit(): void {
     this.listaEquipamentos = [];
     this.listaSalas = [];
+    this.listarEquipamentosSala();    
     this.listar();
     this.criarFormulario();
-    this.listarEquipamentos();    
   }
 
   criarFormulario() {
@@ -104,13 +104,13 @@ export class ListarSalasComponent implements OnInit {
       });
   }
   
-  listarEquipamentos(){
+  listarEquipamentosSala(){
     this.listaEquipamentosQtd= [];
     this.equipamentoService.listarEquipamentos().subscribe(
       (listaEquipamentos: any[]) => {
         listaEquipamentos.forEach(equipamento =>
           this.listaEquipamentosQtd.push(this.salaEquipamentoService.getEquipamento(equipamento.id)))
-    });
+    });    
   }
 
   salvar(){
@@ -185,6 +185,7 @@ export class ListarSalasComponent implements OnInit {
     this.listaSalaDialog = !this.listaSalaDialog
     this.salaForm.reset();
     this.displayForm = true;
+    console.log(this.listaEquipamentosQtd);
   }
 
   turnEquipamentoDialog(){

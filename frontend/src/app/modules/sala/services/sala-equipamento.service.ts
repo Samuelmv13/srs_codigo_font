@@ -17,11 +17,8 @@ export class SalaEquipamentoService {
 
   public getEquipamento(id:number): EquipamentoQtdModel{
     this.equipamentoService.recuperarEquipamento(id).subscribe(
-      (equipamento: InfoEquipamentoModel) =>{
-        this.equipamentoQtd.id = equipamento.id;
-        this.equipamentoQtd.nome = equipamento.nome;
-        this.equipamentoQtd.precoDiaria = equipamento.precoDiaria;
-        this.equipamentoQtd.idTipoEquipamento = equipamento.idTipoEquipamento;
+      (equipamento: any) =>{
+        this.equipamentoQtd = equipamento;
         this.equipamentoQtd.quantidade = 0;
       }
     )
