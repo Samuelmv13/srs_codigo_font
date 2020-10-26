@@ -1,15 +1,14 @@
 <div class="card">    
-    <p-table #dt [value]="listaSalas" dataKey="id" [responsive]=true editMode="row" [(selection)]="selectedSala"
+    <p-table #dt [value]="listaSalas" dataKey="id" [responsive]=true editMode="row"
     [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true" 
     currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0">
         <ng-template pTemplate="caption">           
             <div id='buttonNew'> <button pButton type="button" icon="pi pi-plus" label="Novo" class="ui-button-success" (click) = "showForm()"></button> </div>
             <div id="titulo"> Salas </div>            
         </ng-template>
-                            
+                             
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 3rem"></th>
                 <th 
                     style="width: 6rem" 
                     pSortableColumn="id">Id <p-sortIcon field="descricao"></p-sortIcon>
@@ -32,10 +31,7 @@
                 </th>
                 <th style="width: 12rem">Ações</th>
             </tr>
-            <tr>
-                <th>
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
+            <tr>                
                 <th>
                     <input pInputText type="text" (input)="dt.filter($event.target.value, 'id', 'startsWith')" placeholder="Buscar ID" class="p-column-filter">
                 </th>
@@ -53,9 +49,6 @@
         </ng-template>
         <ng-template pTemplate="body" let-sala let-editing="editing" let-ri="rowIndex">
             <tr [pEditableRow]="sala" class="tabelaAlinhamento">
-                <td style="text-align:center;"> 
-                    <p-tableCheckbox [value]="sala"></p-tableCheckbox>
-                </td>
                 <td>
                     {{sala.id}}
                 </td>
@@ -100,12 +93,12 @@
                     </p-cellEditor>
                 </td>
                 <td>
-                    <button *ngIf="!editing" pButton pRipple type="button" label="Equipamentos" pInitEditableRow icon="pi pi-pencil" style="margin-right: 14px" (click) = "selecionarEquipamentoDialog = true"></button>
+                    <button pButton pRipple type="button" label="Equipamentos" icon="pi pi-desktop" style="margin-right: 15px" (click) = "turnEquipamentoDialog()"></button>
                 </td>
                 <td style="text-align:center">
                     <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" style="margin-right: 14px"></button>                
-                    <button *ngIf="!editing" pButton type="button" icon="pi pi-trash" (click)="deletarSala(sala)"></button>
-                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="handleSubmit(sala)" style="margin-right: 14px" class="ui-button-rounded ui-button-success"></button>
+                    <button *ngIf="!editing" pButton type="button" icon="pi pi-trash" (click)="deletar(sala.id)"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="salvar()" style="margin-right: 14px" class="ui-button-rounded ui-button-success"></button>
                     <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="listar()" class="ui-button-rounded ui-button-danger"></button>
                 </td>
             </tr>
@@ -116,8 +109,6 @@
             </div>
         </ng-template>
     </p-table>
-
-
 
     <p-dialog [(visible)]="listaSalaDialog" header="Adicionar Sala" >
         <form action="#" method="post">
@@ -131,8 +122,6 @@
                         <label for="precoDiario">Preço diário</label>
                         <input type="number" id="precoDiario" name="precoDiario" style="width: 9em" value="" >                        
                     </div>
-                </fieldset>
-                <fieldset class="grupo">
                     <div class="campo">
                         <label for="idTipoSala">Tipo de Sala</label>
                         <select id="idTipoSala" name="idTipoSala">
@@ -146,31 +135,59 @@
                 </fieldset>
                 <div class="campo">
                     <label for="descricao">Descrição</label>
-                    <textarea rows="3" style="width: 20em" id="descricao" name="descricao"></textarea>
+                    <textarea pInputTextarea rows="2" style="width: 35em" id="descricao" name="descricao" [autoResize]="true"></textarea>
                 </div>
-                
-                <fieldset class="grupo">
-                    <div class="campo">
-                        <label for="equipamentos.id">Nome do equipamento</label>
-                        <select id="" name="" style="width: 10em;" size="equipamentos.size" multiple>
-                            <option value="">teste</option>
-                            <option value="">teste</option>
-                        </select>
-                    </div>
-                    <div class="campo">
-                        <label for="">Quantidade</label>
-                        <input type="number" id="" name="" style="width: 9em" value="" >                        
-                    </div>
-                </fieldset>
-                <button pButton pRipple label="Cadastrar" icon="pi pi-check" class="p-button-text" (click)="adicionarSala(sala)" style="left: 2px;"></button>
-                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="showForm()" style="left: 2cm;"></button>
+
+
+                <div>
+                    <p-table [value]="listaEquipamentos" dataKey="id" [responsive]=true editMode="row" [(selection)]="listaEquipamentosSelecionados"
+                        [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true" 
+                        currentPageReportTemplate="1 de {totalPages}" [filterDelay]="0" [autoLayout] = "true">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 3rem"></th>
+                                <th style="width: 8rem;">Nome</th>
+                                <th style="width: 2rem">Preço Diario</th>
+                                <th style="width: 4rem">Tipo</th>
+                                <th style="width: 4rem">Quantidade</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-equipamento>
+                            <tr>
+                                <td style="text-align:center;"> 
+                                    <p-tableCheckbox [value]="equipamento"></p-tableCheckbox>
+                                </td>
+                                <td>{{equipamento.nome}}</td>
+                                <td>{{equipamento.precoDiaria | currency : "BRL"}}</td>
+                                <td>{{getTipoEquipamento(equipamento.idTipoEquipamento)}}</td>
+                                <td>
+                                    <input type="number" [(ngModel)]="quantidade" style="width: 4rem;"> 
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+                <p-footer>
+                    <button pButton pRipple label="Cadastrar" icon="pi pi-check" class="p-button-text" (click)="cadastrar()" style="top: 10px;"></button>
+                    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="showForm()" style="top: 10px"></button>
+                </p-footer>
             </fieldset>
         </form>
     </p-dialog>
 
-    <p-dialog [(visible)]="selecionarEquipamentoDialog" header="Equipamentos" >
+
+
+
+    <p-dialog [(visible)]="EquipamentoDialog" header="Equipamentos" >
         <form>
-            <p-table [value]="">
+            <p-table #dt [value]="listaSalas" dataKey="id" [responsive]=true editMode="row"
+                [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true" 
+                currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0" [autoLayout] = "true">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Nome</th>
@@ -179,8 +196,9 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-sala>
                     <tr>
-                        <td>{{""}}</td>
-                        <td>{{""}}</td>
+                        <th>
+                            <button pButton pRipple type="button" pInitEditableRow icon="pi pi-plus" style="margin-right: 14px"></button>
+                        </th>
                     </tr>
                 </ng-template>
             </p-table>

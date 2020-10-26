@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { equipamentoModel } from '../../models/equipamento.model';
+import { ListarEquipamentoModel } from 'src/app/modules/equipamento/models/listar-equipamento.model';
+import { EquipamentoService } from 'src/app/modules/equipamento/services/equipamento.service';
 import { salaModel } from '../../models/sala.model';
 import { salaEditarModel } from '../../models/salaEditar.model';
+import { salaEquipamentoModel } from '../../models/salaEquipamento.model';
 import { SalaService } from '../../services/sala.service';
 
 @Component({
@@ -16,58 +18,59 @@ export class ListarSalasComponent implements OnInit {
 
   listaSalaDialog: boolean;
 
-  selecionarEquipamentoDialog: boolean;
+  EquipamentoDialog: boolean;
 
   listaSalas: salaModel[];
 
-  listaSala: salaModel;
+  listaEquipamentos: ListarEquipamentoModel[];
 
-  salas: salaEditarModel[];
+  listaEquipamentosSelecionados: ListarEquipamentoModel[];
+
+  listaEquipamentosObr: salaEquipamentoModel[];
+
+  salaEquipamento: salaEquipamentoModel;
+
+  quantidade: number;
+
+  listaQuantidades: number[];
+  
+  equipamentosSala: salaEquipamentoModel[];
 
   sala: salaEditarModel;
 
-  selectedSala: salaEditarModel[];
-
-  equipamentoSala: equipamentoModel[];
-
   displayForm = false;
+
+  salaForm: FormGroup
 
   constructor(
     private salaServices: SalaService,
+    private equipamentoService: EquipamentoService,
+    private formBuilder: FormBuilder,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
     this.listar();
+    this.criarFormulario();
+    this.listarEquipamentos();
+    // this.convertEquip();
   }
 
-  listar() {
-    this.salaServices.listarSalas()
-      .subscribe(listaSalas => {
-        this.listaSalas = listaSalas;
-      });
+  criarFormulario() {
+    this.salaForm = this.formBuilder.group(
+    {
+      id: [null],
+      descricao: [null, [Validators.required]],
+      idTipoSala: [null, [Validators.required]],
+      capacidadePessoas: [null, [Validators.required]],
+      precoDiario: [null, [Validators.required]],
+      equipamentos: [null, [Validators.required]]
+    })
   }
 
-  salaForm = new FormGroup({
-    id: new FormControl(""),
-    descricao: new FormControl(""),
-    idTipoSala: new FormControl(""),
-    capacidadePessoas: new FormControl(""),
-    precoDiario: new FormControl(""),
-    disponivel: new FormControl("", Validators.required),
-    equipamentos: new FormControl(""),
-  });
-
-  editarSala(listaSala) {
-    this.salaForm.setValue({
-      id: listaSala.id,
-      descricao: listaSala.descricao,
-      idTipoSala: listaSala.idTipoSala,
-      capacidadePessoas: listaSala.capacidadePessoas,
-      precoDiario: listaSala.precoDiario,
-      disponivel: listaSala.disponivel,
-      equipamentos: listaSala.equipamentos,
+  convertEquip(){
+    this.listaEquipamentos.forEach(equipamento => {
     });
   }
 
@@ -88,56 +91,123 @@ export class ListarSalasComponent implements OnInit {
     }
   }
 
-  handleSubmit(value) {
-    this.salaServices.editarSala(value).subscribe();
-
-    if (!value.id) {
-      this.salas.push(value);
-    } else {
-      const index = this.salas.findIndex((e) => e.id === value.id);
-      this.salas[index] = value;
+  getTipoEquipamento(n: number) {
+    switch (n) {
+      case 1:
+        return "Móvel";
+      case 2:
+        return "Eletrodoméstico"
+      case 3:
+        return "Informática"
     }
-
-    this.displayForm = false;
-
-    this.salaForm.reset();
   }
 
-  adicionarSala(listaSala) {
-    this.salaServices.salvarSala(listaSala).subscribe();
-
-    if (!listaSala.id) {
-      this.salas.push(listaSala);
-    } else {
-      const index = this.salas.findIndex((e) => e.id === listaSala.id);
-      this.salas[index] = listaSala;
-    }
-    this.displayForm = false;
-
-    this.salaForm.reset();
+  listar() {
+    this.salaServices.listarSalas()
+      .subscribe(listaSalas => {
+        this.listaSalas = listaSalas;
+      });
   }
 
-  deletarSala(sala): void {
-    // this.confirmationService.confirm({
-    //     message:
-    //         "Tem certeza que desejar excluir a sala com a descrição " + sala.descricao,
-    //     header: "Confirmar exclusão",
-    //     icon: "pi pi-exclamation-triangle",
-    //     accept: () => {
-            this.salaServices.deletarSala(sala.id).subscribe(() => {});
-            this.listaSalas = this.listaSalas.filter(
-                (valor) => valor.id !== sala.id
-            );
-            this.messageService.add({severity:"success" , summary: "Sala Deletada"})
-        // },
-    // });
-}
+  listarEquipamentos(){
+    this.equipamentoService
+    .listarEquipamentos()
+    .subscribe(listaEquipamentos => {
+      this.listaEquipamentos = listaEquipamentos;
+    });
+  }
+
+  // converterEquip(){
+  //   if (this.listaEquipamentos != null){
+  //     this.listaEquipamentos.forEach(equipamento => {
+  //       this.salaEquipamento.idEquipamento = equipamento.id,
+  //       this.salaEquipamento.idSala = null,
+  //       this.salaEquipamento.quantidade = 0
+
+  //       this.listaEquipamentosObr.push(this.salaEquipamento)
+  //     });
+  //   }
+  //   else{
+  //     console.log("error list");
+  //   }
+  // }
+
+  salvar(){
+    if (this.salaForm.valid) {
+      if (this.isEditar()){
+        this.editar();
+      } else {
+        this. cadastrar();
+      }
+    } else {
+      console.log('Formulario invalido')
+    }
+  }
+
+  isEditar(): boolean {
+    return this.sala != null;
+  }
+
+  cadastrar(){
+    this.salaServices.salvarSala(
+      {
+        id: null,
+        descricao: this.salaForm.get("descricao").value,
+        idTipoSala: this.salaForm.get("idTipoSala").value,
+        capacidadePessoas: this.salaForm.get("capacidadePessoas").value,
+        precoDiario: this.salaForm.get("precoDiario").value,
+        equipamentos: this.salaForm.get("equipamentos").value
+      }
+    ).subscribe(
+      () => {
+        console.log("Cliente Cadastrado");
+      },
+      () => {
+        console.log("Error ao chamar serviço");
+      }
+    )
+  }
+
+  editar(){
+    this.salaServices.salvarSala(
+      {
+        id: this.salaForm.get("id").value,
+        descricao: this.salaForm.get("descricao").value,
+        idTipoSala: this.salaForm.get("idTipoSala").value,
+        capacidadePessoas: this.salaForm.get("capacidadePessoas").value,
+        precoDiario: this.salaForm.get("precoDiario").value,
+        equipamentos: this.salaForm.get("equipamentos").value
+      }
+    ).subscribe(
+      () => {
+        console.log("Cliente Cadastrado");
+      },
+      () => {
+        console.log("Error ao chamar serviço");
+      }
+    )
+  }
+
+  deletar(id:number) {
+    this.salaServices.deletarSala(id)
+    .subscribe(
+      () => {
+        console.log("Sala Removida")
+      },
+      () => {
+        console.log("Erro ao chamar o serviço");
+      });
+  }
 
   showForm() {
 
     this.listaSalaDialog = !this.listaSalaDialog
     this.salaForm.reset();
     this.displayForm = true;
+  }
+
+  turnEquipamentoDialog(){
+    this.EquipamentoDialog = !this.EquipamentoDialog;
   }
 
 }

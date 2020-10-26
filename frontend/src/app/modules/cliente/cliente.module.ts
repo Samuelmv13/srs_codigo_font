@@ -19,10 +19,13 @@ import {PaginatorModule} from 'primeng/paginator';
 import {CalendarModule} from 'primeng';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import { CPFPipe } from './pipe/cpf.pipe';
+import { RGPipe } from './pipe/rg.pipe';
+import { TelPipe } from './pipe/tel.pipe';
 
 
 @NgModule({
-  declarations: [ListarClientesComponent],
+  declarations: [ListarClientesComponent, CPFPipe, RGPipe, TelPipe],
   imports: [
     CommonModule,
     ClienteRoutingModule,

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ListarClientesModel } from '../../models/listar-clientes.model';
 import { ClienteService } from '../../services/cliente.service';
 import { MessageService } from 'primeng/api';
 import { EditarClienteModel } from '../../models/editar-cliente.model';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InfoClienteModel } from '../../models/info-cliente.model';
 
 @Component({
@@ -47,13 +46,20 @@ export class ListarClientesComponent implements OnInit {
     this.formCliente = this.formBuilder.group(
       {
         id: [null],
-        nome: [null, [Validators.required, Validators.maxLength(120)]],
-        cpf: [null, [Validators.required, Validators.minLength(14), Validators.maxLength(14)]],
-        dtNasc: [null, [Validators.required]],
-        endereco: [null, [Validators.required, Validators.maxLength(255)]],
-        email: [null, [Validators.required, Validators.email]],
-        telefone: [null, [Validators.required, Validators.minLength(18), Validators.maxLength(18)]],
-        rg: [null, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
+        nome: [null, 
+          [Validators.required, Validators.maxLength(120)]],
+        cpf: [null, 
+          [Validators.required]],
+        dtNasc: [null,
+          [Validators.required]],
+        endereco: [null, 
+          [Validators.required, Validators.maxLength(255)]],
+        email: [null, 
+          [Validators.required, Validators.email]],
+        telefone: [null, 
+          [Validators.required, Validators.minLength(13), Validators.maxLength(17)]],
+        rg: [null, 
+          [Validators.required, Validators.minLength(7), Validators.maxLength(9)]]
       }
     )
   }
@@ -64,6 +70,7 @@ export class ListarClientesComponent implements OnInit {
 
   salvar() {
     if (this.formCliente.valid) {
+      this.maskRemove();
       if (this.isEditar()) {
         this.editar();
       } else {
@@ -72,15 +79,11 @@ export class ListarClientesComponent implements OnInit {
     } else {
       this.messageService.add({ severity: 'error', summary: 'Formulário Inválido', detail: 'Verifique os campos e tente novamente!' });
       console.log('Formulario invalido')
-      this.listar();
-      // Object.keys(this.formCliente.controls).forEach(campo => {
-      //   const controle = this.formCliente.get(campo);
-      //   controle.mar
-      // })
     }
   }
 
   preencherFormulario(clienteEditado: EditarClienteModel) {
+    this.criarFormulario();
     this.formCliente.setValue({
       id: clienteEditado.id,
       nome: clienteEditado.nome,
@@ -111,13 +114,13 @@ export class ListarClientesComponent implements OnInit {
       () => {
         console.log('Cliente Atualizado');
         this.messageService.add({ severity: 'success', summary: 'Cliente Atualizado' });
+        this.listar();
+        this.cliente = null;
       },
       () => {
         console.log('Erro ao chamar serviço');
-        this.messageService.add({ severity: 'error', summary: 'Formulário Inválido', detail: 'Verifique os campos e tente novamente!'});
+        this.messageService.add({ severity: 'error', summary: 'Formulário Inválido', detail: 'Verifique os campos e tente novamente!' });
       });
-    this.listar()
-    this.cliente = null;
   }
 
   cadastrar() {
@@ -136,11 +139,17 @@ export class ListarClientesComponent implements OnInit {
         console.log('Cliente Cadastrado');
         this.messageService.add({ severity: 'success', summary: 'Cliente Cadastrado' });
         this.turnDisplayDialog();
-        this.listar()      
+        this.listar()
       },
-      () => {
-        console.log('Erro ao chamar serviço');
-        this.messageService.add({ severity: 'error', summary: 'Formulário Inválido', detail: 'Verifique os campos e tente novamente!' });
+      erro => {
+        if(erro.status == 400) {
+          console.log('Formulario Invalido');
+          this.messageService.add({ severity: 'error', summary: 'Formulário Inválido', detail: 'Verifique os campos e tente novamente!' });
+        }
+        else {
+          console.log('Erro ao chamar serviço');
+        }
+        console.log(erro.get)
       });
   }
 
@@ -175,5 +184,22 @@ export class ListarClientesComponent implements OnInit {
   cancelEdit() {
     this.listar();
     this.criarFormulario();
+  }
+
+  maskRemove() {
+    var cpfNoMask = this.formCliente.get('cpf').value.replace('.', '').replace('.', '').replace('-', '');
+    var rgNoMask = this.formCliente.get('rg').value.replace('.', '').replace('-', '');
+    var telefoneNoMask = this.formCliente.get('telefone').value.replace('+', '').replace(' ', '').replace(' ', '').replace('-', '');
+
+    this.formCliente.setValue({
+      id: null,
+      nome: this.formCliente.get('nome').value,
+      cpf: cpfNoMask,
+      dtNasc: this.formCliente.get('dtNasc').value,
+      endereco: this.formCliente.get('endereco').value,
+      email: this.formCliente.get('email').value,
+      telefone: telefoneNoMask,
+      rg: rgNoMask
+    })
   }
 }

@@ -1,4 +1,4 @@
-import { equipamentoModel } from "./equipamento.model";
+import { salaEquipamentoModel } from "./salaEquipamento.model";
 
 export interface salaModel {
     id : number;
@@ -6,6 +6,5 @@ export interface salaModel {
     idTipoSala : number;
     capacidadePessoas : number;
     precoDiario : number;
-    disponivel : number;
-    equipamentos : equipamentoModel;
+    equipamentos : salaEquipamentoModel[];
 }
