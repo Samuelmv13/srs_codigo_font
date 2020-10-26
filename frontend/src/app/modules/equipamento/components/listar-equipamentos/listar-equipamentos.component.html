@@ -38,8 +38,10 @@
                                 (onChange)="dt.filter($event.value, 'idTipoEquipamento', 'equals')"></p-dropdown>
                         </th>
                         <th>
-                            <p-dropdown  [options]="buscarPreco()" [style]="{'width':'100%'}"
-                                (onChange)="dt.filter($event.value, 'precoDiaria', 'startWith')"></p-dropdown>
+
+                            <input mode="currency" currency="BRL" pInputText type="text"
+                                (input)="dt.filter($event.target.value, 'precoDiaria', 'startsWith')"
+                                placeholder="Buscar Preço" class="p-column-filter">
 
                         </th>
                         <th>

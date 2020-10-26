@@ -6,7 +6,7 @@ import { ListarReservasComponent } from './modules/reserva/listar-reservas/lista
 import { ListarClientesComponent } from './modules/cliente/components/listar-clientes/listar-clientes.component';
 import { ListarEquipamentosComponent } from './modules/equipamento/components/listar-equipamentos/listar-equipamentos.component';
 import { ListarSalasComponent } from './modules/sala/components/listar-salas/listar-salas.component';
-import { DashboardComponent } from './modules/dashboard/dashboard/dashboard.component';
+import { DashboardComponent } from './modules/dashboard/components/dashboard/dashboard.component';
 
 
 const routes: Routes = [

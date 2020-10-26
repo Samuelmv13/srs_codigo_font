@@ -35,7 +35,6 @@ export class ListarEquipamentosComponent implements OnInit {
     this.consultarEquipamentos();
     this.criarFormulario();
     this.recuperarIdRota();
-
   }
 
   selecionarTipo() {
@@ -64,7 +63,7 @@ export class ListarEquipamentosComponent implements OnInit {
       { label: '200-500', value: this.faixaPreco(3) },
       { label: '500-800', value: this.faixaPreco(4) },
       { label: '800-1000', value: this.faixaPreco(5) }];
-    return this.filterp;
+    return this.filterP;
   }
 
   faixaPreco(i: number) {
