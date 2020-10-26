@@ -7,9 +7,10 @@ import { EquipamentoModel, EquipamentoQtdModel } from '../../models/equipamento.
 import { salaModel } from '../../models/sala.model';
 import { salaEditarModel } from '../../models/salaEditar.model';
 import { salaEquipamentoModel } from '../../models/salaEquipamento.model';
+import { SalaEquipamentoService } from '../../services/sala-equipamento.service';
 import { SalaService } from '../../services/sala.service';
 
-
+ 
 @Component({
   selector: 'app-listar-salas',
   templateUrl: './listar-salas.component.html',
@@ -43,6 +44,7 @@ export class ListarSalasComponent implements OnInit {
     private salaServices: SalaService,
     private equipamentoService: EquipamentoService,
     private formBuilder: FormBuilder,
+    private salaEquipamentoService: SalaEquipamentoService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) { }
@@ -65,10 +67,6 @@ export class ListarSalasComponent implements OnInit {
       precoDiario: [null, [Validators.required]],
       equipamentos: [null, [Validators.required]]
     })
-  }
-
-  convertEquipQuant(){
-
   }
 
   getTipo(n: number) {
@@ -99,36 +97,19 @@ export class ListarSalasComponent implements OnInit {
     }
   }
 
-  converterEquip(listaEquipamentos: EquipamentoModel[]){
-    if (listaEquipamentos != null){
-        listaEquipamentos.forEach(equipamento => {
-        this.listaEquipamentosQtd.push(
-          {
-            id: equipamento.id,
-            nome: equipamento.nome,
-            precoDiaria: equipamento.precoDiaria,
-            idTipoEquipamento: equipamento.idTipoEquipamento,
-            quantidade: 0
-          }
-        )
-      });
-    }
-    else{
-      console.log("error list");
-    }
-  }
-
   listar() {
     this.salaServices.listarSalas()
       .subscribe(listaSalas => {
         this.listaSalas = listaSalas;        
       });
   }
-
+  
   listarEquipamentos(){
+    this.listaEquipamentosQtd= [];
     this.equipamentoService.listarEquipamentos().subscribe(
       (listaEquipamentos: any[]) => {
-      this.listaEquipamentos = listaEquipamentos;
+        listaEquipamentos.forEach(equipamento =>
+          this.listaEquipamentosQtd.push(this.salaEquipamentoService.getEquipamento(equipamento.id)))
     });
   }
 
@@ -202,9 +183,6 @@ export class ListarSalasComponent implements OnInit {
 
   showForm() {
     this.listaSalaDialog = !this.listaSalaDialog
-    console.log(this.listaEquipamentos);
-    this.converterEquip(this.listaEquipamentos);
-    console.log(this.listaEquipamentosQtd);
     this.salaForm.reset();
     this.displayForm = true;
   }
