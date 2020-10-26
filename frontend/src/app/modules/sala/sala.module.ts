@@ -8,12 +8,13 @@ import { MessagesModule } from 'primeng/messages';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ListarSalasComponent } from './components/listar-salas/listar-salas.component';
 import { SalaRoutingModule } from './sala-routing.module';
+import { SalaEquipamentoComponent } from './components/sala-equipamento/sala-equipamento.component';
 
 
 
 
 @NgModule({
-  declarations: [ListarSalasComponent],
+  declarations: [ListarSalasComponent, SalaEquipamentoComponent],
   imports: [
     CommonModule,
     SalaRoutingModule,

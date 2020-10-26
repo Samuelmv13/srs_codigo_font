@@ -3,10 +3,12 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ListarEquipamentoModel } from 'src/app/modules/equipamento/models/listar-equipamento.model';
 import { EquipamentoService } from 'src/app/modules/equipamento/services/equipamento.service';
+import { EquipamentoModel, EquipamentoQtdModel } from '../../models/equipamento.model';
 import { salaModel } from '../../models/sala.model';
 import { salaEditarModel } from '../../models/salaEditar.model';
 import { salaEquipamentoModel } from '../../models/salaEquipamento.model';
 import { SalaService } from '../../services/sala.service';
+
 
 @Component({
   selector: 'app-listar-salas',
@@ -22,25 +24,20 @@ export class ListarSalasComponent implements OnInit {
 
   listaSalas: salaModel[];
 
-  listaEquipamentos: ListarEquipamentoModel[];
+  listaEquipamentos: EquipamentoModel[];
 
   listaEquipamentosSelecionados: ListarEquipamentoModel[];
 
-  listaEquipamentosObr: salaEquipamentoModel[];
+  listaEquipamentosQtd: EquipamentoQtdModel[];
 
-  salaEquipamento: salaEquipamentoModel;
-
-  quantidade: number;
-
-  listaQuantidades: number[];
+  eqOb: EquipamentoQtdModel;
   
-  equipamentosSala: salaEquipamentoModel[];
-
   sala: salaEditarModel;
 
   displayForm = false;
 
   salaForm: FormGroup
+
 
   constructor(
     private salaServices: SalaService,
@@ -51,10 +48,11 @@ export class ListarSalasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.listaEquipamentos = [];
+    this.listaSalas = [];
     this.listar();
     this.criarFormulario();
-    this.listarEquipamentos();
-    // this.convertEquip();
+    this.listarEquipamentos();    
   }
 
   criarFormulario() {
@@ -69,9 +67,8 @@ export class ListarSalasComponent implements OnInit {
     })
   }
 
-  convertEquip(){
-    this.listaEquipamentos.forEach(equipamento => {
-    });
+  convertEquipQuant(){
+
   }
 
   getTipo(n: number) {
@@ -102,35 +99,38 @@ export class ListarSalasComponent implements OnInit {
     }
   }
 
+  converterEquip(listaEquipamentos: EquipamentoModel[]){
+    if (listaEquipamentos != null){
+        listaEquipamentos.forEach(equipamento => {
+        this.listaEquipamentosQtd.push(
+          {
+            id: equipamento.id,
+            nome: equipamento.nome,
+            precoDiaria: equipamento.precoDiaria,
+            idTipoEquipamento: equipamento.idTipoEquipamento,
+            quantidade: 0
+          }
+        )
+      });
+    }
+    else{
+      console.log("error list");
+    }
+  }
+
   listar() {
     this.salaServices.listarSalas()
       .subscribe(listaSalas => {
-        this.listaSalas = listaSalas;
+        this.listaSalas = listaSalas;        
       });
   }
 
   listarEquipamentos(){
-    this.equipamentoService
-    .listarEquipamentos()
-    .subscribe(listaEquipamentos => {
+    this.equipamentoService.listarEquipamentos().subscribe(
+      (listaEquipamentos: any[]) => {
       this.listaEquipamentos = listaEquipamentos;
     });
   }
-
-  // converterEquip(){
-  //   if (this.listaEquipamentos != null){
-  //     this.listaEquipamentos.forEach(equipamento => {
-  //       this.salaEquipamento.idEquipamento = equipamento.id,
-  //       this.salaEquipamento.idSala = null,
-  //       this.salaEquipamento.quantidade = 0
-
-  //       this.listaEquipamentosObr.push(this.salaEquipamento)
-  //     });
-  //   }
-  //   else{
-  //     console.log("error list");
-  //   }
-  // }
 
   salvar(){
     if (this.salaForm.valid) {
@@ -193,6 +193,7 @@ export class ListarSalasComponent implements OnInit {
     .subscribe(
       () => {
         console.log("Sala Removida")
+        this.listar();
       },
       () => {
         console.log("Erro ao chamar o serviço");
@@ -200,8 +201,10 @@ export class ListarSalasComponent implements OnInit {
   }
 
   showForm() {
-
     this.listaSalaDialog = !this.listaSalaDialog
+    console.log(this.listaEquipamentos);
+    this.converterEquip(this.listaEquipamentos);
+    console.log(this.listaEquipamentosQtd);
     this.salaForm.reset();
     this.displayForm = true;
   }
@@ -209,5 +212,4 @@ export class ListarSalasComponent implements OnInit {
   turnEquipamentoDialog(){
     this.EquipamentoDialog = !this.EquipamentoDialog;
   }
-
 }

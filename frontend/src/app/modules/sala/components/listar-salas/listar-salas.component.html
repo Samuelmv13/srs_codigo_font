@@ -55,7 +55,7 @@
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText type="text" [(ngModel)]="sala.descricao" required maxlength="255" size="25">
+                            <input pInputText type="text" [(ngModel)]="sala.descricao" required maxlength="255" size="25" [style]="{'width':'100%'}">    
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{sala.descricao}}
@@ -65,7 +65,7 @@
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText type="number" [(ngModel)]="sala.capacidadePessoas" required maxlength= "255" size="25">
+                            <input pInputText type="number" [(ngModel)]="sala.capacidadePessoas" required maxlength= "255" size="25" [style]="{'width':'100%'}">
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{sala.capacidadePessoas}}
@@ -75,7 +75,7 @@
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText type="text" [(ngModel)]="sala.idTipoSala" required maxlength="255" size="25">
+                            <input pInputText type="text" [(ngModel)]="sala.idTipoSala" required maxlength="255" size="25" [style]="{'width':'100%'}">
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{getTipo(sala.idTipoSala)}}
@@ -85,7 +85,7 @@
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText type="number" [(ngModel)]="sala.precoDiario" required maxlength= "255" size="25">
+                            <input pInputText type="number" [(ngModel)]="sala.precoDiario" required maxlength= "255" size="25" [style]="{'width':'100%'}">
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{sala.precoDiario | currency : "BRL"}}
@@ -111,7 +111,7 @@
     </p-table>
 
     <p-dialog [(visible)]="listaSalaDialog" header="Adicionar Sala" >
-        <form action="#" method="post">
+        <form>
             <fieldset>
                 <fieldset class="grupo">
                     <div class="campo">
@@ -145,28 +145,25 @@
                         currentPageReportTemplate="1 de {totalPages}" [filterDelay]="0" [autoLayout] = "true">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th style="width: 3rem"></th>
-                                <th style="width: 8rem;">Nome</th>
-                                <th style="width: 2rem">Preço Diario</th>
-                                <th style="width: 4rem">Tipo</th>
-                                <th style="width: 4rem">Quantidade</th>
-                            </tr>
-                            <tr>
-                                <th>
+                                <th style="width: 3rem">
                                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                 </th>
+                                <th style="width: 8rem;">Nome</th>
+                                <th style="width: 5rem">Preço Diario</th>
+                                <th style="width: 4rem">Tipo</th>
+                                <th style="width: 4rem">Quantidade</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-equipamento>
                             <tr>
-                                <td style="text-align:center;"> 
+                                <td> 
                                     <p-tableCheckbox [value]="equipamento"></p-tableCheckbox>
                                 </td>
                                 <td>{{equipamento.nome}}</td>
                                 <td>{{equipamento.precoDiaria | currency : "BRL"}}</td>
                                 <td>{{getTipoEquipamento(equipamento.idTipoEquipamento)}}</td>
                                 <td>
-                                    <input type="number" [(ngModel)]="quantidade" style="width: 4rem;"> 
+                                    <input type="number" style="width: 4rem;"> 
                                 </td>
                             </tr>
                         </ng-template>
@@ -197,10 +194,11 @@
                 <ng-template pTemplate="body" let-sala>
                     <tr>
                         <th>
-                            <button pButton pRipple type="button" pInitEditableRow icon="pi pi-plus" style="margin-right: 14px"></button>
+                            <button pButton pRipple type="button" icon="pi pi-plus" style="margin-right: 14px"></button>
                         </th>
                     </tr>
                 </ng-template>
             </p-table>
         </form>
     </p-dialog>
+</div>

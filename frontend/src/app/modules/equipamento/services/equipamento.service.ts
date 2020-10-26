@@ -12,8 +12,6 @@ import { ListarEquipamentoModel } from '../models/listar-equipamento.model';
 })
 export class EquipamentoService {
 
-  
-
   constructor(
     private http: HttpClient
   ) { }
@@ -27,19 +25,7 @@ export class EquipamentoService {
     return this.http.delete<InfoEquipamentoModel>(`${environment.apiUrl}/equipamentos/${id}`);
    }
 
-  listarEquipamentos():Observable<ListarEquipamentoModel[]>{
-    // return of<ListarEquipamentoModel[]>([{
-    //   id: 1,
-    //   nome: "Geladeira",
-    //   precoDiaria: 1290.90,
-    //   idTipoEquipamento: 2
-    // },
-    // {
-    //   id: 2,
-    //   nome: "NoteBook",
-    //   precoDiaria: 2590.90,
-    //   idTipoEquipamento: 3
-    // }]);
+  listarEquipamentos():Observable<any[]>{
     return this.http.get<ListarEquipamentoModel[]>(`${environment.apiUrl}/equipamentos`);
   }
 

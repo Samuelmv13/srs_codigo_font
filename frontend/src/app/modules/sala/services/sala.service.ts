@@ -36,6 +36,6 @@ export class SalaService {
   }
 
   deletarSala(id:number){
-    return this.http.get(`${environment.apiUrl}/salas/${id}`)
+    return this.http.delete(`${environment.apiUrl}/salas/${id}`)
   }
 }
