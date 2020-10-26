@@ -109,8 +109,10 @@ export class ListarSalasComponent implements OnInit {
     this.equipamentoService.listarEquipamentos().subscribe(
       (listaEquipamentos: any[]) => {
         listaEquipamentos.forEach(equipamento =>
-          this.listaEquipamentosQtd.push(this.salaEquipamentoService.getEquipamento(equipamento.id)))
-    });    
+          this.salaEquipamentoService.setEquipamento(equipamento.id),
+          this.listaEquipamentosQtd.push(this.salaEquipamentoService.getEquipamentoQtd()))
+        });
+    console.log(this.listaEquipamentosQtd)
   }
 
   salvar(){
@@ -185,7 +187,6 @@ export class ListarSalasComponent implements OnInit {
     this.listaSalaDialog = !this.listaSalaDialog
     this.salaForm.reset();
     this.displayForm = true;
-    console.log(this.listaEquipamentosQtd);
   }
 
   turnEquipamentoDialog(){

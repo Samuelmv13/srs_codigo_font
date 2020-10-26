@@ -8,20 +8,22 @@ import { EquipamentoQtdModel } from '../models/equipamento.model';
 })
 export class SalaEquipamentoService {
 
-  equipamentoQtd: EquipamentoQtdModel;
+  equipamentoQtd: EquipamentoQtdModel = null;
 
   constructor(
     private equipamentoService: EquipamentoService 
   ) {
   }
 
-  public getEquipamento(id:number): EquipamentoQtdModel{
+  public setEquipamento(id:number): any{
     this.equipamentoService.recuperarEquipamento(id).subscribe(
       (equipamento: any) =>{
-        this.equipamentoQtd = equipamento;
-        this.equipamentoQtd.quantidade = 0;
+        this.equipamentoQtd = equipamento;        
       }
-    )
+      )
+  }
+
+  getEquipamentoQtd(){
     return this.equipamentoQtd;
   }
 }
