@@ -43,15 +43,15 @@ export class ListarReservasComponent implements OnInit {
     this.listarReservas();
     this.criarFormulario();
     //this.abrirModal();
-    const dataInicialParse = parseISO('infoReserva.dataInicial');
-    const dataFinalParse = parseISO('infoReserva.dataFinal');
-    const intervaloDatas = [dataInicialParse, dataFinalParse];
-    this.formulario.get('intervaloDatas').setValue(intervaloDatas);
-    console.log(this.formulario.getRawValue());
+    // const dataInicialParse = parseISO('infoReserva.dataInicial');
+    // const dataFinalParse = parseISO('infoReserva.dataFinal');
+    // const intervaloDatas = [dataInicialParse, dataFinalParse];
+    // this.formulario.get('intervaloDatas').setValue(intervaloDatas);
+    // console.log(this.formulario.getRawValue());
     
 
-    const [dataIni, dataFim] = this.formulario.get('intervaloDatas').value;
-    console.log( format(dataIni, 'yyyy-MM-dd'),  format(dataFim, 'yyyy-MM-dd'));
+    // const [dataIni, dataFim] = this.formulario.get('intervaloDatas').value;
+    // console.log( format(dataIni, 'yyyy-MM-dd'),  format(dataFim, 'yyyy-MM-dd'));
     
     
   }

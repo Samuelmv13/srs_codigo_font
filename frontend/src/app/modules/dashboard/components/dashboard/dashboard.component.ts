@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ListarClientesComponent } from '../../../cliente/components/listar-clientes/listar-clientes.component';
+import { ListarClientesComponent } from 'src/app/modules/cliente/components/listar-clientes/clientes.component';
+
 import { ListarEquipamentosComponent } from '../../../equipamento/components/listar-equipamentos/listar-equipamentos.component';
 import { ListarReservasComponent } from '../../../reserva/listar-reservas/listar-reservas.component';
 import { ListarSalasComponent } from '../../../sala/components/listar-salas/listar-salas.component';

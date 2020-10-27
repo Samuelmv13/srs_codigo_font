@@ -54,7 +54,6 @@ export class ReservaService {
     return this.http.put<InfoReservaModel>(`${environment.apiUrl}/reservas`, editarReservaModel);
   }
 
-
   recuperarReserva(id: number): Observable<InfoReservaModel> {
     return this.http.get<InfoReservaModel>(`${environment.apiUrl}/reservas/${id}`);
   }

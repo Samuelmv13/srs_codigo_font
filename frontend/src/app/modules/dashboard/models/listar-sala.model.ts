@@ -1,4 +1,4 @@
-import { equipamentoModel } from "../../sala/models/equipamento.model";
+import { EquipamentoModel } from "src/app/shared/model/equipamento.model";
 
 export interface ListarSalaModel {
     id : number;
@@ -7,5 +7,5 @@ export interface ListarSalaModel {
     capacidadePessoas : number;
     precoDiario : number;
     disponivel : number;
-    equipamentos : equipamentoModel;
+    equipamentos : EquipamentoModel;
 }
