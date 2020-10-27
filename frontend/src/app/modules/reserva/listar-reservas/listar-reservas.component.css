@@ -95,3 +95,8 @@ fieldset.grupo .campo {
 .p-button-text{
     color: #FFF;
 }
+.p-button-info{
+    color: #FFF;
+    background: rgb(106, 142, 221);
+    size: 35px;
+}

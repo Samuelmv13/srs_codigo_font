@@ -56,12 +56,6 @@ export class ReservaService {
 
 
   recuperarReserva(id: number): Observable<InfoReservaModel> {
-    return of<InfoReservaModel>({
-      id,
-      dataIni:"25/09/2020",
-      dataFim: "28/09/2020",
-      total:232
-    })
     return this.http.get<InfoReservaModel>(`${environment.apiUrl}/reservas/${id}`);
   }
 

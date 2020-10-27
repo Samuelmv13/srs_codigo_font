@@ -8,6 +8,7 @@ import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,5 +25,7 @@ public class ReservaDTO {
     private LocalDate dataFim;
     @NotNull
     private Double total;
+
+    private List<ReservaEquipamentoDTO> equipamentos;
 
 }

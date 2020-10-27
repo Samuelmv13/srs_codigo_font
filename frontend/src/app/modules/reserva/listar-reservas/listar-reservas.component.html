@@ -50,6 +50,7 @@
                             <input style="width: 6rem" pInputText type="text"
                                 (input)="dt.filter($event.target.value, 'idCliente', 'startsWith')"
                                 placeholder="Buscar Cliente" class="p-column-filter">
+                                <!-- //<button pButton style="margin-left: 15px;" pRipple type="button" label="exibir" class="p-button-info"></button> -->
                         </th>
                         <th>
                             <input style="width: 6rem" pInputText type="text"
@@ -89,7 +90,7 @@
                         </td>
                         <td style="text-align:center">
                             <span class="p-buttonset">
-                                <button pButton pRipple icon="pi pi-pencil"></button>
+                                <button pButton pRipple  (click)="editarReserva(reserva.id)" icon="pi pi-pencil"></button>
                                 <button pButton pRipple (click)="removerReserva(reserva.id)" icon="pi pi-trash"
                                     style="margin-left: 15px;"></button>
                             </span>

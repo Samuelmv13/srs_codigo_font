@@ -49,10 +49,9 @@ public class EquipamentoServico {
     }
 
     public void deletar(Integer id){
-
-
         equipamentoRepositorio.findById(id)
                 .orElseThrow(()-> new RegraNegocioException("Equipamento não encontrado."));
+
         equipamentoRepositorio.deleteById(id);
     }
 

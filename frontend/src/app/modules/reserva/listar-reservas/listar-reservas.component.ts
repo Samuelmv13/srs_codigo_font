@@ -10,7 +10,7 @@ import { ListarEquipamentoModel } from 'src/app/shared/model/listar-equipamento.
 import { SalaModel } from 'src/app/shared/model/sala.model';
 import { ListarReservaModel } from '../models/listar-reserva.model';
 import { ReservaService } from '../services/reserva.service';
-import { intervalToDuration, format } from 'date-fns';
+import { intervalToDuration, format, parseISO } from 'date-fns';
 import { CadastrarReservaModel } from 'src/app/shared/model/cadastrar-reserva.model';
 @Component({
   selector: 'app-listar-reservas',
@@ -42,7 +42,18 @@ export class ListarReservasComponent implements OnInit {
   ngOnInit(): void {
     this.listarReservas();
     this.criarFormulario();
-    this.abrirModal();
+    //this.abrirModal();
+    const dataInicialParse = parseISO('infoReserva.dataInicial');
+    const dataFinalParse = parseISO('infoReserva.dataFinal');
+    const intervaloDatas = [dataInicialParse, dataFinalParse];
+    this.formulario.get('intervaloDatas').setValue(intervaloDatas);
+    console.log(this.formulario.getRawValue());
+    
+
+    const [dataIni, dataFim] = this.formulario.get('intervaloDatas').value;
+    console.log( format(dataIni, 'yyyy-MM-dd'),  format(dataFim, 'yyyy-MM-dd'));
+    
+    
   }
   criarFormulario() {
     this.formulario = this.formBuilder.group({
@@ -138,7 +149,14 @@ export class ListarReservasComponent implements OnInit {
     this.config = true;
   }
 
-  enviar() {
+  editarReserva(id: number){
+    this.reservaService.recuperarReserva(id).subscribe(infoReserva =>{
+      console.log(infoReserva)
+      this.formulario.patchValue(infoReserva)
+    })
+  }
+
+  enviar(){
     if (this.formulario.valid) {
       const [dataIni, dataFim] = this.formulario.get('intervaloDatas').value;
       const cadastrarReservaDto: CadastrarReservaModel = {
