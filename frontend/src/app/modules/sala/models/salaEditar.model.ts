@@ -1,5 +1,6 @@
 import { salaEquipamentoModel } from "./salaEquipamento.model";
 
+
 export interface salaEditarModel {
     id: number;
     descricao : string;

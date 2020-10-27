@@ -14,6 +14,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
 
 
 
+
 @NgModule({
   declarations: [ListarSalasComponent, SalaEquipamentoComponent],
   imports: [

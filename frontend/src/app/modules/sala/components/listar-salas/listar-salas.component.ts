@@ -10,7 +10,6 @@ import { salaEquipamentoModel } from '../../models/salaEquipamento.model';
 import { SalaEquipamentoService } from '../../services/sala-equipamento.service';
 import { SalaService } from '../../services/sala.service';
 
- 
 @Component({
   selector: 'app-listar-salas',
   templateUrl: './listar-salas.component.html',
@@ -20,6 +19,7 @@ import { SalaService } from '../../services/sala.service';
 export class ListarSalasComponent implements OnInit {
 
   listaSalaDialog: boolean;
+
 
   EquipamentoDialog: boolean;
 

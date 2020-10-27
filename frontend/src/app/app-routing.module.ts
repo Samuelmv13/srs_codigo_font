@@ -17,6 +17,7 @@ const routes: Routes = [
     { path: 'salas', component: ListarSalasComponent, data: { breadcrumb: 'Salas'} }
 ];
 
+
 @NgModule({
   imports: [
     RouterModule.forRoot(routes)

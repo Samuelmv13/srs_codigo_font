@@ -22,6 +22,8 @@ import {MessageModule} from 'primeng/message';
 import { CPFPipe } from './pipe/cpf.pipe';
 import { RGPipe } from './pipe/rg.pipe';
 import { TelPipe } from './pipe/tel.pipe';
+import {DropdownModule} from 'primeng/dropdown';
+
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import { TelPipe } from './pipe/tel.pipe';
     ConfirmDialogModule,
     CalendarModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    DropdownModule
   ]
 })
 export class ClienteModule { }

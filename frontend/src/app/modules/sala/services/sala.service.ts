@@ -9,6 +9,7 @@ import { salaEditarModel } from '../models/salaEditar.model';
 })
 export class SalaService {
 
+  private readonly PATH = environment.apiUrl + "/salas/";
   constructor(
     private http: HttpClient
   ) {}
@@ -37,5 +38,6 @@ export class SalaService {
 
   deletarSala(id:number){
     return this.http.delete(`${environment.apiUrl}/salas/${id}`)
+
   }
 }

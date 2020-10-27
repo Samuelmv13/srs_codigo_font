@@ -1,3 +1,4 @@
+
 <div class="card">
     <p-table #dt [value]="listaSalas" dataKey="id" [responsive]=true editMode="row" [rowHover]="true" [rows]="10"
         [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
@@ -23,6 +24,7 @@
 
                 <th pSortableColumn="precoDiario">Preço por dia<p-sortIcon field="precoDiario"></p-sortIcon>
                 </th>
+
                 <th>
                     Equipamentos
                 </th>
@@ -41,6 +43,7 @@
                     <input pInputText type="text"
                         (input)="dt.filter($event.target.value, 'capacidadePessoas', 'startsWith')"
                         placeholder="Buscar Capacidade de Pessoas" class="p-column-filter">
+
                 </th>
                 <th></th>
                 <th></th>
@@ -52,6 +55,7 @@
             <tr [pEditableRow]="sala" class="tabelaAlinhamento">
                 <td>
                     {{salaSelected.id}}
+
                 </td>
                 <td>
                     <p-cellEditor>
@@ -113,7 +117,6 @@
                         (click)="listar()" class="ui-button-rounded ui-button-danger"></button>
                 </td>
             </tr>
-
         </ng-template>
         <ng-template pTemplate="summary">
             <div style="text-align: right; font-size: 16px;">
@@ -192,8 +195,6 @@
         </form>
     </p-dialog>
 
-
-
     <p-dialog [(visible)]="EquipamentoDialog" header="Equipamentos">
         <form>
             <p-table #dt [value]="" dataKey="id" [responsive]=true editMode="row" [rowHover]="true"
@@ -218,6 +219,4 @@
             </p-table>
         </form>
     </p-dialog>
-
-    
 </div>

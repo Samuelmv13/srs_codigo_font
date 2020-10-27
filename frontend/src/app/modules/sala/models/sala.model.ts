@@ -1,5 +1,6 @@
 import { salaEquipamentoModel } from "./salaEquipamento.model";
 
+
 export interface salaModel {
     id : number;
     descricao : string;
@@ -7,4 +8,5 @@ export interface salaModel {
     capacidadePessoas : number;
     precoDiario : number;
     equipamentos : salaEquipamentoModel[];
+
 }

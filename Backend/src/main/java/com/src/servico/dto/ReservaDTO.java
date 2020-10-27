@@ -22,7 +22,7 @@ public class ReservaDTO {
 
     @NotNull @Past
     private LocalDate dataIni;
-
+  
     @NotNull
     private LocalDate dataFim;
 
