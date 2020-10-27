@@ -4,55 +4,43 @@
 <div class="card">    
     <p-table #dt [value]="listaClientes" dataKey="id" [responsive]=true editMode="row" [(selection)]="selectedClientes"
     [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true" 
-    currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0">
+    currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0" styleClass="p-datatable-responsive-demo">
         <ng-template pTemplate="caption">           
-            <div id='buttonNew'> <button pButton pTooltip="Cadastrar cliente" type="button" icon="pi pi-plus" label="Novo Cliente" class="ui-button-success" (click) = "turnDisplayDialog()" style="width: 3.6cm"></button> </div>
+            <div id='buttonNew'> <button pButton pTooltip="Cadastrar cliente" type="button" icon="pi pi-plus" label="Novo Cliente" class="ui-button-success" (click) = "turnDisplayDialog()" style="width: 3.4cm"></button> </div>
             <div id="titulo"> Clientes </div>            
         </ng-template>
                             
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 3rem"></th>
-                <th  
-                style="width: 5rem"
-                    pSortableColumn="id">Id <p-sortIcon field="nome"></p-sortIcon>
+                <th 
+                    pSortableColumn="nome" pTooltip="Ordenar por Nome">Nome <p-sortIcon field="nome"></p-sortIcon>
                 </th>
                 <th 
-                    pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
-                </th>
-                <th 
-                    pSortableColumn="cpf">CPF <p-sortIcon field="cpf"></p-sortIcon>
+                    pSortableColumn="cpf" pTooltip="Ordenar por Cpf">CPF <p-sortIcon field="cpf"></p-sortIcon>
                 </th>
                 <th
-                    pSortableColumn="dtNasc">Data de Nascimento <p-sortIcon field="dtNasc"></p-sortIcon>
+                    pSortableColumn="dtNasc" pTooltip="Ordenar por Data de Nascimento">Data de Nascimento <p-sortIcon field="dtNasc"></p-sortIcon>
                 </th>
                 <th
-                    pSortableColumn="endereco">Endereço <p-sortIcon field="endereco"></p-sortIcon></th>
+                    pSortableColumn="endereco" pTooltip="Ordenar por Endereço">Endereço <p-sortIcon field="endereco"></p-sortIcon></th>
                 <th 
-                    pSortableColumn="telefone">Telefone <p-sortIcon field="telefone"></p-sortIcon>
+                    pSortableColumn="telefone" pTooltip="Ordenar por Telefone">Telefone <p-sortIcon field="telefone"></p-sortIcon>
                 </th>
                 <th 
-                    pSortableColumn="email">E-mail <p-sortIcon field="email"></p-sortIcon>
+                    pSortableColumn="email" pTooltip="Ordenar por E-mail">E-mail <p-sortIcon field="email"></p-sortIcon>
                 </th>
                 <th 
-                    pSortableColumn="rg">RG <p-sortIcon field="rg"></p-sortIcon>
+                    pSortableColumn="rg" pTooltip="Ordenar por Rg">RG <p-sortIcon field="rg"></p-sortIcon>
                 </th>
                 <th style="width: 8rem">Ações</th>
             </tr>
             <tr>
-                <th>
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
-                <th>
-                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'id', 'startsWith')" placeholder="Buscar ID" class="p-column-filter">
-                </th>
                 <th>
                     <input pInputText type="text" (input)="dt.filter($event.target.value, 'nome', 'startsWith')" placeholder="Buscar Nome" class="p-column-filter">
                 </th>
                 <th>
                     <input pInputText type="text" (input)="dt.filter($event.target.value, 'cpf', 'startsWith')" placeholder="Buscar Cpf" class="p-column-filter">
                 </th>
-                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -64,16 +52,10 @@
         </ng-template>
         <ng-template pTemplate="body" let-cliente let-editing="editing" let-ri="rowIndex">
             <tr [pEditableRow]="cliente">
-                <td style="text-align:center;"> 
-                    <p-tableCheckbox [value]="cliente"></p-tableCheckbox>
-                </td>
-                <td>
-                    {{cliente.id}}
-                </td>
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText pTooltip="Insira o Nome" type="text" [(ngModel)]="cliente.nome" required maxlength="120">
+                            <input pInputText pTooltip="Insira o Nome" type="text" [(ngModel)]="cliente.nome" required maxlength="120" [style]="{'width':'100%'}">
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{cliente.nome}}
@@ -83,27 +65,27 @@
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <p-inputMask pTooltip="Insira o CPF" mask="999.999.999-99" [(ngModel)]="cliente.cpf" placeholder="000.000.000-00" required></p-inputMask>
+                            <p-inputMask pTooltip="Insira o CPF" mask="999.999.999-99" [(ngModel)]="cliente.cpf" placeholder="000.000.000-00" required [style]="{'width':'100%'}"></p-inputMask>
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{cliente.cpf}}
-                        </ng-template>
-                    </p-cellEditor>
-                </td>
-                <td style="text-align:center">
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <input pInputText pTooltip="Insira a Data de Nascimento" type="date" [(ngModel)]="cliente.dtNasc" required>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{cliente.dtNasc}}
+                            {{cliente.cpf | CPF}}
                         </ng-template>
                     </p-cellEditor>
                 </td>
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText pTooltip="Insira o Endereço" type="text" [(ngModel)]="cliente.endereco" required maxlength="255">
+                            <input pInputText pTooltip="Insira a Data de Nascimento" type="date" [(ngModel)]="cliente.dtNasc" required [style]="{'width':'100%'}">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{cliente.dtNasc | date: 'dd/MM/yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText pTooltip="Insira o Endereço" type="text" [(ngModel)]="cliente.endereco" required maxlength="255" [style]="{'width':'100%'}">
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{cliente.endereco}}
@@ -113,17 +95,17 @@
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <p-inputMask pTooltip="Insira o Telefone" mask="+55 099 99999-9999" [(ngModel)]="cliente.telefone" placeholder="+55 000 00000-0000" required></p-inputMask>
+                            <p-inputMask pTooltip="Insira o Telefone" mask="+55 99 99999-9999" [(ngModel)]="cliente.telefone" placeholder="+55 000 00000-0000" required [style]="{'width':'100%'}"></p-inputMask>
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{cliente.telefone}}
+                            {{cliente.telefone | TEL}}
                         </ng-template>
                     </p-cellEditor>
                 </td>
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText pTooltip="Insira o E-mail" type="email" [(ngModel)]="cliente.email" required maxlength="255">
+                            <input pInputText pTooltip="Insira o E-mail" type="email" [(ngModel)]="cliente.email" required maxlength="255" [style]="{'width':'100%'}">
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{cliente.email}}
@@ -133,10 +115,10 @@
                 <td >
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <p-inputMask pTooltip="Insira o RG" mask="999.999-9" [(ngModel)]="cliente.cpf" placeholder="000.000-0" required size=7></p-inputMask>
+                            <p-inputMask pTooltip="Insira o RG" mask="999.999-9" [(ngModel)]="cliente.cpf" placeholder="000.000-0" required size=7 [style]="{'width':'100%'}"></p-inputMask>
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{cliente.rg}}
+                            {{cliente.rg | RG}}
                         </ng-template>
                     </p-cellEditor>
                 </td>
@@ -146,7 +128,7 @@
                     <button *ngIf="editing" pButton pRipple pTooltip="Confirmar Edição" type="button" pSaveEditableRow icon="pi pi-check" (click)="preencherFormulario(cliente)" style="margin-right: 14px" class="ui-button-rounded ui-button-success"></button>
                     <button *ngIf="editing" pButton pRipple pTooltip="Cancelar Edição" type="button" pCancelEditableRow icon="pi pi-times" (click)="cancelEdit()" class="ui-button-rounded ui-button-danger"></button>
                 </td>
-            </tr>
+            </tr>            
         </ng-template>
         <ng-template pTemplate="summary">
             <div style="text-align: right; font-size: 16px;">
@@ -156,7 +138,7 @@
     </p-table>
 
     <p-dialog [(visible)]="clienteDialog" header= "Cadastrar Cliente" [responsive]="true" [resizable]="false" [closable]="false">
-        <form name="CadastrarCliente" method="post" [formGroup]="formCliente" styleClass="mydialog" #form="ngForm">
+        <form name="CadastrarCliente" method="post" [formGroup]="formCliente">
             <fieldset>
                 <fieldset class="grupo">
                     <div class="campo">
@@ -185,10 +167,9 @@
                         pTooltip="Insira o Telefone" 
                         name="telefone" 
                         size=15 
-                        mask="+55 099 99999-9999" 
-                        placeholder="+55 000 00000-0000" 
-                        required minlength="18" 
-                        maxlength="18" 
+                        mask="+55 99 99999-9999" 
+                        placeholder="+55 00 00000-0000" 
+                        required
                         formControlName="telefone">
                     </p-inputMask>
                 </div>
@@ -201,14 +182,14 @@
                     <textarea pInputTextarea pTooltip="Insira o Endereço" rows="2" style="width: 6.5cm" id="endereco" name="endereco" formControlName="endereco" [autoResize]="true"></textarea>
                 </div>
                 <p-footer>
-                    <button pButton pRipple pTooltip="Confirmar Cadastro" label="Cadastrar" icon="pi pi-check" (click)="salvar()" style="left: 2px;"></button>
+                    <button pButton [disabled]="!formCliente.valid" pTooltip="Confirmar Cadastro" label="Cadastrar" icon="pi pi-check" (click)="salvar()" style="left: 2px;"></button>
                     <button pButton pRipple pTooltip="Cancelar Cadastro" label="Cancelar" icon="pi pi-times" (click)="turnDisplayDialog()" style="left: 35px;"></button>
                 </p-footer>     
             </fieldset>
         </form>
-    </p-dialog>
+    </p-dialog>            
 
-    <p-dialog header="Deseja remover este cliente" [(visible)]="displayRemover" [resizable]="false">
+    <p-dialog header="Deseja remover este cliente? " [(visible)]="displayRemover" [resizable]="false">
         <p-footer>
             <button type="button" pButton icon="pi pi-check" (click)="deletar()" label="Sim"></button>
             <button type="button" pButton icon="pi pi-times" (click)="displayRemover=false" label="Não" class="ui-button-secondary"></button>

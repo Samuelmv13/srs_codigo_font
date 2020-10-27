@@ -17,10 +17,6 @@ body, input, select, textarea, button {
     display: table;
 }
 
-.grupo:after {
-    clear: both;
-}
-
 .campo {
     margin-bottom: 1em;
 }
@@ -40,13 +36,8 @@ fieldset.grupo .campo {
 
 .campo textarea {
     padding: 0.2em;
-    border: 1px solid #CCC;
-    box-shadow: 1px 1px 1px rgba(117, 117, 117, 0.2);
+    border: 1px solid rgb(218, 218, 218);
     display: block;
-}
-
-.campo select option {
-    padding-right: 15em;
 }
 
 .campo input:focus, .campo select:focus, .campo textarea:focus {
@@ -64,14 +55,13 @@ fieldset.grupo .campo {
 }
 
 .ng-invalid.ng-touched:not(form){
-    border: 1px solid red;
+    border-bottom: 1px solid red;
 }
-
 
 td
 {
     word-wrap: break-word;
-    max-width: 1px;
+    max-width: 100%;
     -webkit-hyphens: auto; 
     -moz-hyphens: auto;
     -ms-hyphens: auto; 

@@ -28,11 +28,12 @@ import { DiarioErrosComponent } from './components/diario-erros/diario-erros.com
 import { AppFooterComponent } from './components/footer/app.footer.component';
 import { AppTopbarComponent } from './components/topbar/app.topbar.component';
 import { ClienteModule } from './modules/cliente/cliente.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { EquipamentoModule } from './modules/equipamento/equipamento.module';
 import { ReservaModule } from './modules/reserva/reserva.module';
 import { SalaModule } from './modules/sala/sala.module';
 import { SharedModule } from './shared/shared.module';
-
+import {ChartModule} from 'primeng/chart';
 
 @NgModule({
     declarations: [
@@ -76,7 +77,9 @@ import { SharedModule } from './shared/shared.module';
         ClienteModule,
         EquipamentoModule,
         InputNumberModule,
-        ToastModule
+        ToastModule,
+        DashboardModule,
+        ChartModule
 
     ],
     providers: [

@@ -74,9 +74,9 @@ public class SalaServico {
         if (existReserva(salaMapper.toEntity(buscar(id))))
             throw new RegraNegocioException("Cliente não pode ser removido, pois possui reservas cadastradas.");
         Sala sala = salaRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Sala com o id " + id + " não existe"));
-
         salaEquipamentoRepositorio.deleteAllBySalaId(id);
         salaRepositorio.deleteById(id);
+
     }
 
     public boolean isReservada(Integer id){

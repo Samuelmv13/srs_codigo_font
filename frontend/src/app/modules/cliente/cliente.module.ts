@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClienteRoutingModule } from './cliente-routing.module';
-import { ListarClientesComponent } from './components/listar-clientes/listar-clientes.component';
+import { ListarClientesComponent } from './components/listar-clientes/clientes.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -19,10 +19,15 @@ import {PaginatorModule} from 'primeng/paginator';
 import {CalendarModule} from 'primeng';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import { CPFPipe } from './pipe/cpf.pipe';
+import { RGPipe } from './pipe/rg.pipe';
+import { TelPipe } from './pipe/tel.pipe';
+import {DropdownModule} from 'primeng/dropdown';
+
 
 
 @NgModule({
-  declarations: [ListarClientesComponent],
+  declarations: [ListarClientesComponent, CPFPipe, RGPipe, TelPipe],
   imports: [
     CommonModule,
     ClienteRoutingModule,
@@ -42,7 +47,8 @@ import {MessageModule} from 'primeng/message';
     ConfirmDialogModule,
     CalendarModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    DropdownModule
   ]
 })
 export class ClienteModule { }

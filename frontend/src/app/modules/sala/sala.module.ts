@@ -6,15 +6,17 @@ import { DialogModule } from 'primeng/dialog';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { CadastrarSalasComponent } from './components/cadastrar-salas/cadastrar-salas.component';
 import { ListarSalasComponent } from './components/listar-salas/listar-salas.component';
 import { SalaRoutingModule } from './sala-routing.module';
+import { SalaEquipamentoComponent } from './components/sala-equipamento/sala-equipamento.component';
+import {InputNumberModule} from 'primeng/inputnumber';
+
 
 
 
 
 @NgModule({
-  declarations: [ListarSalasComponent, CadastrarSalasComponent],
+  declarations: [ListarSalasComponent, SalaEquipamentoComponent],
   imports: [
     CommonModule,
     SalaRoutingModule,
@@ -23,7 +25,8 @@ import { SalaRoutingModule } from './sala-routing.module';
     CardModule,
     DialogModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    InputNumberModule
   ]
 })
 export class SalaModule { }
