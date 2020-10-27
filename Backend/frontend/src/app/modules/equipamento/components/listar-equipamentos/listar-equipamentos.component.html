@@ -1,0 +1,183 @@
+<p-toolbar></p-toolbar>
+
+<p-tabView>
+    <p-tabPanel leftIcon="pi pi-list">
+        <p>
+            <p-table #dt [value]="listaEquipamentos" dataKey="id" [responsive]=true editMode="row" [rowHover]="true"
+                [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
+                currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0">
+
+
+                <ng-template pTemplate="caption">
+                    <div id='buttonNew'> <button pButton type="button" icon="pi pi-plus" label="Novo Equipamento"
+                            class="ui-button-success" (click)="cadastro=true; resetar()" style="width: 11rem"></button> </div>
+                    <div id="titulo"> Equipamentos </div>
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 18rem" pSortableColumn="nome">Nome<p-sortIcon field="nome"></p-sortIcon>
+                        </th>
+                        <th style="width: 18rem" pSortableColumn="idTipoEquipamento">Categoria<p-sortIcon
+                                field="idTipoEquipamento">
+                            </p-sortIcon>
+                        </th>
+                        <th style="width: 18rem" pSortableColumn="precoDiaria">Preço Diário<p-sortIcon
+                                field="precoDiaria"></p-sortIcon>
+                        </th>
+                        <th style="width: 11.85rem">Ações</th>
+                    </tr>
+                    <tr>
+
+                        <th>
+                            <input pInputText type="text" (input)="dt.filter($event.target.value, 'nome', 'startsWith')"
+                                placeholder="Buscar Nome" class="p-column-filter">
+                        </th>
+                        <th>
+                            <p-dropdown  [options]="buscarTipo()" [style]="{'width':'100%'}"
+                                (onChange)="dt.filter($event.value, 'idTipoEquipamento', 'equals')"></p-dropdown>
+                        </th>
+                        <th>
+
+                            <input mode="currency" currency="BRL" pInputText type="text"
+                                (input)="dt.filter($event.target.value, 'precoDiaria', 'startsWith')"
+                                placeholder="Buscar Preço" class="p-column-filter">
+
+                        </th>
+                        <th>
+                        </th>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-equipamento let-editing="editing" let-ri="rowIndex">
+                    <tr [pEditableRow]="equipamento">
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="equipamento.nome" required
+                                        maxlength="255" size="25">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{equipamento.nome}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <p-dropdown [options]="selecionarTipo()" [style]="{'width':'100%'}"
+                                        [(ngModel)]="equipamento.idTipoEquipamento">
+                                    </p-dropdown>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{getTipo(equipamento.idTipoEquipamento)}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <p-inputNumber mode="currency" currency="BRL" [(ngModel)]="equipamento.precoDiaria"
+                                        required [minFractionDigits]="2" [maxFractionDigits]="2" id="precoDiaria">
+                                    </p-inputNumber>
+                                </ng-template>
+                                <ng-template pTemplate="output" value="equipamento.precoDiaria">R$
+                                    {{equipamento.precoDiaria}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td style="text-align:center">
+                            <button *ngIf="!editing" pButton type="button" pTooltip="Excluir"
+                                (click)="displayDelete=true" (click)="idDelete=equipamento.id"
+                                (click)="consultarEquipamentos()" icon="pi pi-trash"
+                                style="margin-right: 14px"></button>
+                            <button *ngIf="!editing" pButton pRipple type="button" pTooltip="Editar" pInitEditableRow
+                                icon="pi pi-pencil" (click)="equipamentoModel=equipamento"
+                                (click)="consultarEquipamentos()" class="p-button-rounded p-button-text"></button>
+                            <button *ngIf="editing" pButton pRipple pTooltip="Confirmar" type="button" pSaveEditableRow
+                                icon="pi pi-check" (click)="editarEquipamento()" style="margin-right: 14px"
+                                class="ui-button-rounded ui-button-success"></button>
+                            <button *ngIf="editing" pButton pRipple pTooltip="Cancelar" type="button" pCancelEditableRow
+                                icon="pi pi-times" (click)="consultarEquipamentos()"
+                                class="ui-button-rounded ui-button-danger"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">Nenhum equipamento cadastrado.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div style="text-align: right; font-size: 16px;">
+                        Total de {{listaEquipamentos ? listaEquipamentos.length : 0 }} equipamento(s).
+                    </div>
+                </ng-template>
+            </p-table>
+        </p>
+    </p-tabPanel>
+
+</p-tabView>
+
+
+
+<p-dialog header="Adicionar Equipamento" [(visible)]="cadastro">
+    <form [formGroup]="formEquipamento">
+        <p-toolbar>
+            <div class="p-toolbar-group-left" style="text-align:center; font-size: 13px;">Faça o Cadastro</div>
+        </p-toolbar>
+
+        <div class="grupo" style="margin-left: 20px; margin-top: 20px;">
+            <div class="campo" style="text-align:center;">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" class="formInput" style="width: 12.5em; text-align:center;"
+                    formControlName="nome" class="p-invalid" pInputText>
+            </div>
+            <div class="campo" style="text-align:center;">
+                <label for="estado" style="text-align:center;">Categoria</label>
+                <p-dropdown [options]="selecionarTipo()" style="width: 12.5em;" class="formInput"
+                    formControlName="idTipoEquipamento" id="idTipoEquipamento">
+                </p-dropdown>
+            </div>
+            <div class="campo" style="text-align:center;">
+                <label for="precoDiaria">Preço Diário</label>
+
+                <p-inputNumber class="fieldset" formControlName="precoDiaria" mode="currency" currency="BRL"
+                    [minFractionDigits]="2" [maxFractionDigits]="2" id="precoDiaria" class="formInput"> </p-inputNumber>
+            </div>
+        </div>
+
+        <button style="left: 2px;" pButton type="button" (click)="cadastrarEquipamento(formEquipamento.value)"
+            icon="pi pi-check" label="Enviar" class="ui-button-success"></button>
+
+        <button style="margin-left: 35px;" pButton type="button" (click)="resetar()" icon="pi pi-times" label="Limpar"
+            class="ui-button-danger"></button>
+
+    </form>
+</p-dialog>
+
+
+<p-dialog  [(visible)]="displayDelete" [modal]="false" [style]="{width: '30vw'}" [closable]="false" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    
+
+    
+    <div class="p-flex p-flex-column">
+        <div style="text-align:center">
+            <p class="home-text">Tem certeza que deseja excluir <br> este equipamento?</p><br>
+            <i class="pi pi-exclamation-triangle"style="margin-top: 5px;font-size: 4rem; "></i>
+           
+        </div>
+        <div class="p-grid p-fluid">
+
+            <div>
+                <button style="margin-left: 2px;" pButton type="button" (click)="deleteReject()" icon="pi pi-times"
+                    label="Não" class="ui-button-danger"></button>
+                <button style="left: 228px;" pButton type="button" (click)="deleteConfirm()" icon="pi pi-check"
+                    label="Sim" class="ui-button-success"></button>
+
+                
+            </div>
+        </div>
+    </div>
+</p-dialog>
