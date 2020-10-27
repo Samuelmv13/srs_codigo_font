@@ -33,10 +33,10 @@ public class ClienteDTO {
 	@NotNull @Email @Size(max = 255)
 	private String email;
 
-	@NotNull @Size(max = 18, min = 18)
+	@NotNull @Size(max = 13, min = 13)
 	private String telefone;
 
-	@NotNull @Size(max = 9,min = 9)
+	@NotNull @Size(max = 8,min = 7)
 	private String rg;
 
 }

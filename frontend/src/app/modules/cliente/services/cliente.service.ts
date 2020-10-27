@@ -30,16 +30,16 @@ export class ClienteService {
     return this.http.post<InfoClienteModel>(`${environment.apiUrl}/clientes`, JSON.stringify(cadastroCliente), this.httpOptions);
   }
 
-  buscarClientes(id:number): Observable<ListarClientesModel[]> {
-    return this.http.get<ListarClientesModel[]>(`${environment.apiUrl}/clientes/${id}`);
+  buscarClientes(id:number): Observable<ListarClientesModel> {
+    return this.http.get<ListarClientesModel>(`${environment.apiUrl}/clientes/${id}`);
   }
 
-  editarClientes(editarCliente: EditarClienteModel): Observable<InfoClienteModel[]> {
-    return this.http.put<InfoClienteModel[]>(`${environment.apiUrl}/clientes`, JSON.stringify(editarCliente), this.httpOptions);
+  editarClientes(editarCliente: EditarClienteModel): Observable<InfoClienteModel> {
+    return this.http.put<InfoClienteModel>(`${environment.apiUrl}/clientes`, JSON.stringify(editarCliente), this.httpOptions);
   }
 
   deletarClientes(id:number){
-    return this.http.delete<ListarClientesModel[]>(`${environment.apiUrl}/clientes/${id}`);
+    return this.http.delete(`${environment.apiUrl}/clientes/${id}`);
   }
 
   recuperarCliente(id: number): Observable<InfoClienteModel>{

@@ -1,4 +1,5 @@
-import { equipamentoModel } from "./equipamento.model";
+import { salaEquipamentoModel } from "./salaEquipamento.model";
+
 
 export interface salaEditarModel {
     id: number;
@@ -7,5 +8,5 @@ export interface salaEditarModel {
     capacidadePessoas : number;
     precoDiario : number;
     disponivel : number;
-    equipamentos : equipamentoModel;
+    equipamentos : salaEquipamentoModel[];
 }

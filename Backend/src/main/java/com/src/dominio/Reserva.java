@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -37,4 +38,7 @@ public class Reserva implements Serializable {
 
     @Column(name = "total")
     private Double total;
+
+    @OneToMany(mappedBy = "reserva",cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<ReservaEquipamento> equipamentos;
 }

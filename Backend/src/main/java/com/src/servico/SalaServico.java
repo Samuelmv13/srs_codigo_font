@@ -1,6 +1,7 @@
 package com.src.servico;
 
 
+import com.src.dominio.Cliente;
 import com.src.dominio.Equipamento;
 import com.src.dominio.Sala;
 import com.src.dominio.SalaEquipamento;
@@ -27,13 +28,11 @@ import java.util.List;
 @Transactional
 public class SalaServico {
 
-
+    private final ReservaRepositorio reservaRepositorio;
+    private final ReservaServico reservaServico;
     private final SalaRepositorio salaRepositorio;
     private final SalaEquipamentoRepositorio salaEquipamentoRepositorio;
     private final SalaMapper salaMapper;
-    private final EquipamentoRepositorio equipamentoRepositorio;
-    private final ReservaRepositorio reservaRepositorio;
-    private final ReservaServico reservaServico;
     private final EquipamentoServico equipamentoServico;
 
 
@@ -72,9 +71,12 @@ public class SalaServico {
     }
 
     public void deletar(Integer id){
+        if (existReserva(salaMapper.toEntity(buscar(id))))
+            throw new RegraNegocioException("Cliente não pode ser removido, pois possui reservas cadastradas.");
         Sala sala = salaRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Sala com o id " + id + " não existe"));
-            salaEquipamentoRepositorio.deleteAllBySalaId(id);
-            salaRepositorio.deleteById(id);
+        salaEquipamentoRepositorio.deleteAllBySalaId(id);
+        salaRepositorio.deleteById(id);
+
     }
 
     public boolean isReservada(Integer id){
@@ -86,4 +88,7 @@ public class SalaServico {
         return false;
     }
 
+    private boolean existReserva(Sala sala) {
+        return reservaRepositorio.existsBySala(sala);
+    }
 }

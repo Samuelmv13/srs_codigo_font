@@ -38,7 +38,7 @@ public class EquipamentoServico {
         if (equipamentoDTO.getId() != null){
             equipamentoRepositorio.findById(equipamentoDTO.getId())
                     .orElseThrow(()-> new RegraNegocioException("Equipamento não encontrado."));
-            //Não deixa espaço null
+        //Não deixa espaço null
         }else if(verificaNull(equipamentoDTO)){
             throw new RegraNegocioException("Preencha todas as informações corretamente.");
         }
@@ -49,10 +49,9 @@ public class EquipamentoServico {
     }
 
     public void deletar(Integer id){
-
-
         equipamentoRepositorio.findById(id)
                 .orElseThrow(()-> new RegraNegocioException("Equipamento não encontrado."));
+
         equipamentoRepositorio.deleteById(id);
     }
 

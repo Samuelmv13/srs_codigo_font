@@ -49,7 +49,6 @@ public class ReservaRecursoIT extends IntTestComum {
                 .andExpect(jsonPath("$[*].id", hasSize(1)));
     }
 
-
     @Test
     public void salvar() throws Exception {
         Reserva reserva = reservaBuilder.construirEntidade();
@@ -83,8 +82,6 @@ public class ReservaRecursoIT extends IntTestComum {
 
         getMockMvc().perform(delete("/api/reservas/" + reserva.getId()))
                 .andExpect(status().isOk());
-
     }
-
 }
 

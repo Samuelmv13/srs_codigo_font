@@ -12,8 +12,6 @@ import { ListarEquipamentoModel } from '../models/listar-equipamento.model';
 })
 export class EquipamentoService {
 
-
-
   constructor(
     private http: HttpClient
   ) { }
@@ -25,6 +23,7 @@ export class EquipamentoService {
 
   deletarEquipamento(id: number): Observable<InfoEquipamentoModel> {
     return this.http.delete<InfoEquipamentoModel>(`${environment.apiUrl}/equipamentos/${id}`);
+
   }
 
   listarEquipamentos(): Observable<ListarEquipamentoModel[]> {
@@ -40,6 +39,7 @@ export class EquipamentoService {
       precoDiaria: 590.90,
       idTipoEquipamento: 3
     }]);
+
     return this.http.get<ListarEquipamentoModel[]>(`${environment.apiUrl}/equipamentos`);
   }
 
