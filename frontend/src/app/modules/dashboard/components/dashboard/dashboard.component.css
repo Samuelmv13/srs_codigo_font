@@ -1,0 +1,25 @@
+.home-text {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    
+  }
+
+.home-grafic {
+  width: 550px;
+  height: 490px;
+  margin-left: 520px;
+  margin-top: 15px;
+}
+
+.home-cli {
+  width: 550px;
+  height: 490px;
+  margin-left: 020px;
+  margin-top: 15px;
+  
+}
+
+.top {
+  font-size: 9px;;
+}
