@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { EquipamentoRoutingModule } from './equipamento-routing.module';
 import { ListarEquipamentosComponent } from './components/listar-equipamentos/listar-equipamentos.component';
 import { HttpClientModule } from '@angular/common/http';

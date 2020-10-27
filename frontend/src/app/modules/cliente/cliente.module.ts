@@ -19,6 +19,7 @@ import {PaginatorModule} from 'primeng/paginator';
 import {CalendarModule} from 'primeng';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import {DropdownModule} from 'primeng/dropdown';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import {MessageModule} from 'primeng/message';
     ConfirmDialogModule,
     CalendarModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    DropdownModule
   ]
 })
 export class ClienteModule { }
