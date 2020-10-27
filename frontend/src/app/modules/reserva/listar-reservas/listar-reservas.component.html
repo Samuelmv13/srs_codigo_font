@@ -1,45 +1,44 @@
-
 <p-tabView>
     <p-tabPanel leftIcon="pi pi-list" header="Reservas">
         <p>
             <p-table #dt [value]="listaReservas" dataKey="id" [responsive]=true editMode="row" [rowHover]="true"
                 [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
-                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} reserva"
-                [filterDelay]="100">
+                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} reserva" [filterDelay]="100">
 
 
                 <ng-template pTemplate="caption">
                     <div id='buttonNew'> <button pButton type="button" icon="pi pi-plus" label="Nova Reserva"
-                            class="ui-button-success" (click)="config=true" style="width: 11rem"></button> </div>
+                            class="ui-button-success" (click)="abrirModal()" style="width: 11rem"></button> </div>
                     <div id="titulo"> Reservas </div>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
 
-                        <th  pSortableColumn="id">Id<p-sortIcon field="id"></p-sortIcon>
+                        <th pSortableColumn="id">Id<p-sortIcon field="id"></p-sortIcon>
                         </th>
-                        <th  pSortableColumn="dataIni">Data Inicio<p-sortIcon field="dataIni"></p-sortIcon>
+                        <th pSortableColumn="dataIni">Data Inicio<p-sortIcon field="dataIni"></p-sortIcon>
                         </th>
-                        
-                        <th pSortableColumn="dataFim">Data Fim<p-sortIcon
-                                field="dataFim">
+
+                        <th pSortableColumn="dataFim">Data Fim<p-sortIcon field="dataFim">
                             </p-sortIcon>
                         </th>
                         <th pSortableColumn="idCliente">Cliente<p-sortIcon field="idCliente"></p-sortIcon>
                         </th>
-                        <th   pSortableColumn="idSala">Sala<p-sortIcon field="idSala"></p-sortIcon>
+                        <th pSortableColumn="idSala">Sala<p-sortIcon field="idSala"></p-sortIcon>
                         </th>
-                        <th  pSortableColumn="total">Total<p-sortIcon field="total"></p-sortIcon>
-                        </th> 
-                        <th>Ações</th> 
+                        <th pSortableColumn="total">Total<p-sortIcon field="total"></p-sortIcon>
+                        </th>
+                        <th>Ações</th>
                     </tr>
                     <tr>
                         <th>
-                            <input style="width: 6rem" pInputText type="text" (input)="dt.filter($event.target.value, 'id', 'startsWith')"
-                                placeholder="Buscar ID" class="p-column-filter">
+                            <input style="width: 6rem" pInputText type="text"
+                                (input)="dt.filter($event.target.value, 'id', 'startsWith')" placeholder="Buscar ID"
+                                class="p-column-filter">
                         </th>
                         <th>
-                            <input style="width: 6rem" pInputText type="text" (input)="dt.filter($event.target.value, 'dataIni', 'startsWith')"
+                            <input style="width: 6rem" pInputText type="text"
+                                (input)="dt.filter($event.target.value, 'dataIni', 'startsWith')"
                                 placeholder="dd/mm/yyyy" class="p-column-filter">
                         </th>
                         <th>
@@ -51,6 +50,7 @@
                             <input style="width: 6rem" pInputText type="text"
                                 (input)="dt.filter($event.target.value, 'idCliente', 'startsWith')"
                                 placeholder="Buscar Cliente" class="p-column-filter">
+                                <!-- //<button pButton style="margin-left: 15px;" pRipple type="button" label="exibir" class="p-button-info"></button> -->
                         </th>
                         <th>
                             <input style="width: 6rem" pInputText type="text"
@@ -73,11 +73,11 @@
                             {{reserva.id}}
                         </td>
                         <td>
-                          {{reserva.dataIni}}
+                            {{reserva.dataIni | date:'dd/MM/yyyy'}}
                         </td>
-                        
+
                         <td>
-                            {{reserva.dataFim}}
+                            {{reserva.dataFim | date:'dd/MM/yyyy'}}
                         </td>
                         <td>
                             {{reserva.idCliente}}
@@ -90,9 +90,9 @@
                         </td>
                         <td style="text-align:center">
                             <span class="p-buttonset">
-                                <button pButton pRipple  icon="pi pi-pencil"
-                                ></button>
-                                <button pButton pRipple (click)="removerReserva(reserva.id)" icon="pi pi-trash" style="margin-left: 15px;"></button>
+                                <button pButton pRipple  (click)="editarReserva(reserva.id)" icon="pi pi-pencil"></button>
+                                <button pButton pRipple (click)="removerReserva(reserva.id)" icon="pi pi-trash"
+                                    style="margin-left: 15px;"></button>
                             </span>
                         </td>
                     </tr>
@@ -119,48 +119,63 @@
             Realizar reserva
         </p>
     </p-toolbar>
-    <form [formGroup]="">
+    <form [formGroup]="formulario">
         <fieldset style="margin-top: 20px;">
             <fieldset class="grupo">
                 <div class="campo">
-                    <label for="nome">Data Inicio</label>
-                    <input type="text" id="dataIni" name="dataIni" style="width: 10em" value="">
+                    <label for="range">Valor da reserva:</label>
+                    {{totalAtual| currency:'R$'}}
                 </div>
             </fieldset>
-            <div class="campo">
-                <label for="preco">Data Fim</label>
-                <input type="text" id="dataFim" name="dataFim" style="width: 10em" value="">
-            </div>
+            <fieldset class="grupo">
+                <div class="campo">
+                    <label for="range">Datas da Reserva</label>
+                    <p-calendar formControlName="intervaloDatas" selectionMode="range" [readonlyInput]="true"
+                        inputId="range"></p-calendar>
+                </div>
+            </fieldset>
 
             <fieldset class="grupo">
                 <div class="campo">
                     <label for="estado">Cliente</label>
-                    <select name="idTipoEquipamento" id="idTipoEquipamento" placeholder="Selecionar tipo">
+                    <select name="idCliente" id="idCliente" formControlName="idCliente" placeholder="Selecionar tipo">
                         <option value="">--</option>
-                        <option value="1">cliente 1</option>
-                        <option value="2">cliente 2</option>
-                        <option value="3">cliente 3</option>
+                        <option *ngFor="let cliente of clientes" [value]="cliente.id">{{cliente.nome}}</option>
                     </select>
                 </div>
+
                 <div class="campo">
                     <label for="estado">Sala</label>
-                    <select name="idTipoEquipamento" id="idTipoEquipamento" placeholder="Selecionar tipo">
+                    <select name="idSala" id="idSala" formControlName="idSala" placeholder="Selecionar tipo">
                         <option value="">--</option>
-                        <option value="1">sala 1</option>
-                        <option value="2">sala 2</option>
-                        <option value="3">sala 3</option>
+                        <option *ngFor="let sala of salas" [value]="sala.id">{{sala.descricao}}</option>
                     </select>
                 </div>
-                <!-- <h5>Single</h5>
-<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem'}"></p-listbox> -->
             </fieldset>
-            <button  style="left: 2px;" pButton type="button" icon="pi pi-check" label="Enviar"
-                class="ui-button-success" ></button>
+
+            <fieldset class="campo" *ngIf="listaEquipamentosAtual?.length">
+                <label>
+                    Equipamentos obrigatórios:
+                </label>
+                <p-listbox [options]="listaEquipamentosAtual" optionLabel="nome"></p-listbox>
+            </fieldset>
+            <fieldset class="campo">
+                <label>
+                    Equipamentos opcionais:
+                </label>
+                <div class="campo">
+                    <p-multiSelect [options]="equipamentos" defaultLabel="escolha" optionLabel="nome" dataKey="id">
+                    </p-multiSelect>
+                </div>
+            </fieldset>
+
+            <button style="left: 2px;" pButton type="button" icon="pi pi-check" label="Enviar" class="ui-button-success"
+                (click)="enviar()"></button>
 
             <button style="margin-left: 15px;" pButton type="button" icon="pi pi-times" label="Cancelar"
-                class="ui-button-danger" ></button>
+                class="ui-button-danger" (click)="fecharModal()"></button>
 
-            
+
         </fieldset>
     </form>
 </p-dialog>

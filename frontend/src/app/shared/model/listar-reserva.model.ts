@@ -1,4 +1,4 @@
-export interface ListarClienteModel {
+export interface ListarReservaModel {
     id: number;
     idCliente: number;
     idSala: number;
