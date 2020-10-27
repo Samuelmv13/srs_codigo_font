@@ -48,52 +48,52 @@
                 <th></th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-sala let-editing="editing" let-ri="rowIndex">
+        <ng-template pTemplate="body" let-salaSelected let-editing="editing" let-ri="rowIndex">
             <tr [pEditableRow]="sala" class="tabelaAlinhamento">
                 <td>
-                    {{sala.id}}
+                    {{salaSelected.id}}
                 </td>
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText type="text" [(ngModel)]="sala.descricao" required maxlength="255"
+                            <input pInputText type="text" [(ngModel)]="salaSelected.descricao" required maxlength="255"
                                 size="25" [style]="{'width':'100%'}">
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{sala.descricao}}
+                            {{salaSelected.descricao}}
                         </ng-template>
                     </p-cellEditor>
                 </td>
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText type="number" [(ngModel)]="sala.capacidadePessoas" required
+                            <input pInputText type="number" [(ngModel)]="salaSelected.capacidadePessoas" required
                                 maxlength="255" size="25" [style]="{'width':'100%'}">
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{sala.capacidadePessoas}}
+                            {{salaSelected.capacidadePessoas}}
                         </ng-template>
                     </p-cellEditor>
                 </td>
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText type="text" [(ngModel)]="sala.idTipoSala" required maxlength="255"
+                            <input pInputText type="text" [(ngModel)]="salaSelected.idTiposala" required maxlength="255"
                                 size="25" [style]="{'width':'100%'}">
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{getTipo(sala.idTipoSala)}}
+                            {{getTipo(salaSelected.idTipoSala)}}
                         </ng-template>
                     </p-cellEditor>
                 </td>
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText type="number" [(ngModel)]="sala.precoDiario" required maxlength="255"
+                            <input pInputText type="number" [(ngModel)]="salaSelected.precoDiario" required maxlength="255"
                                 size="25" [style]="{'width':'100%'}">
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{sala.precoDiario | currency : "BRL"}}
+                            {{salaSelected.precoDiario | currency : "BRL"}}
                         </ng-template>
                     </p-cellEditor>
                 </td>
@@ -105,14 +105,15 @@
                     <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
                         style="margin-right: 14px"></button>
                     <button *ngIf="!editing" pButton type="button" icon="pi pi-trash"
-                        (click)="deletar(sala.id)"></button>
+                        (click)="deletar(salaSelected.id)"></button>
                     <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
-                        (click)="salvar()" style="margin-right: 14px"
+                        (click)="editar()" style="margin-right: 14px"
                         class="ui-button-rounded ui-button-success"></button>
                     <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
                         (click)="listar()" class="ui-button-rounded ui-button-danger"></button>
                 </td>
             </tr>
+
         </ng-template>
         <ng-template pTemplate="summary">
             <div style="text-align: right; font-size: 16px;">
@@ -127,16 +128,15 @@
                 <fieldset class="grupo">
                     <div class="campo">
                         <label for="capacidadePessoas">Capacidade de Pessoas</label>
-                        <input type="number" id="capacidadePessoas" name="capacidadePessoas" style="width: 10em"
-                            min="0">
+                        <p-inputNumber type="number" [(ngModel)]="sala.capacidadePessoas" name="capacidadePessoas" required></p-inputNumber>
                     </div>
                     <div class="campo">
                         <label for="precoDiario">Preço diário</label>
-                        <input type="number" id="precoDiario" name="precoDiario" style="width: 9em" value="">
+                        <p-inputNumber [(ngModel)]="sala.precoDiario" name="precoDiario" required mode="decimal" locale="pt-BR" [minFractionDigits]="2"></p-inputNumber>
                     </div>
                     <div class="campo">
                         <label for="idTipoSala">Tipo de Sala</label>
-                        <select id="idTipoSala" name="idTipoSala">
+                        <select id="idTipoSala" name="idTipoSala" [(ngModel)]="sala.idTipoSala">                            
                             <option value="1">Reunião</option>
                             <option value="2">Trabalho</option>
                             <option value="3">Vídeo</option>
@@ -147,7 +147,7 @@
                 </fieldset>
                 <div class="campo">
                     <label for="descricao">Descrição</label>
-                    <textarea pInputTextarea rows="2" style="width: 35em" id="descricao" name="descricao"
+                    <textarea pInputTextarea rows="2" [(ngModel)]="sala.descricao" required style="width: 35em" id="descricao" name="descricao"
                         [autoResize]="true"></textarea>
                 </div>
 
@@ -159,26 +159,25 @@
                         currentPageReportTemplate="1 de {totalPages}" [filterDelay]="0" [autoLayout]="true">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th style="width: 3rem">
-                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                                </th>
-                                <th style="width: 8rem;">Nome</th>
-                                <th style="width: 5rem">Preço Diario</th>
-                                <th style="width: 4rem">Tipo</th>
-                                <th style="width: 4rem">Quantidade</th>
+                                <th></th>
+                                <th style="width: 14rem;">Nome</th>
+                                <th>Preço Diario</th>
+                                <th>Tipo</th>
+                                <th>Quantidade</th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-listaEquipamento>
+                        <ng-template pTemplate="body" let-equipQtd>
                             <tr>
                                 <td>
-                                    <p-tableCheckbox [value]="listaEquipamento"></p-tableCheckbox>
+                                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="addSalaEquip(equipQtd)" class="ui-button-rounded ui-button-success"></button>
                                 </td>
-                                <!-- <td>{{listaEquipamento.nome}}</td> -->
-                                <!-- <td>{{listaEquipamento.precoDiaria | currency : "BRL"}}</td>
-                                <td>{{listaEquipamento.idTipoSala}}</td> -->
-                                <!-- <td>
-                                    <input type="number" [(ngModel)]="listaEquipamento.quantidade" style="width: 4rem;"> 
-                                </td> -->
+                                <td>{{equipQtd.nome}}</td>
+                                <td>{{equipQtd.precoDiaria | currency : "BRL"}}</td>
+                                <td>
+                                    {{getTipoEquipamento(equipQtd.idTipoEquipamento)}}
+                                <td>
+                                    <p-inputNumber name = "quantidade" [(ngModel)]="equipQtd.quantidade" style="width: 100%;" required></p-inputNumber>
+                                </td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -195,26 +194,30 @@
 
 
 
-
     <p-dialog [(visible)]="EquipamentoDialog" header="Equipamentos">
         <form>
-            <p-table #dt [value]="listaSalas" dataKey="id" [responsive]=true editMode="row" [rowHover]="true"
+            <p-table #dt [value]="" dataKey="id" [responsive]=true editMode="row" [rowHover]="true"
                 [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
                 currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0" [autoLayout]="true">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Nome</th>
+                        <th>Id</th>
                         <th>Quantidade</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-sala>
+                <ng-template pTemplate="body" let-equip>
                     <tr>
                         <th>
-                            <button pButton pRipple type="button" icon="pi pi-plus" style="margin-right: 14px"></button>
+                            {{equip.idEquipamento}}
+                        </th>
+                        <th>
+                            {{equip.quantidade}}
                         </th>
                     </tr>
                 </ng-template>
             </p-table>
         </form>
     </p-dialog>
+
+    
 </div>

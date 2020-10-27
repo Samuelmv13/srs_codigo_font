@@ -25,19 +25,19 @@ export class ListarSalasComponent implements OnInit {
 
   listaSalas: salaModel[];
 
-  listaEquipamentos: EquipamentoModel[];
-
-  listaEquipamentosSelecionados: ListarEquipamentoModel[];
-
   listaEquipamentosQtd: EquipamentoQtdModel[];
+
+  listaEquipamentosSelecionados: EquipamentoQtdModel[];
+
+  listaSalaEquip: salaEquipamentoModel[];
 
   eqOb: EquipamentoQtdModel;
   
-  sala: salaEditarModel;
+  sala: salaModel;
 
   displayForm = false;
 
-  salaForm: FormGroup
+  salaForm: FormGroup;
 
 
   constructor(
@@ -50,9 +50,9 @@ export class ListarSalasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.listaEquipamentos = [];
     this.listaSalas = [];
-    this.listarEquipamentosSala();    
+    this.listaSalaEquip = [];
+    this.iniciarSala();
     this.listar();
     this.criarFormulario();
   }
@@ -65,8 +65,19 @@ export class ListarSalasComponent implements OnInit {
       idTipoSala: [null, [Validators.required]],
       capacidadePessoas: [null, [Validators.required]],
       precoDiario: [null, [Validators.required]],
-      equipamentos: [null, [Validators.required]]
-    })
+      equipamentos: [null]
+    });
+  }
+
+  iniciarSala(){
+    this.sala = {
+      id: null,
+      descricao: null,
+      capacidadePessoas: null,
+      idTipoSala: null,
+      precoDiario: null,
+      equipamentos: null
+    }
   }
 
   getTipo(n: number) {
@@ -91,9 +102,9 @@ export class ListarSalasComponent implements OnInit {
       case 1:
         return "Móvel";
       case 2:
-        return "Eletrodoméstico"
+        return "Eletrodoméstico";
       case 3:
-        return "Informática"
+        return "Informática";
     }
   }
 
@@ -107,43 +118,38 @@ export class ListarSalasComponent implements OnInit {
   listarEquipamentosSala(){
     this.listaEquipamentosQtd= [];
     this.equipamentoService.listarEquipamentos().subscribe(
-      (listaEquipamentos: any[]) => {
-        listaEquipamentos.forEach(equipamento =>
-          this.salaEquipamentoService.setEquipamento(equipamento.id),
-          this.listaEquipamentosQtd.push(this.salaEquipamentoService.getEquipamentoQtd()))
-        });
-    console.log(this.listaEquipamentosQtd)
-  }
-
-  salvar(){
-    if (this.salaForm.valid) {
-      if (this.isEditar()){
-        this.editar();
-      } else {
-        this. cadastrar();
-      }
-    } else {
-      console.log('Formulario invalido')
-    }
+      (listaEquipamentos: ListarEquipamentoModel[]) => {
+        for (let equip of listaEquipamentos){
+          this.salaEquipamentoService.setEquipamento(equip);
+          this.listaEquipamentosQtd.push(this.salaEquipamentoService.getEquipamentoQtd());
+        }
+      });
   }
 
   isEditar(): boolean {
     return this.sala != null;
   }
 
+  addSalaEquip(equip: EquipamentoQtdModel){
+    this.salaEquipamentoService.setSalaEquipamento(equip);
+    var salaEquip = this.salaEquipamentoService.getSalaEquipamento();
+    this.listaSalaEquip.push(salaEquip);
+  }
+
   cadastrar(){
     this.salaServices.salvarSala(
       {
         id: null,
-        descricao: this.salaForm.get("descricao").value,
-        idTipoSala: this.salaForm.get("idTipoSala").value,
-        capacidadePessoas: this.salaForm.get("capacidadePessoas").value,
-        precoDiario: this.salaForm.get("precoDiario").value,
-        equipamentos: this.salaForm.get("equipamentos").value
+        descricao: this.sala.descricao,
+        idTipoSala:this.sala.idTipoSala,
+        capacidadePessoas: this.sala.capacidadePessoas,
+        precoDiario: this.sala.precoDiario,
+        equipamentos: this.listaSalaEquip
       }
     ).subscribe(
       () => {
-        console.log("Cliente Cadastrado");
+        console.log("Sala Cadastrada");
+        
       },
       () => {
         console.log("Error ao chamar serviço");
@@ -185,6 +191,7 @@ export class ListarSalasComponent implements OnInit {
 
   showForm() {
     this.listaSalaDialog = !this.listaSalaDialog
+    this.listarEquipamentosSala();
     this.salaForm.reset();
     this.displayForm = true;
   }

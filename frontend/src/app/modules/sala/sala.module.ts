@@ -9,6 +9,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ListarSalasComponent } from './components/listar-salas/listar-salas.component';
 import { SalaRoutingModule } from './sala-routing.module';
 import { SalaEquipamentoComponent } from './components/sala-equipamento/sala-equipamento.component';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 
 
@@ -23,7 +24,8 @@ import { SalaEquipamentoComponent } from './components/sala-equipamento/sala-equ
     CardModule,
     DialogModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    InputNumberModule
   ]
 })
 export class SalaModule { }
