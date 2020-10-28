@@ -5,5 +5,5 @@ export class ReservaModel{
     dataIni: String;
     dataFim: String;
     total: number;
-    equipamentos: EquipamentoModel[];
+    //equipamentos: EquipamentoModel[];
 }
