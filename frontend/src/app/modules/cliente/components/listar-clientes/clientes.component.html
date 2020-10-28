@@ -4,7 +4,7 @@
 <div class="card">    
     <p-table #dt [value]="listaClientes" dataKey="id" [responsive]=true editMode="row" [(selection)]="selectedClientes"
     [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true" 
-    currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0" styleClass="p-datatable-responsive-demo">
+    currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0">
         <ng-template pTemplate="caption">           
             <div id='buttonNew'> <button pButton pTooltip="Cadastrar cliente" type="button" icon="pi pi-plus" label="Novo Cliente" class="ui-button-success" (click) = "turnDisplayDialog()" style="width: 3.4cm"></button> </div>
             <div id="titulo"> Clientes </div>            

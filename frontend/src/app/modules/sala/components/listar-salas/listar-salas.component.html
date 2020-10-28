@@ -4,31 +4,20 @@
         [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
         currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0">
         <ng-template pTemplate="caption">
-            <div id='buttonNew'> <button pButton type="button" icon="pi pi-plus" label="Novo" class="ui-button-success"
+            <div id='buttonNew'> <button pButton type="button" icon="pi pi-plus" style="width: 3cm" label="Nova Sala" class="ui-button-success"
                     (click)="showForm()"></button> </div>
             <div id="titulo"> Salas </div>
         </ng-template>
 
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 6rem" pSortableColumn="id">Id <p-sortIcon field="descricao"></p-sortIcon>
-                </th>
-                <th pSortableColumn="descricao">Descrição <p-sortIcon field="descricao"></p-sortIcon>
-                </th>
-                <th style="width: 12rem" pSortableColumn="capacidadePessoas">Capacidade de Pessoas<p-sortIcon
-                        field="capacidadePessoas"></p-sortIcon>
-                </th>
-                <th style="width: 8.8rem" pSortableColumn="idTipoSala">Tipo de Sala <p-sortIcon field="idTipoSala">
-                    </p-sortIcon>
-                </th>
-
-                <th pSortableColumn="precoDiario">Preço por dia<p-sortIcon field="precoDiario"></p-sortIcon>
-                </th>
-
-                <th>
-                    Equipamentos
-                </th>
-                <th style="width: 12rem">Ações</th>
+                <th pSortableColumn="id">Id <p-sortIcon field="descricao"></p-sortIcon></th>
+                <th pSortableColumn="descricao">Descrição <p-sortIcon field="descricao"></p-sortIcon></th>
+                <th pSortableColumn="capacidadePessoas">Capacidade de Pessoas<p-sortIcon field="capacidadePessoas"></p-sortIcon></th>
+                <th pSortableColumn="idTipoSala">Tipo de Sala <p-sortIcon field="idTipoSala"></p-sortIcon></th>
+                <th pSortableColumn="precoDiario">Preço por dia<p-sortIcon field="precoDiario"></p-sortIcon></th>
+                <th>Equipamentos</th>
+                <th>Ações</th>
             </tr>
             <tr>
                 <th>
@@ -52,7 +41,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-salaSelected let-editing="editing" let-ri="rowIndex">
-            <tr [pEditableRow]="sala" class="tabelaAlinhamento">
+            <tr [pEditableRow]="salaSelected" class="tabelaAlinhamento">
                 <td>
                     {{salaSelected.id}}
 
@@ -80,10 +69,11 @@
                     </p-cellEditor>
                 </td>
                 <td>
-                    <p-cellEditor>
+                    <p-cellEditor [style]="{'width':'100%'}">
                         <ng-template pTemplate="input">
-                            <input pInputText type="text" [(ngModel)]="salaSelected.idTiposala" required maxlength="255"
-                                size="25" [style]="{'width':'100%'}">
+                            <p-dropdown [options]="selecionarTipo()" [style]="{'width':'100%'}"
+                                        [(ngModel)]="salaSelected.idTipoEquipamento">
+                            </p-dropdown>
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{getTipo(salaSelected.idTipoSala)}}
@@ -102,19 +92,22 @@
                     </p-cellEditor>
                 </td>
                 <td>
-                    <button pButton pRipple type="button" label="Equipamentos" icon="pi pi-desktop"
-                        style="margin-right: 15px" (click)="turnEquipamentoDialog()"></button>
-                </td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <button pButton pRipple type="button" label="Editar Equipamentos" icon="pi pi-pencil"
+                                style="width: 100%; align-items: center;" (click)="turnEditEquipamentoDialog(salaSelected)" class="ui-button-info"></button>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <button pButton pRipple type="button" label="Equipamentos" icon="pi pi-desktop"
+                                style="width: 100%; align-items: center;" (click)="turnEquipamentoDialog(salaSelected)"></button>
+                        </ng-template>
+                    </p-cellEditor>                    
+                </td>                
                 <td style="text-align:center">
-                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
-                        style="margin-right: 14px"></button>
-                    <button *ngIf="!editing" pButton type="button" icon="pi pi-trash"
-                        (click)="deletar(salaSelected.id)"></button>
-                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
-                        (click)="editar()" style="margin-right: 14px"
-                        class="ui-button-rounded ui-button-success"></button>
-                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
-                        (click)="listar()" class="ui-button-rounded ui-button-danger"></button>
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" style="margin-right: 14px"></button> 
+                    <button *ngIf="!editing" pButton type="button" (click)="deletar(salaSelected.id)" icon="pi pi-trash"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" (click)="editar(salaSelected)" pSaveEditableRow icon="pi pi-check" style="margin-right: 14px" class="ui-button-rounded ui-button-success"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" (click)= "listar()" pCancelEditableRow icon="pi pi-times" class="ui-button-rounded ui-button-danger"></button>
                 </td>
             </tr>
         </ng-template>
@@ -157,29 +150,28 @@
 
                 <div>
                     <p-table [value]="listaEquipamentosQtd" dataKey="id" [responsive]=true editMode="row"
-                        [(selection)]="listaEquipamentosSelecionados" [rowHover]="true" [rows]="10"
-                        [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
-                        currentPageReportTemplate="1 de {totalPages}" [filterDelay]="0" [autoLayout]="true">
+                        [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" 
+                        [paginator]="true" currentPageReportTemplate="1 de {totalPages}" [filterDelay]="0" [autoLayout]="true">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th></th>
                                 <th style="width: 14rem;">Nome</th>
                                 <th>Preço Diario</th>
                                 <th>Tipo</th>
                                 <th>Quantidade</th>
+                                <th></th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-equipQtd>
-                            <tr>
-                                <td>
-                                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="addSalaEquip(equipQtd)" class="ui-button-rounded ui-button-success"></button>
-                                </td>
+                            <tr>                                
                                 <td>{{equipQtd.nome}}</td>
                                 <td>{{equipQtd.precoDiaria | currency : "BRL"}}</td>
                                 <td>
                                     {{getTipoEquipamento(equipQtd.idTipoEquipamento)}}
                                 <td>
-                                    <p-inputNumber name = "quantidade" [(ngModel)]="equipQtd.quantidade" style="width: 100%;" required></p-inputNumber>
+                                    <p-inputNumber name = "quantidade" [(ngModel)]="equipQtd.quantidade" style="width: 100%;" [required]= "true"></p-inputNumber>
+                                </td>
+                                <td>
+                                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="addSalaEquip(equipQtd)" class="ui-button-rounded ui-button-success"></button>
                                 </td>
                             </tr>
                         </ng-template>
@@ -195,25 +187,83 @@
         </form>
     </p-dialog>
 
-    <p-dialog [(visible)]="EquipamentoDialog" header="Equipamentos">
+    <p-dialog [(visible)]="equipamentoDialog" header="Equipamentos">
         <form>
-            <p-table #dt [value]="" dataKey="id" [responsive]=true editMode="row" [rowHover]="true"
+            <p-table #dt [value]="salaSelectedEquips" dataKey="id" [responsive]=true editMode="row" [rowHover]="true"
                 [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
                 currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0" [autoLayout]="true">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Categoria</th>
+                        <th>Preço Diario</th>
                         <th>Quantidade</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-equip>
                     <tr>
-                        <th>
-                            {{equip.idEquipamento}}
-                        </th>
-                        <th>
+                        <td>
+                            {{equip.nome}}
+                        </td>
+                        <td>
+                            {{getTipoEquipamento(equip.idTipoEquipamento)}}
+                        </td>
+                        <td>
+                            {{equip.precoDiaria}}
+                        </td>
+                        <td>
                             {{equip.quantidade}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </form>
+    </p-dialog>
+
+    
+    <p-dialog [(visible)]="editEquipamentoDialog" header="Editar Equipamentos">
+        <form>
+            <p-table #dt [value]="editEquipsSala" dataKey="id" [responsive]=true editMode="row" [rowHover]="true"
+                [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
+                currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0" [autoLayout]="true">
+                <ng-template pTemplate="header">
+                    <tr>                       
+                        <th>Nome</th>
+                        <th>Categoria</th>
+                        <th>Preço Diario</th>
+                        <th>Quantidade</th>
+                        <th>
+                            <button pButton pRipple type="button" icon="pi pi-plus" class="ui-button-rounded ui-button-success"></button>
                         </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-equipa let-editing="editing">
+                    <tr [pEditableRow]="equipa">
+                        <td>
+                            {{equipa.nome}}
+                        </td>
+                        <td>
+                            {{getTipoEquipamento(equipa.idTipoEquipamento)}}
+                        </td>
+                        <td>
+                            {{equipa.precoDiaria}}
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="number" [(ngModel)]="equipa.quantidade" required [style]="{'width':'100%'}">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{equipa.quantidade}}
+                                </ng-template>
+                            </p-cellEditor>                         
+                        </td>
+                        <td>
+                            <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" style="margin-right: 14px"></button> 
+                            <button *ngIf="!editing" pButton type="button" (click)="deletarEquipObg(equipa.id)" icon="pi pi-trash"></button>
+                            <button *ngIf="editing" pButton pRipple type="button" (click)="editarSalaEquip(equipa)" pSaveEditableRow icon="pi pi-check" style="margin-right: 14px" class="ui-button-rounded ui-button-success"></button>
+                            <button *ngIf="editing" pButton pRipple type="button" (click)= "setEquipSelected()" pCancelEditableRow icon="pi pi-times" class="ui-button-rounded ui-button-danger"></button>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
