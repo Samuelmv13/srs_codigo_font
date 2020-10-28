@@ -8,14 +8,13 @@
 
                 <ng-template pTemplate="caption">
                     <div id='buttonNew'> <button pButton type="button" icon="pi pi-plus" label="Nova Reserva"
-                            class="ui-button-success" (click)="abrirModal()" style="width: 11rem"></button> </div>
+                            class="ui-button-success" (click)="iniciarCadastro()" style="width: 11rem"></button> </div>
                     <div id="titulo"> Reservas </div>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
 
-                        <th pSortableColumn="id">Id<p-sortIcon field="id"></p-sortIcon>
-                        </th>
+
                         <th pSortableColumn="dataIni">Data Inicio<p-sortIcon field="dataIni"></p-sortIcon>
                         </th>
 
@@ -33,11 +32,6 @@
                     <tr>
                         <th>
                             <input style="width: 6rem" pInputText type="text"
-                                (input)="dt.filter($event.target.value, 'id', 'startsWith')" placeholder="Buscar ID"
-                                class="p-column-filter">
-                        </th>
-                        <th>
-                            <input style="width: 6rem" pInputText type="text"
                                 (input)="dt.filter($event.target.value, 'dataIni', 'startsWith')"
                                 placeholder="dd/mm/yyyy" class="p-column-filter">
                         </th>
@@ -50,7 +44,7 @@
                             <input style="width: 6rem" pInputText type="text"
                                 (input)="dt.filter($event.target.value, 'idCliente', 'startsWith')"
                                 placeholder="Buscar Cliente" class="p-column-filter">
-                                <!-- //<button pButton style="margin-left: 15px;" pRipple type="button" label="exibir" class="p-button-info"></button> -->
+
                         </th>
                         <th>
                             <input style="width: 6rem" pInputText type="text"
@@ -69,28 +63,31 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-reserva let-editing="editing" let-ri="rowIndex">
                     <tr [pEditableRow]="reserva">
+
                         <td>
-                            {{reserva.id}}
-                        </td>
-                        <td>
-                            {{reserva.dataIni | date:'dd/MM/yyyy'}}
+                            {{reserva?.dataIni | formatarData:'*'}}
                         </td>
 
                         <td>
-                            {{reserva.dataFim | date:'dd/MM/yyyy'}}
+                            {{reserva?.dataFim  | formatarData}}
                         </td>
                         <td>
-                            {{reserva.idCliente}}
+                            {{getNomeCliente(reserva?.idCliente)}}
+                            <button pButton style="size: auto;" (click)="visualizarCliente(reserva?.idCliente)" pRipple
+                                type="button" label="exibir" class="p-button-info"></button>
                         </td>
                         <td>
-                            {{reserva.idSala}}
+                            {{getSalaDescricao(reserva.idSala)}}
+                            <button pButton style="size: auto;" (click)="visualizarSala(reserva?.idSala)" pRipple
+                                type="button" label="exibir" class="p-button-info"></button>
                         </td>
                         <td>
-                            {{reserva.total}}
+                            {{reserva.total | currency:'R$'}}
                         </td>
                         <td style="text-align:center">
                             <span class="p-buttonset">
-                                <button pButton pRipple  (click)="editarReserva(reserva.id)" icon="pi pi-pencil"></button>
+                                <button pButton pRipple (click)="editarReserva(reserva.id)"
+                                    icon="pi pi-pencil"></button>
                                 <button pButton pRipple (click)="removerReserva(reserva.id)" icon="pi pi-trash"
                                     style="margin-left: 15px;"></button>
                             </span>
@@ -120,7 +117,7 @@
         </p>
     </p-toolbar>
     <form [formGroup]="formulario">
-        <fieldset style="margin-top: 20px;">
+        <fieldset style="margin-top: 3rem; margin-block-end: 6rem; margin-left: 3rem; margin-right: 3rem;">
             <fieldset class="grupo">
                 <div class="campo">
                     <label for="range">Valor da reserva:</label>
@@ -164,7 +161,8 @@
                     Equipamentos opcionais:
                 </label>
                 <div class="campo">
-                    <p-multiSelect [options]="equipamentos" defaultLabel="escolha" optionLabel="nome" dataKey="id">
+                    <p-multiSelect formControlName="equipamentos" [options]="equipamentos" defaultLabel="escolha"
+                        optionLabel="nome" dataKey="id">
                     </p-multiSelect>
                 </div>
             </fieldset>
@@ -178,4 +176,32 @@
 
         </fieldset>
     </form>
+</p-dialog>
+
+<p-dialog [(visible)]="clienteAtual">
+    <p-toolbar style="text-align:center">
+        <p>
+            Cliente
+        </p>
+    </p-toolbar>
+    <p>
+        {{clienteAtual?.nome}}
+    </p>
+    <p>
+        {{clienteAtual?.email}}
+    </p>
+</p-dialog>
+
+<p-dialog [(visible)]="salaAtual">
+    <p-toolbar style="text-align:center">
+        <p>
+            Sala
+        </p>
+    </p-toolbar>
+    <p>
+        {{salaAtual?.descricao}}
+    </p>
+    <p>
+        {{salaAtual?.precoDiario | currency:'R$'}}
+    </p>
 </p-dialog>

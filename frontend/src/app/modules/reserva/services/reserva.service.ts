@@ -50,7 +50,6 @@ export class ReservaService {
   }
 
   editarReserva(editarReservaModel: EditarReservaModel): Observable<InfoReservaModel> {
-    return of<any>(true);
     return this.http.put<InfoReservaModel>(`${environment.apiUrl}/reservas`, editarReservaModel);
   }
 

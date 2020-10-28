@@ -92,6 +92,7 @@
                     </p-cellEditor>
                 </td>
                 <td>
+
                     <p-cellEditor>
                         <ng-template pTemplate="input">
                             <button pButton pRipple type="button" label="Editar Equipamentos" icon="pi pi-pencil"
@@ -103,6 +104,7 @@
                         </ng-template>
                     </p-cellEditor>                    
                 </td>                
+
                 <td style="text-align:center">
                     <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" style="margin-right: 14px"></button> 
                     <button *ngIf="!editing" pButton type="button" (click)="deletar(salaSelected.id)" icon="pi pi-trash"></button>
