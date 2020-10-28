@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PRIMENG_IMPORTS } from './primeng-imports';
+import { FormatarDataPipe } from './formatar-data.pipe';
 
 @NgModule({
     imports: [
@@ -8,6 +9,8 @@ import { PRIMENG_IMPORTS } from './primeng-imports';
     providers: [],
     exports: [
         PRIMENG_IMPORTS,
-    ]
+        FormatarDataPipe,
+    ],
+    declarations: [FormatarDataPipe]
 })
 export class SharedModule { }

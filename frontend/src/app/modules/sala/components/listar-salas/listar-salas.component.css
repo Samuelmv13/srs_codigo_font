@@ -91,12 +91,12 @@ fieldset.grupo .campo {
     color: aliceblue;
 }
 
-/* td
+td
 {
     word-wrap: break-word;
-    max-width: 1px;
+    max-width: 100%;
     -webkit-hyphens: auto; 
     -moz-hyphens: auto;
     -ms-hyphens: auto; 
     hyphens: auto;
-} */
+}

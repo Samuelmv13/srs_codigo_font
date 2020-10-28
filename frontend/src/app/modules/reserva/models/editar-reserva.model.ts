@@ -3,4 +3,6 @@ export interface EditarReservaModel {
     dataIni: String ;
     dataFim: String;
     total: number;
+    idSala: number;
+    idCliente: number;
 }
