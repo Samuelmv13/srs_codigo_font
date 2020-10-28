@@ -46,16 +46,17 @@ export class SalaEquipamentoService {
     };
   }
 
-  public setEquipamento(equipamento: InfoEquipamentoModel){
+  public setEquipamento(equipamento: InfoEquipamentoModel, quantidade){
+    this.limparEquipamentoQtd();
     this.equipamentoQtd.id = equipamento.id;
     this.equipamentoQtd.nome = equipamento.nome;
     this.equipamentoQtd.precoDiaria = equipamento.precoDiaria;
     this.equipamentoQtd.idTipoEquipamento = equipamento.idTipoEquipamento;
-    this.equipamentoQtd.quantidade = 0;
+    this.equipamentoQtd.quantidade = quantidade;
   }
 
   public getEquipamentoQtd(): EquipamentoQtdModel{
-    var equip = this.equipamentoQtd;
+    let equip = this.equipamentoQtd;
     this.limparEquipamentoQtd();
     return equip;
   }
@@ -66,8 +67,21 @@ export class SalaEquipamentoService {
   }
 
   public getSalaEquipamento(): salaEquipamentoModel{
-    var salaEquip = this.salaEquip;
-    this.limparSalaEquip
+    let salaEquip = this.salaEquip;
+    this.limparSalaEquip();
     return salaEquip;
   }
+
+  // public setEquipamentoQtd(salaEquip: salaEquipamentoModel){
+  //   this.limparEquipamentoQtd();
+  //   this.equipamentoService.recuperarEquipamento(salaEquip.idEquipamento).subscribe(
+  //     (salaEquipamento: InfoEquipamentoModel) =>{
+  //       this.equipamentoQtd.id = salaEquipamento.id;
+  //       this.equipamentoQtd.nome = salaEquipamento.nome;
+  //       this.equipamentoQtd.precoDiaria = salaEquipamento.precoDiaria;
+  //       this.equipamentoQtd.idTipoEquipamento = salaEquipamento.idTipoEquipamento;
+  //       this.equipamentoQtd.quantidade = salaEquip.quantidade;
+  //     }
+  //   )
+  // }
 }

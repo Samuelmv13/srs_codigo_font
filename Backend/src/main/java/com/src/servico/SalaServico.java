@@ -54,10 +54,11 @@ public class SalaServico {
         Sala novaSala = salaMapper.toEntity(salaDTO);
         List<SalaEquipamento> equipamentos = novaSala.getEquipamentos();
         novaSala.setEquipamentos(new ArrayList<>());
-
-        for (SalaDTO salaInst: listar()){
-            if (salaInst.getDescricao().equals(novaSala.getDescricao()) || salaInst.getEquipamentos().equals(salaDTO.getEquipamentos())){
-                throw new RegraNegocioException("Salas iguais");
+        if (salaDTO.getId() == null){
+            for (SalaDTO salaInst: listar()){
+                if (salaInst.getDescricao().equals(novaSala.getDescricao()) || salaInst.getEquipamentos().equals(salaDTO.getEquipamentos())){
+                    throw new RegraNegocioException("Salas iguais");
+                }
             }
         }
         salaRepositorio.save(novaSala);
@@ -72,7 +73,7 @@ public class SalaServico {
 
     public void deletar(Integer id){
         if (existReserva(salaMapper.toEntity(buscar(id))))
-            throw new RegraNegocioException("Cliente não pode ser removido, pois possui reservas cadastradas.");
+            throw new RegraNegocioException("Sala não pode ser removida, pois possui reservas cadastradas.");
         Sala sala = salaRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Sala com o id " + id + " não existe"));
         salaEquipamentoRepositorio.deleteAllBySalaId(id);
         salaRepositorio.deleteById(id);
