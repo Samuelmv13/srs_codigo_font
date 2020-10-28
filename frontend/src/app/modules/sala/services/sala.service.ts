@@ -32,7 +32,7 @@ export class SalaService {
     return this.http.get<salaModel[]>(`${environment.apiUrl}/salas/${id}`)
   }
 
-  editarSala(Sala: salaEditarModel){
+  editarSala(Sala: salaModel){
     return this.http.put<salaEditarModel[]>(`${environment.apiUrl}/salas`, JSON.stringify(Sala), this.httpOptions)
   }
 
