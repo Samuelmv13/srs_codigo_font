@@ -29,12 +29,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 public class ClienteRecursoIT extends IntTestComum {
 
-
     @Autowired
     private ClienteBuilder clienteBuilder;
     @Autowired
     private ReservaBuilder reservaBuilder;
-
 
     @BeforeEach
     public void limparBanco(){

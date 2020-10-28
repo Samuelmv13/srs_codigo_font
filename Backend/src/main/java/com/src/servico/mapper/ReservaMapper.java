@@ -1,11 +1,12 @@
 package com.src.servico.mapper;
 
 import com.src.dominio.Reserva;
+import com.src.dominio.ReservaEquipamento;
 import com.src.servico.dto.ReservaDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {ReservaEquipamentoMapper.class})
 public interface ReservaMapper extends EntityMapper<ReservaDTO, Reserva> {
 
     @Override

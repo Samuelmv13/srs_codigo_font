@@ -1,0 +1,45 @@
+<p-toolbar class="home-text">SRS - Reserva de Salas</p-toolbar>
+<p-card>
+    <div class="ui-g dashboard-card">
+        <div class="ui-g-6 ui-md-3">
+            <p-toolbar class="top">Cadastros</p-toolbar>
+            <p-card class="home-text">
+                Salas 
+               <h1>99</h1>
+            </p-card>
+        </div>
+        <div class="ui-g-6 ui-md-3">
+            <p-toolbar class="top">Cadastros</p-toolbar>
+            <p-card class="home-text">
+                Equipamentos<h1>75</h1>
+            </p-card>
+        </div>
+        <div class="ui-g-6 ui-md-3">
+            <p-toolbar class="top">Cadastros</p-toolbar>
+            <p-card class="home-text">
+                Clientes<h1>68</h1>
+            </p-card>
+        </div>
+        <div class="ui-g-6 ui-md-3">
+            <p-toolbar class="top">Cadastros</p-toolbar>
+            <p-card class="home-text">
+                Reservas<h1>80</h1>
+            </p-card>
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-6">
+            <p-toolbar class="home-text">Reservas por Categoria</p-toolbar>
+            <p-card>
+                <p-chart type="doughnut" [data]="grafico1" [height]="200" [width]="10"></p-chart>
+            </p-card>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <p-toolbar class="home-text">Faturamento Mensal (em R$)</p-toolbar>
+            <p-card>
+                <p-chart type="bar" [data]="grafico2" [height]="200" [width]="300"></p-chart>
+            </p-card>
+        </div>
+    </div>
+</p-card>
+<p-toolbar></p-toolbar>
