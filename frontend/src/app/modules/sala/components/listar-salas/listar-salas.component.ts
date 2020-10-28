@@ -45,6 +45,10 @@ export class ListarSalasComponent implements OnInit {
 
   salaForm: FormGroup;
 
+  idRemover: number;
+
+  displayRemover: boolean;
+
 
   constructor(
     private salaServices: SalaService,
@@ -190,12 +194,15 @@ export class ListarSalasComponent implements OnInit {
     )
   }
 
-  deletar(id:number) {
-    this.salaServices.deletarSala(id)
+  deletar() {
+    this.salaServices.deletarSala(this.idRemover)
     .subscribe(
       () => {
-        console.log("Sala Removida")
+        console.log("Sala Removida");
+        this.messageService.add({severity: 'success', summary: 'Sala Deletada'});
+        this.criarFormulario();
         this.listar();
+        this.displayRemover = false;
       },
       () => {
         console.log("Erro ao chamar o serviço");
@@ -213,5 +220,10 @@ export class ListarSalasComponent implements OnInit {
     this.EquipamentoDialog = !this.EquipamentoDialog;
     this.salaSelected = sala;
     this.setEquipSelected();
+  }
+
+  turnDisplayRemover(id: number){
+    this.idRemover = id;
+    this.displayRemover = !this.displayRemover
   }
 }

@@ -109,13 +109,18 @@
                     <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
                         style="margin-right: 14px"></button>
                     <button *ngIf="!editing" pButton type="button" icon="pi pi-trash"
-                        (click)="deletar(salaSelected.id)"></button>
+                        (click)="turnDisplayRemover(salaSelected.id)"></button>
                     <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
                         (click)="editar()" style="margin-right: 14px"
                         class="ui-button-rounded ui-button-success"></button>
                     <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
                         (click)="listar()" class="ui-button-rounded ui-button-danger"></button>
                 </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">Nenhuma sala cadastrada.</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
@@ -218,5 +223,12 @@
                 </ng-template>
             </p-table>
         </form>
+    </p-dialog>
+
+    <p-dialog header="Deseja remover esta sala? " [(visible)]="displayRemover" [resizable]="false">
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" class="ui-button-success" (click)="deletar()" label="Sim"></button>
+            <button type="button" pButton icon="pi pi-times" (click)="displayRemover=false" label="Não" class="ui-button-secondary, ui-button-danger"></button>
+        </p-footer>
     </p-dialog>
 </div>
