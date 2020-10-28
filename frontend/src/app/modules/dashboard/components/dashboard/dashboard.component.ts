@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ListarClientesComponent } from 'src/app/modules/cliente/components/listar-clientes/clientes.component';
-
-import { ListarEquipamentosComponent } from '../../../equipamento/components/listar-equipamentos/listar-equipamentos.component';
-import { ListarReservasComponent } from '../../../reserva/listar-reservas/listar-reservas.component';
-import { ListarSalasComponent } from '../../../sala/components/listar-salas/listar-salas.component';
+import { SharedClientesService } from 'src/app/services/shared-clientes.service';
+import { SharedDashboardService } from 'src/app/services/shared-dashboard.service.ts.service';
+import { SharedEquipamentosService } from 'src/app/services/shared-equipamentos.service';
+import { SharedSalasService } from 'src/app/services/shared-salas.service';
+import { ClienteModel } from 'src/app/shared/model/cliente.model';
+import { ListarEquipamentoModel } from 'src/app/shared/model/listar-equipamento.model';
+import { ListarReservaModel } from 'src/app/shared/model/listar-reserva.model';
+import { SalaModel } from 'src/app/shared/model/sala.model'
 
 @Component({
   selector: 'app-dashboard',
@@ -13,10 +16,6 @@ import { ListarSalasComponent } from '../../../sala/components/listar-salas/list
 export class DashboardComponent implements OnInit {
 
   grafico1: any;
-  reservaSalas: ListarReservasComponent;
-  salas: ListarSalasComponent
-  equipamentos: ListarEquipamentosComponent
-  clientes: ListarClientesComponent;
   trabalho: number;
   auditorio: number;
   multimidia: number;
@@ -35,8 +34,18 @@ export class DashboardComponent implements OnInit {
   out: number;
   nov: number;
   dez: number;
+  listaEquipamentos: ListarEquipamentoModel[];
+  listaSalas: SalaModel[];
+  listaReservas: ListarReservaModel[];
+  listaClientes: ClienteModel[];
 
-  constructor() {
+  constructor(
+    private equipamentoService: SharedDashboardService,
+    private sharedSalasServices: SharedSalasService,
+    private sharedClientesService: SharedClientesService,
+    private sharedEquipamentosService: SharedEquipamentosService
+
+  ) {
     this.grafico();
     this.graficBarras();
   }
@@ -44,10 +53,35 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.faturamento();
     this.quantSalas();
-    this.salas.listar();
-    this.equipamentos.consultarEquipamentos();
-    this.reservaSalas.listarReservas();
-    this.clientes.listar();
+  }
+
+  listarEquipamentos() {
+    this.sharedEquipamentosService.listarEquipamentos().subscribe(listaEquipamentos => {
+      this.listaEquipamentos = listaEquipamentos;
+    })
+    return this.listaEquipamentos.length;
+  }
+
+  listarSalas() {
+    this.sharedSalasServices.listarSalas().subscribe(listaSalas => {
+      this.listaSalas = listaSalas;
+    })
+    return this.listaSalas.length;
+  }
+  consultarReservas() {
+    this.equipamentoService
+      .listarReservas()
+      .subscribe(listaEquipamentos => {
+        this.listaReservas = listaEquipamentos;
+      })
+      return this.listaReservas.length;
+  }
+
+  listarClientes() {
+    this.sharedClientesService.listarClientes().subscribe(listaClientes => {
+      this.listaClientes = listaClientes;
+    })
+    return this.listaClientes.length;
   }
 
   grafico() {
@@ -73,19 +107,19 @@ export class DashboardComponent implements OnInit {
         "Trabalho",
         "Reunião",
         "Auditório",
-        "Multimídia",
+        "Vídeo",
         "Palestra"
       ]
     }
   }
 
 
-  
+
 
 
 
   quantSalas() {
-    this.reservaSalas.listaReservas.forEach(n => {
+    this.listaReservas.forEach(n => {
       switch (n.idSala) {
         case 1:
           this.trabalho + 1;
@@ -117,7 +151,7 @@ export class DashboardComponent implements OnInit {
   }
 
   faturamento() {
-    this.reservaSalas.listaReservas.forEach(n => {
+    this.listaReservas.forEach(n => {
       var mes = n.dataIni.split("/", 2);
       switch (mes[1]) {
         case "01":

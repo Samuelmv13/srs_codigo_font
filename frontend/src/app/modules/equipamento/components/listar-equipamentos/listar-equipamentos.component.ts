@@ -41,7 +41,7 @@ export class ListarEquipamentosComponent implements OnInit {
     this.selectTipo = [
       { label: 'Selecionar ', value: null },
       { label: 'Móvel', value: '1' },
-      { label: 'Eletromésticos', value: '2' },
+      { label: 'Eletrodoméstico', value: '2' },
       { label: 'Informática', value: '3' }];
     return this.selectTipo;
   }
@@ -50,7 +50,7 @@ export class ListarEquipamentosComponent implements OnInit {
     this.filterTipos = [
       { label: 'Buscar por categoria', value: null },
       { label: 'Móvel', value: '1' },
-      { label: 'Eletromésticos', value: '2' },
+      { label: 'Eletrodoméstico', value: '2' },
       { label: 'Informática', value: '3' }];
     return this.filterTipos;
   }
