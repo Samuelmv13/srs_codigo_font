@@ -71,15 +71,17 @@
                         <td>
                             {{reserva?.dataFim  | formatarData}}
                         </td>
-                        <td>
-                            {{getNomeCliente(reserva?.idCliente)}}
+
+                        <td style="text-align:center">
+                            <!-- {{getNomeCliente(reserva?.idCliente)}} -->
                             <button pButton style="size: auto;" (click)="visualizarCliente(reserva?.idCliente)" pRipple
-                                type="button" label="exibir" class="p-button-info"></button>
+                                type="button" label="Exibir Cliente" class="p-button-info"></button>
                         </td>
-                        <td>
-                            {{getSalaDescricao(reserva.idSala)}}
+                        <td style="text-align:center">
+                            <!-- {{getSalaDescricao(reserva.idSala)}} -->
                             <button pButton style="size: auto;" (click)="visualizarSala(reserva?.idSala)" pRipple
-                                type="button" label="exibir" class="p-button-info"></button>
+                                type="button" label="Exibir Sala" class="p-button-info"></button>
+
                         </td>
                         <td>
                             {{reserva.total | currency:'R$'}}
@@ -111,8 +113,8 @@
 </p-tabView>
 
 <p-dialog [(visible)]="config">
-    <p-toolbar style="text-align:center">
-        <p>
+    <p-toolbar>
+        <p style="text-align: center;">
             Realizar reserva
         </p>
     </p-toolbar>
@@ -172,15 +174,14 @@
 
             <button style="margin-left: 15px;" pButton type="button" icon="pi pi-times" label="Cancelar"
                 class="ui-button-danger" (click)="fecharModal()"></button>
-
-
         </fieldset>
     </form>
 </p-dialog>
 
 <p-dialog [(visible)]="clienteAtual">
-    <p-toolbar style="text-align:center">
-        <p>
+    <p-toolbar>
+        <p style="text-align:center">
+
             Cliente
         </p>
     </p-toolbar>
@@ -193,8 +194,10 @@
 </p-dialog>
 
 <p-dialog [(visible)]="salaAtual">
-    <p-toolbar style="text-align:center">
-        <p>
+
+    <p-toolbar>
+        <p style="text-align:center">
+
             Sala
         </p>
     </p-toolbar>

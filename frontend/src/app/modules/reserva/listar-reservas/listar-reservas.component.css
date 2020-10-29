@@ -100,3 +100,11 @@ fieldset.grupo .campo {
     background: rgb(106, 142, 221);
     size: 35px;
 }
+td {
+    word-wrap: break-word;
+    max-width: 100%;
+    -webkit-hyphens: auto; 
+    -moz-hyphens: auto;
+    -ms-hyphens: auto; 
+    hyphens: auto;
+}

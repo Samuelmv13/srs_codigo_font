@@ -117,12 +117,27 @@ export class ListarClientesComponent implements OnInit {
         this.listar();
         this.cliente = null;
       },
-      () => {
-        console.log('Erro ao chamar serviço');
-        this.messageService.add({ severity: 'error', summary: 'Formulário Inválido', detail: 'Verifique os campos e tente novamente!' });
+      error => {
+        this.validacoesSalvar(error);
       });
   }
 
+  cpfInvalido(cpf){
+    cpf = cpf.replace(/\D/g, '');
+    if(cpf.toString().length != 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+    var result = true;
+    [9,10].forEach(function(j){
+        var soma = 0, r;
+        cpf.split(/(?=)/).splice(0,j).forEach(function(e, i){
+            soma += parseInt(e) * ((j+2)-(i+1));
+        });
+        r = soma % 11;
+        r = (r <2)?0:11-r;
+        if(r != cpf.substring(j, j+1)) result = false;
+    });
+    return result;
+}
+  
   cadastrar() {
     this.clienteService.cadastrarClientes(
       {
@@ -141,16 +156,22 @@ export class ListarClientesComponent implements OnInit {
         this.turnDisplayDialog();
         this.listar()
       },
-      erro => {
-        if(erro.status == 400) {
-          console.log('Formulario Invalido');
-          this.messageService.add({ severity: 'error', summary: 'Formulário Inválido', detail: 'Verifique os campos e tente novamente!' });
-        }
-        else {
-          console.log('Erro ao chamar serviço');
-        }
-        console.log(erro.get)
+      error => {
+        this.validacoesSalvar(error);
       });
+  }
+
+  validacoesSalvar(error){
+    if (error.status == 400){
+      if (!this.cpfInvalido(this.formCliente.get('cpf').value)){
+        this.messageService.add({ severity: 'error', summary: 'Formulário invalido', detail: 'Cpf invalido!' });        
+      } else{
+        this.messageService.add({ severity: 'error', summary: 'Formulário invalido', detail: 'Dados editados já cadastrados no sistema!' });        
+      }
+      this.listar();
+    } else{
+      console.log('Erro ao chamar serviço');
+    }
   }
 
   deletar() {
@@ -163,8 +184,13 @@ export class ListarClientesComponent implements OnInit {
           this.listar();
           this.displayRemover = false;
         },
-        () => {
-          console.log('Erro ao chamar serviço');
+        error => {
+          if (error.status == 400){
+            this.messageService.add({ severity: 'error', summary: 'Cliente com reserva', detail: 'O cliente possui uma reserva cadastrada!' });
+          } else{
+            console.log('Erro ao chamar serviço');
+          }
+          this.displayRemover = false;
         });
   }
 

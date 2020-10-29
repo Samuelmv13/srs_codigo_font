@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { InfoEquipamentoModel } from 'src/app/modules/equipamento/models/info-equipamento.model';
 import { ListarEquipamentoModel } from 'src/app/modules/equipamento/models/listar-equipamento.model';
 import { EquipamentoService } from 'src/app/modules/equipamento/services/equipamento.service';
-import { EquipamentoModel, EquipamentoQtdModel } from '../../models/equipamento.model';
+import { EquipamentoQtdModel } from '../../models/equipamento.model';
 import { salaModel } from '../../models/sala.model';
-import { salaEditarModel } from '../../models/salaEditar.model';
 import { salaEquipamentoModel } from '../../models/salaEquipamento.model';
 import { SalaEquipamentoService } from '../../services/sala-equipamento.service';
 import { SalaService } from '../../services/sala.service';
@@ -15,11 +14,13 @@ import { SalaService } from '../../services/sala.service';
   selector: 'app-listar-salas',
   templateUrl: './listar-salas.component.html',
   styleUrls: ['./listar-salas.component.css'],
-  providers: [ConfirmationService, MessageService],
+  providers: [MessageService],
 })
 export class ListarSalasComponent implements OnInit {
 
   listaSalaDialog: boolean;
+
+  selecionarSalaEquipamentoDialog: boolean;
 
   selectedTipo: any;
   
@@ -49,6 +50,10 @@ export class ListarSalasComponent implements OnInit {
 
   equipEdit: salaEquipamentoModel;
 
+  idRemover: number;
+
+  displayRemover: boolean;
+
   editQuant: number;
 
   constructor(
@@ -57,7 +62,6 @@ export class ListarSalasComponent implements OnInit {
     private formBuilder: FormBuilder,
     private salaEquipamentoService: SalaEquipamentoService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -114,6 +118,7 @@ export class ListarSalasComponent implements OnInit {
     }
   }
 
+  // Exibir equipamentos da sala (button equipamentos)
   setEquipSelected(){
     let equips = null;
     this.salaSelectedEquips = [];
@@ -125,7 +130,6 @@ export class ListarSalasComponent implements OnInit {
           let equipQtd = this.salaEquipamentoService.getEquipamentoQtd();
           this.salaSelectedEquips.push(equipQtd);
         });
-
     };
   }
 
@@ -136,6 +140,7 @@ export class ListarSalasComponent implements OnInit {
       });
   }
   
+  // Set todos os equips com o tipo da relação sala-equipamento (cadastro)
   listarEquipamentosSala(){
     this.listaEquipamentosQtd= [];
     this.equipamentoService.listarEquipamentos().subscribe(
@@ -151,10 +156,12 @@ export class ListarSalasComponent implements OnInit {
     return this.sala != null;
   }
 
+  // Add equipamento na sala (cadastro)
   addSalaEquip(equip: EquipamentoQtdModel){
     this.salaEquipamentoService.setSalaEquipamento(equip);
     var salaEquip = this.salaEquipamentoService.getSalaEquipamento();
     this.listaSalaEquip.push(salaEquip);
+    this.addToast('success','Equipamento adicionado','Equipamento adicionado com sucesso!');
   }
 
   cadastrar(){
@@ -170,18 +177,19 @@ export class ListarSalasComponent implements OnInit {
     ).subscribe(
       () => {
         console.log("Sala Cadastrada");
+        this.messageService.add({severity: 'success', summary: 'Sucesso', detail: 'Sala cadastrada com sucesso.'});
         this.listar();
         this.showForm();
         console.log(this.listaSalaEquip)
       },
       () => {
+        this.addToast('error','Dados inválidos','Não foi possível cadastrar sala');
         console.log("Error ao chamar serviço");
       }
     )
   }
 
   editar(sala: salaModel){
-    this.editarSalaEquip();
     this.salaServices.editarSala(
       {
         id: sala.id,
@@ -189,12 +197,12 @@ export class ListarSalasComponent implements OnInit {
         idTipoSala: sala.idTipoSala,
         capacidadePessoas: sala.capacidadePessoas,
         precoDiario: sala.precoDiario,
-        // equipamentos: this.editSalaEquips
-        equipamentos: this.editSalaEquips
+        equipamentos: sala.equipamentos
       }
     ).subscribe(
       () => {
         console.log("Sala Atualizada");
+        this.addToast('success','Sala Atualizada','Sala atualizada com sucesso');
       },
       () => {
         console.log("Error ao chamar serviço");
@@ -202,67 +210,31 @@ export class ListarSalasComponent implements OnInit {
     )
   }
 
-  // editarSalaEquip(equipa: EquipamentoQtdModel){
-  //   this.editEquipsSala = [] ;
-  //   for (let equip of this.salaSelectedEquips){
-  //     if (equip.id != equipa.id){
-  //       this.editEquipsSala.push(equip);
-  //     }
-  //     else{
-  //       this.editEquipsSala.push(equipa)
-  //     }
-  //   } 
-  //   this.editSalaEquips = [];
-  //   for (let salaEquip of this.editEquipsSala){
-  //     this.addEditSalaEquip(salaEquip);
-  //   }
-  // }
-
-  editarSalaEquip(){
-    this.editEquipsSala = [] ;
-    for (let equip of this.salaSelectedEquips){
-        this.editEquipsSala.push(equip)
-    } 
-    this.editSalaEquips = [];
-    for (let salaEquip of this.editEquipsSala){
-      this.addEditSalaEquip(salaEquip);
-    }
-  }
-
-  addEditSalaEquip(equip: EquipamentoQtdModel){
-    this.salaEquipamentoService.setSalaEquipamento(equip);
-    var salaEquip = this.salaEquipamentoService.getSalaEquipamento();
-    this.editSalaEquips.push(salaEquip);
+  addToast(severity, summary, detail){
+    this.messageService.add({severity: severity, summary: summary, detail: detail});
   }
 
   deletar(id:number) {
-    this.salaServices.deletarSala(id)
+    this.salaServices.deletarSala(this.idRemover)
     .subscribe(
       () => {
-        console.log("Sala Removida")
+        this.addToast('success','Sala Deletada','Sala deletada com sucesso');
         this.listar();
+        this.displayRemover = false;
+        console.log("Sala Removida");
       },
-      () => {
-        console.log("Erro ao chamar o serviço");
+      error => {
+        if (error.status){
+          this.addToast('error','Operação invalida','Sala está reservada');
+          console.log("Erro ao chamar o serviço"); 
+        }
       });
-  }
-
-  deletarEquipObg(id: number){
-    for (let equip of this.editEquipsSala){
-      if(equip.id == id){
-        this.editEquipsSala.splice(this.editEquipsSala.indexOf(equip), 1);
-      }
-    }
-    this.editSalaEquips = [];
-    for (let salaEquip of this.editEquipsSala){
-      this.addEditSalaEquip(salaEquip);
-    }
   }
 
   showForm() {
     this.listaSalaDialog = !this.listaSalaDialog
     this.listarEquipamentosSala();
-    this.salaForm.reset();
+    this.salaForm;
     this.displayForm = true;
   }
 
@@ -272,10 +244,71 @@ export class ListarSalasComponent implements OnInit {
     this.equipamentoDialog = !this.equipamentoDialog;
   }
 
-  turnEditEquipamentoDialog(sala: salaModel){
-    this.salaSelected = sala;
-    this.setEquipSelected();
-    this.editEquipsSala = this.salaSelectedEquips;
-    this.editEquipamentoDialog = !this.editEquipamentoDialog;
+  turnDisplayRemover(id: number){
+    this.idRemover = id;
+    this.displayRemover = !this.displayRemover
+  }
+
+  turnDisplayDialog() {
+    this.listaSalaDialog = !this.listaSalaDialog
+  }
+
+  cancelEdit() {
+    this.listar();
+  }
+  
+  validDescriptionEditor(): boolean {
+    if(this.descricao == null) {
+      return true;
+    }
+    return false;
+  }
+
+  validCapacityPeopleEditor(): boolean {
+    if(this.sala.capacidadePessoas == null){
+      return true;
+    }
+    return false;
+  }
+
+  validPriceEditor(): boolean {
+    if(this.sala.precoDiario == null){
+      return true;
+    }
+    return false;
+  }
+
+  validTypeLREditor(): boolean {
+    if (this.sala.idTipoSala == null || this.sala.idTipoSala > 5 || this.sala.idTipoSala < 1) {
+      return true;
+    }
+    return false;
+  }
+  
+  validEquipEditor(): boolean {
+    if (this.sala.equipamentos == null) {
+      return true;
+    }
+    return false;
+  }
+
+  get descricao(){
+    return this.salaForm.get('descricao');
+  }
+
+  get capacidadePessoas(){
+    return this.salaForm.get('capacidadePessoas');
+  }
+
+  get precoDiario(){
+    return this.salaForm.get('precoDiario');
+  }
+
+  get idTipoSala(){
+    return this.salaForm.get('idTipoSala');
+  }
+
+  get equipamentos(){
+    return this.salaForm.get('equipamentos');
   }
 }
