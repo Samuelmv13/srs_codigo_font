@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { InfoEquipamentoModel } from 'src/app/modules/equipamento/models/info-equipamento.model';
 import { ListarEquipamentoModel } from 'src/app/modules/equipamento/models/listar-equipamento.model';
 import { EquipamentoService } from 'src/app/modules/equipamento/services/equipamento.service';
@@ -9,12 +9,13 @@ import { salaModel } from '../../models/sala.model';
 import { salaEquipamentoModel } from '../../models/salaEquipamento.model';
 import { SalaEquipamentoService } from '../../services/sala-equipamento.service';
 import { SalaService } from '../../services/sala.service';
+import {ToastModule} from 'primeng/toast';
 
 @Component({
   selector: 'app-listar-salas',
   templateUrl: './listar-salas.component.html',
   styleUrls: ['./listar-salas.component.css'],
-  providers: [ConfirmationService, MessageService],
+  providers: [MessageService],
 })
 export class ListarSalasComponent implements OnInit {
 
@@ -62,7 +63,6 @@ export class ListarSalasComponent implements OnInit {
     private formBuilder: FormBuilder,
     private salaEquipamentoService: SalaEquipamentoService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -160,7 +160,8 @@ export class ListarSalasComponent implements OnInit {
     this.salaEquipamentoService.setSalaEquipamento(equip);
     var salaEquip = this.salaEquipamentoService.getSalaEquipamento();
     this.listaSalaEquip.push(salaEquip);
-  }
+    this.addToast('success','Equipamento adicionado','Equipamento adicionado com sucesso!');
+    }
 
   cadastrar(){
     this.salaServices.salvarSala(
@@ -181,6 +182,7 @@ export class ListarSalasComponent implements OnInit {
         console.log(this.listaSalaEquip)
       },
       () => {
+        this.addToast('error','Dados inválidos','Não foi possível cadastrar sala');
         console.log("Error ao chamar serviço");
       }
     )
@@ -195,7 +197,6 @@ export class ListarSalasComponent implements OnInit {
         idTipoSala: sala.idTipoSala,
         capacidadePessoas: sala.capacidadePessoas,
         precoDiario: sala.precoDiario,
-        // equipamentos: this.editSalaEquips
         equipamentos: this.editSalaEquips
       }
     ).subscribe(
@@ -207,22 +208,6 @@ export class ListarSalasComponent implements OnInit {
       }
     )
   }
-
-  // editarSalaEquip(equipa: EquipamentoQtdModel){
-  //   this.editEquipsSala = [] ;
-  //   for (let equip of this.salaSelectedEquips){
-  //     if (equip.id != equipa.id){
-  //       this.editEquipsSala.push(equip);
-  //     }
-  //     else{
-  //       this.editEquipsSala.push(equipa)
-  //     }
-  //   } 
-  //   this.editSalaEquips = [];
-  //   for (let salaEquip of this.editEquipsSala){
-  //     this.addEditSalaEquip(salaEquip);
-  //   }
-  // }
 
   editarSalaEquip(){
     this.editEquipsSala = [] ;
@@ -254,11 +239,15 @@ export class ListarSalasComponent implements OnInit {
     )
   }
 
+  addToast(severity, summary, detail){
+    this.messageService.add({severity: severity, summary: summary, detail: detail});
+  }
+
   deletar(id:number) {
     this.salaServices.deletarSala(this.idRemover)
     .subscribe(
       () => {
-        this.messageService.add({severity: 'success', summary: 'Sala Deletada'});
+        this.addToast('success','Sala Deletada','Sala deletada com sucesso');
         this.criarFormulario();
         this.listar();
         this.displayRemover = false;
@@ -304,6 +293,11 @@ export class ListarSalasComponent implements OnInit {
   turnDisplayRemover(id: number){
     this.idRemover = id;
     this.displayRemover = !this.displayRemover
+  }
+
+  turnDisplayDialog() {
+    this.listaSalaDialog = !this.listaSalaDialog
+    this.criarFormulario();
   }
 
   cancelEdit() {

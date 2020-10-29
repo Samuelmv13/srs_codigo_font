@@ -1,4 +1,5 @@
-
+<p-toast></p-toast>
+<p-toast position="top-left" key="tl"></p-toast>
 <div class="card">
     <p-table #dt [value]="listaSalas" dataKey="id" [responsive]=true editMode="row" [rowHover]="true" [rows]="10"
         [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
@@ -263,7 +264,7 @@
                         </td>
                         <td>
                             <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" style="margin-right: 14px"></button> 
-                            <button *ngIf="!editing" pButton type="button" (click)="deletarEquipObg(equipa.id)" icon="pi pi-trash"></button>
+                            <button *ngIf="!editing" pButton type="button" (click)="deletarEquipObg(equipa.id)" (click)="displayRemover=true" icon="pi pi-trash"></button>
                             <button *ngIf="editing" pButton pRipple type="button" (click)="editarSalaEquip(equipa)" pSaveEditableRow icon="pi pi-check" style="margin-right: 14px" class="ui-button-rounded ui-button-success"></button>
                             <button *ngIf="editing" pButton pRipple type="button" (click)= "setEquipSelected()" pCancelEditableRow icon="pi pi-times" class="ui-button-rounded ui-button-danger"></button>
                         </td>

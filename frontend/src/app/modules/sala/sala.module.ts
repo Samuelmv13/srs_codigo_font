@@ -12,6 +12,7 @@ import { DialogModule } from 'primeng/dialog';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {ToastModule} from 'primeng/toast';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {InputNumberModule} from 'primeng/inputnumber';
     DialogModule,
     MessageModule,
     MessagesModule,
-    InputNumberModule
+    InputNumberModule,
+    ToastModule
   ]
 })
 export class SalaModule { }
