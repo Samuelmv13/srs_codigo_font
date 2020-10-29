@@ -71,6 +71,7 @@
                         <td>
                             {{reserva?.dataFim  | formatarData}}
                         </td>
+
                         <td style="text-align:center">
                             <!-- {{getNomeCliente(reserva?.idCliente)}} -->
                             <button pButton style="size: auto;" (click)="visualizarCliente(reserva?.idCliente)" pRipple
@@ -80,6 +81,7 @@
                             <!-- {{getSalaDescricao(reserva.idSala)}} -->
                             <button pButton style="size: auto;" (click)="visualizarSala(reserva?.idSala)" pRipple
                                 type="button" label="Exibir Sala" class="p-button-info"></button>
+
                         </td>
                         <td>
                             {{reserva.total | currency:'R$'}}
@@ -179,6 +181,7 @@
 <p-dialog [(visible)]="clienteAtual">
     <p-toolbar>
         <p style="text-align:center">
+
             Cliente
         </p>
     </p-toolbar>
@@ -191,8 +194,10 @@
 </p-dialog>
 
 <p-dialog [(visible)]="salaAtual">
+
     <p-toolbar>
         <p style="text-align:center">
+
             Sala
         </p>
     </p-toolbar>
