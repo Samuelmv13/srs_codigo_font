@@ -44,6 +44,7 @@
                 <th></th>
                 <th></th>
                 <th></th>
+                <th></th>
                 <th>
                     <input pInputText type="text" (input)="dt.filter($event.target.value, 'rg', 'startsWith')" placeholder="Buscar RG" class="p-column-filter">
                 </th>
@@ -115,7 +116,7 @@
                 <td >
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <p-inputMask pTooltip="Insira o RG" mask="999.999-9" [(ngModel)]="cliente.cpf" placeholder="000.000-0" required size=7 [style]="{'width':'100%'}"></p-inputMask>
+                            <p-inputMask pTooltip="Insira o RG" mask="999.999-9" [(ngModel)]="cliente.rg" placeholder="000.000-0" required size=7 [style]="{'width':'100%'}"></p-inputMask>
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{cliente.rg | RG}}
@@ -137,7 +138,7 @@
         </ng-template>
     </p-table>
 
-    <p-dialog [(visible)]="clienteDialog" header= "Cadastrar Cliente" [responsive]="true" [resizable]="false" [closable]="false">
+    <p-dialog [(visible)]="clienteDialog" header= "Cadastrar Cliente" [resizable]="false" [closable]="false">
         <form name="CadastrarCliente" method="post" [formGroup]="formCliente">
             <fieldset>
                 <fieldset class="grupo">

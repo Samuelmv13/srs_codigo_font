@@ -1,17 +1,17 @@
-
+<p-toast></p-toast>
+<p-toast position="top-left" key="tl"></p-toast>
 <div class="card">
     <p-table #dt [value]="listaSalas" dataKey="id" [responsive]=true editMode="row" [rowHover]="true" [rows]="10"
         [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
         currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0">
         <ng-template pTemplate="caption">
             <div id='buttonNew'> <button pButton type="button" icon="pi pi-plus" style="width: 3cm" label="Nova Sala" class="ui-button-success"
-                    (click)="showForm()"></button> </div>
+                    (click)="showForm()" style="width: 3.4cm"></button> </div>
             <div id="titulo"> Salas </div>
         </ng-template>
 
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="id">Id <p-sortIcon field="descricao"></p-sortIcon></th>
                 <th pSortableColumn="descricao">Descrição <p-sortIcon field="descricao"></p-sortIcon></th>
                 <th pSortableColumn="capacidadePessoas">Capacidade de Pessoas<p-sortIcon field="capacidadePessoas"></p-sortIcon></th>
                 <th pSortableColumn="idTipoSala">Tipo de Sala <p-sortIcon field="idTipoSala"></p-sortIcon></th>
@@ -20,10 +20,6 @@
                 <th>Ações</th>
             </tr>
             <tr>
-                <th>
-                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'id', 'startsWith')"
-                        placeholder="Buscar ID" class="p-column-filter">
-                </th>
                 <th>
                     <input pInputText type="text" (input)="dt.filter($event.target.value, 'descricao', 'startsWith')"
                         placeholder="Buscar Descrição" class="p-column-filter">
@@ -42,10 +38,6 @@
         </ng-template>
         <ng-template pTemplate="body" let-salaSelected let-editing="editing" let-ri="rowIndex">
             <tr [pEditableRow]="salaSelected" class="tabelaAlinhamento">
-                <td>
-                    {{salaSelected.id}}
-
-                </td>
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
@@ -92,23 +84,26 @@
                     </p-cellEditor>
                 </td>
                 <td>
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <button pButton pRipple type="button" label="Editar Equipamentos" icon="pi pi-pencil"
-                                style="width: 100%; align-items: center;" (click)="turnEditEquipamentoDialog(salaSelected)" class="ui-button-info"></button>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            <button pButton pRipple type="button" label="Equipamentos" icon="pi pi-desktop"
-                                style="width: 100%; align-items: center;" (click)="turnEquipamentoDialog(salaSelected)"></button>
-                        </ng-template>
-                    </p-cellEditor>                    
+                    <button pButton pRipple type="button" label="Equipamentos" icon="pi pi-desktop"
+                        style="width: 100%; align-items: center;" (click)="turnEquipamentoDialog(salaSelected)"></button>                 
                 </td>                
+
                 <td style="text-align:center">
-                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" style="margin-right: 14px"></button> 
-                    <button *ngIf="!editing" pButton type="button" (click)="deletar(salaSelected.id)" icon="pi pi-trash"></button>
-                    <button *ngIf="editing" pButton pRipple type="button" (click)="editar(salaSelected)" pSaveEditableRow icon="pi pi-check" style="margin-right: 14px" class="ui-button-rounded ui-button-success"></button>
-                    <button *ngIf="editing" pButton pRipple type="button" (click)= "listar()" pCancelEditableRow icon="pi pi-times" class="ui-button-rounded ui-button-danger"></button>
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                        style="margin-right: 14px"></button>
+                    <button *ngIf="!editing" pButton type="button" icon="pi pi-trash"
+                        (click)="turnDisplayRemover(salaSelected.id)"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                        (click)="editar(salaSelected)" style="margin-right: 14px"
+                        class="ui-button-rounded ui-button-success"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                        (click)="listar()" class="ui-button-rounded ui-button-danger"></button>
                 </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">Nenhuma sala cadastrada.</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
@@ -168,7 +163,7 @@
                                 <td>
                                     {{getTipoEquipamento(equipQtd.idTipoEquipamento)}}
                                 <td>
-                                    <p-inputNumber name = "quantidade" [(ngModel)]="equipQtd.quantidade" style="width: 100%;" [required]= "true"></p-inputNumber>
+                                    <p-inputNumber name = "quantidade" [(ngModel)]="equipQtd.quantidade" [required]= "true"></p-inputNumber>
                                 </td>
                                 <td>
                                     <button pButton pRipple type="button" icon="pi pi-plus" (click)="addSalaEquip(equipQtd)" class="ui-button-rounded ui-button-success"></button>
@@ -179,9 +174,9 @@
                 </div>
                 <p-footer>
                     <button pButton pRipple label="Cadastrar" icon="pi pi-check" class="p-button-text"
-                        (click)="cadastrar()" style="top: 10px;"></button>
+                        (click)="cadastrar()" style="top: 10px"></button>
                     <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
-                        (click)="showForm()" style="top: 10px"></button>
+                        (click)="showForm()" style="top: 10px;  left: 15px;"></button>
                 </p-footer>
             </fieldset>
         </form>
@@ -209,7 +204,7 @@
                             {{getTipoEquipamento(equip.idTipoEquipamento)}}
                         </td>
                         <td>
-                            {{equip.precoDiaria}}
+                            {{equip.precoDiaria | currency:'BRL'}}
                         </td>
                         <td>
                             {{equip.quantidade}}
@@ -220,53 +215,10 @@
         </form>
     </p-dialog>
 
-    
-    <p-dialog [(visible)]="editEquipamentoDialog" header="Editar Equipamentos">
-        <form>
-            <p-table #dt [value]="editEquipsSala" dataKey="id" [responsive]=true editMode="row" [rowHover]="true"
-                [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
-                currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0" [autoLayout]="true">
-                <ng-template pTemplate="header">
-                    <tr>                       
-                        <th>Nome</th>
-                        <th>Categoria</th>
-                        <th>Preço Diario</th>
-                        <th>Quantidade</th>
-                        <th>
-                            <button pButton pRipple type="button" icon="pi pi-plus" class="ui-button-rounded ui-button-success"></button>
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-equipa let-editing="editing">
-                    <tr [pEditableRow]="equipa">
-                        <td>
-                            {{equipa.nome}}
-                        </td>
-                        <td>
-                            {{getTipoEquipamento(equipa.idTipoEquipamento)}}
-                        </td>
-                        <td>
-                            {{equipa.precoDiaria}}
-                        </td>
-                        <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText type="number" [(ngModel)]="equipa.quantidade" required [style]="{'width':'100%'}">
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{equipa.quantidade}}
-                                </ng-template>
-                            </p-cellEditor>                         
-                        </td>
-                        <td>
-                            <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" style="margin-right: 14px"></button> 
-                            <button *ngIf="!editing" pButton type="button" (click)="deletarEquipObg(equipa.id)" icon="pi pi-trash"></button>
-                            <button *ngIf="editing" pButton pRipple type="button" (click)="editarSalaEquip(equipa)" pSaveEditableRow icon="pi pi-check" style="margin-right: 14px" class="ui-button-rounded ui-button-success"></button>
-                            <button *ngIf="editing" pButton pRipple type="button" (click)= "setEquipSelected()" pCancelEditableRow icon="pi pi-times" class="ui-button-rounded ui-button-danger"></button>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </form>
+    <p-dialog header="Deseja remover esta sala? " [(visible)]="displayRemover" [resizable]="false">
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" class="ui-button-success" (click)="deletar()" label="Sim"></button>
+            <button type="button" pButton icon="pi pi-times" (click)="displayRemover=false" label="Não" class="ui-button-secondary, ui-button-danger"></button>
+        </p-footer>
     </p-dialog>
 </div>

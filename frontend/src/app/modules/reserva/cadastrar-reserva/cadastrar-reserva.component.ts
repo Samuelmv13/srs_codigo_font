@@ -66,21 +66,7 @@ export class CadastrarReservaComponent implements OnInit {
   }
 
   private editarreserva() {
-    this.reservaService.editarReserva(
-      {
-        id: this.reserva.id,
-        dataIni: this.formreserva.get('dataIni').value,
-        dataFim: this.formreserva.get('dataFim').value,
-        total: this.formreserva.get('total').value
-      }
-    ).subscribe(
-      () => {
-        console.log('reserva Atualizado');
-        this.router.navigate(['../reservas']);
-      },
-      () => {
-        console.log('Erro ao chamar serviço');
-      });
+    
   }
 
   private cadastrarreserva() {
