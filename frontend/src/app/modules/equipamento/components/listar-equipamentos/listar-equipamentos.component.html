@@ -87,16 +87,16 @@
                         <td style="text-align:center">
                             <button *ngIf="!editing" pButton type="button" pTooltip="Excluir"
                                 (click)="displayDelete=true" (click)="idDelete=equipamento.id"
-                                (click)="consultarEquipamentos()" icon="pi pi-trash"
+                                 icon="pi pi-trash"
                                 style="margin-right: 14px"></button>
                             <button *ngIf="!editing" pButton pRipple type="button" pTooltip="Editar" pInitEditableRow
                                 icon="pi pi-pencil" (click)="equipamentoModel=equipamento"
-                                (click)="consultarEquipamentos()" class="p-button-rounded p-button-text"></button>
+                                 class="p-button-rounded p-button-text"></button>
                             <button *ngIf="editing" pButton pRipple pTooltip="Confirmar" type="button" pSaveEditableRow
                                 icon="pi pi-check" (click)="editarEquipamento()" style="margin-right: 14px"
                                 class="ui-button-rounded ui-button-success"></button>
                             <button *ngIf="editing" pButton pRipple pTooltip="Cancelar" type="button" pCancelEditableRow
-                                icon="pi pi-times" (click)="consultarEquipamentos()"
+                                icon="pi pi-times" 
                                 class="ui-button-rounded ui-button-danger"></button>
                         </td>
                     </tr>

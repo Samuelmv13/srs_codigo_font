@@ -71,17 +71,15 @@
                         <td>
                             {{reserva?.dataFim  | formatarData}}
                         </td>
-
                         <td style="text-align:center">
                             <!-- {{getNomeCliente(reserva?.idCliente)}} -->
-                            <button pButton style="size: auto;" (click)="visualizarCliente(reserva?.idCliente)" pRipple
+                            <button pButton style="size: auto;" icon='pi pi-info-circle' (click)="visualizarCliente(reserva?.idCliente)" pRipple
                                 type="button" label="Exibir Cliente" class="p-button-info"></button>
                         </td>
                         <td style="text-align:center">
                             <!-- {{getSalaDescricao(reserva.idSala)}} -->
-                            <button pButton style="size: auto;" (click)="visualizarSala(reserva?.idSala)" pRipple
+                            <button pButton style="size: auto;" icon='pi pi-info-circle' (click)="visualizarSala(reserva?.idSala)" pRipple
                                 type="button" label="Exibir Sala" class="p-button-info"></button>
-
                         </td>
                         <td>
                             {{reserva.total | currency:'R$'}}
@@ -177,34 +175,40 @@
         </fieldset>
     </form>
 </p-dialog>
-
+<!-- 
 <p-dialog [(visible)]="clienteAtual">
     <p-toolbar>
         <p style="text-align:center">
-
             Cliente
         </p>
     </p-toolbar>
-    <p>
-        {{clienteAtual?.nome}}
-    </p>
-    <p>
-        {{clienteAtual?.email}}
-    </p>
+
+    <p-table #dt [value]="salaSelectedEquips" dataKey="id" [responsive]=true [autoLayout]="true">
+    <ng-template pTemplate="header">
+        <tr>
+            <th><h3>Nome</h3><br>{{clienteAtual?.nome}}</th>
+            <th> <h3>Email</h3><br> {{clienteAtual?.email}}</th>
+            <th><h3>CPF</h3> <br> {{clienteAtual?.cpf}}</th>
+            <th><h3>Telefone</h3> <br> {{clienteAtual?.telefone}}</th>
+        </tr>
+    </ng-template>
+    </p-table>
 </p-dialog>
 
 <p-dialog [(visible)]="salaAtual">
-
     <p-toolbar>
         <p style="text-align:center">
-
             Sala
         </p>
     </p-toolbar>
-    <p>
-        {{salaAtual?.descricao}}
-    </p>
-    <p>
-        {{salaAtual?.precoDiario | currency:'R$'}}
-    </p>
-</p-dialog>
+    <p-table #dt [value]="salaSelectedEquips" dataKey="id" [responsive]=true [autoLayout]="true">
+        <ng-template pTemplate="header">
+            <tr>
+                <th><h3>Descrição</h3><br>{{salaAtual?.descricao}}</th>
+                <th> <h3>Preço Diario</h3><br> {{salaAtual?.precoDiario | currency: "BRL"}}</th>        
+            </tr>
+        </ng-template>
+        </p-table>
+</p-dialog> -->
+
+
