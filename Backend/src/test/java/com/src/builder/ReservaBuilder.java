@@ -1,9 +1,6 @@
 package com.src.builder;
 
-import com.src.dominio.Cliente;
-import com.src.dominio.Reserva;
-import com.src.dominio.Sala;
-import com.src.dominio.TipoSala;
+import com.src.dominio.*;
 import com.src.repositorio.ReservaRepositorio;
 import com.src.servico.ReservaServico;
 import com.src.servico.dto.ReservaDTO;
@@ -14,6 +11,9 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 //paulo.teotonio
 @Component
 public class ReservaBuilder extends ConstrutorDeEntidade<Reserva>{
@@ -23,11 +23,16 @@ public class ReservaBuilder extends ConstrutorDeEntidade<Reserva>{
 
     @Autowired
     private ReservaMapper reservaMapper;
+
     @Autowired
     private ReservaRepositorio reservaRepositorio;
 
     @Autowired
     private ClienteBuilder clienteBuilder;
+
+    @Autowired
+    private EquipamentoBuilder equipamentoBuilder;
+
     @Autowired
     private SalaBuilder salaBuilder;
 
@@ -40,9 +45,19 @@ public class ReservaBuilder extends ConstrutorDeEntidade<Reserva>{
         reserva.setTotal(455.00);
 
         Cliente cliente = clienteBuilder.construir();
-        Sala sala = salaBuilder.construir();
         reserva.setCliente(cliente);
+
+        Sala sala = salaBuilder.construir();
         reserva.setSala(sala);
+
+        Equipamento equipamento = equipamentoBuilder.construir();
+
+        ReservaEquipamento reservaEquipamento = new ReservaEquipamento();
+        reservaEquipamento.setEquipamento(equipamento);
+        reservaEquipamento.setReserva(reserva);
+        reservaEquipamento.setQuantidade(50);
+
+        reserva.setEquipamentos(Collections.singletonList(reservaEquipamento));
 
         return reserva;
     }

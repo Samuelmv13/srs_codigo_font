@@ -101,9 +101,11 @@ export class ListarSalasComponent implements OnInit {
   selecionarTipo() {
     this.selectedTipo = [
       { label: 'Selecionar ', value: null },
-      { label: 'Móvel', value: '1' },
-      { label: 'Eletromésticos', value: '2' },
-      { label: 'Informática', value: '3' }];
+      { label: 'Reunião', value: '1' },
+      { label: 'Trabalho', value: '2' },
+      { label: 'Vídeo', value: '3' },
+      { label: 'Palestra', value: '4' },
+      { label: 'Auditório', value: '5' }];
     return this.selectedTipo;
   }
 
