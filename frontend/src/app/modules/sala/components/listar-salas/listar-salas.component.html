@@ -1,0 +1,224 @@
+<p-toast></p-toast>
+<p-toast position="top-left" key="tl"></p-toast>
+<div class="card">
+    <p-table #dt [value]="listaSalas" dataKey="id" [responsive]=true editMode="row" [rowHover]="true" [rows]="10"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
+        currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0">
+        <ng-template pTemplate="caption">
+            <div id='buttonNew'> <button pButton type="button" icon="pi pi-plus" style="width: 3cm" label="Nova Sala" class="ui-button-success"
+                    (click)="showForm()" style="width: 3.4cm"></button> </div>
+            <div id="titulo"> Salas </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="descricao">Descrição <p-sortIcon field="descricao"></p-sortIcon></th>
+                <th pSortableColumn="capacidadePessoas">Capacidade de Pessoas<p-sortIcon field="capacidadePessoas"></p-sortIcon></th>
+                <th pSortableColumn="idTipoSala">Tipo de Sala <p-sortIcon field="idTipoSala"></p-sortIcon></th>
+                <th pSortableColumn="precoDiario">Preço por dia<p-sortIcon field="precoDiario"></p-sortIcon></th>
+                <th>Equipamentos</th>
+                <th>Ações</th>
+            </tr>
+            <tr>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'descricao', 'startsWith')"
+                        placeholder="Buscar Descrição" class="p-column-filter">
+                </th>
+                <th>
+                    <input pInputText type="text"
+                        (input)="dt.filter($event.target.value, 'capacidadePessoas', 'startsWith')"
+                        placeholder="Buscar Capacidade de Pessoas" class="p-column-filter">
+
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-salaSelected let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="salaSelected" class="tabelaAlinhamento">
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="salaSelected.descricao" required maxlength="255"
+                                size="25" [style]="{'width':'100%'}">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{salaSelected.descricao}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="number" [(ngModel)]="salaSelected.capacidadePessoas" required
+                                maxlength="255" size="25" [style]="{'width':'100%'}">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{salaSelected.capacidadePessoas}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor [style]="{'width':'100%'}">
+                        <ng-template pTemplate="input">
+                            <p-dropdown [options]="selecionarTipo()" [style]="{'width':'100%'}"
+                                        [(ngModel)]="salaSelected.idTipoEquipamento">
+                            </p-dropdown>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{getTipo(salaSelected.idTipoSala)}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="number" [(ngModel)]="salaSelected.precoDiario" required maxlength="255"
+                                size="25" [style]="{'width':'100%'}">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{salaSelected.precoDiario | currency : "BRL"}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <button pButton pRipple type="button" label="Equipamentos" icon="pi pi-desktop"
+                        style="width: 100%; align-items: center;" (click)="turnEquipamentoDialog(salaSelected)"></button>
+                </td>                
+
+                <td style="text-align:center">
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                        style="margin-right: 14px"></button>
+                    <button *ngIf="!editing" pButton type="button" icon="pi pi-trash"
+                        (click)="turnDisplayRemover(salaSelected.id)"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                        (click)="editar(salaSelected)" style="margin-right: 14px"
+                        class="ui-button-rounded ui-button-success"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                        (click)="listar()" class="ui-button-rounded ui-button-danger"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">Nenhuma sala cadastrada.</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div style="text-align: right; font-size: 16px;">
+                Total de {{listaSalas ? listaSalas.length : 0 }} sala(s).
+            </div>
+        </ng-template>
+    </p-table>
+
+    <p-dialog [(visible)]="listaSalaDialog" header="Adicionar Sala">
+        <form>
+            <fieldset>
+                <fieldset class="grupo">
+                    <div class="campo">
+                        <label for="capacidadePessoas">Capacidade de Pessoas</label>
+                        <p-inputNumber type="number" [(ngModel)]="sala.capacidadePessoas" name="capacidadePessoas" required></p-inputNumber>
+                    </div>
+                    <div class="campo">
+                        <label for="precoDiario">Preço diário</label>
+                        <p-inputNumber [(ngModel)]="sala.precoDiario" name="precoDiario" required mode="decimal" locale="pt-BR" [minFractionDigits]="2"></p-inputNumber>
+                    </div>
+                    <div class="campo">
+                        <label for="idTipoSala">Tipo de Sala</label>
+                        <select id="idTipoSala" name="idTipoSala" [(ngModel)]="sala.idTipoSala">                            
+                            <option value="1">Reunião</option>
+                            <option value="2">Trabalho</option>
+                            <option value="3">Vídeo</option>
+                            <option value="4">Palestra</option>
+                            <option value="5">Auditório</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <div class="campo">
+                    <label for="descricao">Descrição</label>
+                    <textarea pInputTextarea rows="2" [(ngModel)]="sala.descricao" required style="width: 35em" id="descricao" name="descricao"
+                        [autoResize]="true"></textarea>
+                </div>
+
+
+                <div>
+                    <p-table [value]="listaEquipamentosQtd" dataKey="id" [responsive]=true editMode="row"
+                        [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" 
+                        [paginator]="true" currentPageReportTemplate="1 de {totalPages}" [filterDelay]="0" [autoLayout]="true">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 14rem;">Nome</th>
+                                <th>Preço Diario</th>
+                                <th>Tipo</th>
+                                <th>Quantidade</th>
+                                <th></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-equipQtd>
+                            <tr>                                
+                                <td>{{equipQtd.nome}}</td>
+                                <td>{{equipQtd.precoDiaria | currency : "BRL"}}</td>
+                                <td>
+                                    {{getTipoEquipamento(equipQtd.idTipoEquipamento)}}
+                                <td>
+                                    <p-inputNumber name = "quantidade" [(ngModel)]="equipQtd.quantidade" [required]= "true"></p-inputNumber>
+                                </td>
+                                <td>
+                                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="addSalaEquip(equipQtd)" class="ui-button-rounded ui-button-success"></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+                <p-footer>
+                    <button pButton pRipple label="Cadastrar" icon="pi pi-check" class="p-button-text"
+                        (click)="cadastrar()" style="top: 10px"></button>
+                    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+                        (click)="showForm()" style="top: 10px;  left: 15px;"></button>
+                </p-footer>
+            </fieldset>
+        </form>
+    </p-dialog>
+
+    <p-dialog [(visible)]="equipamentoDialog" header="Equipamentos">
+        <form>
+            <p-table #dt [value]="salaSelectedEquips" dataKey="id" [responsive]=true editMode="row" [rowHover]="true"
+                [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50,100]" [paginator]="true"
+                currentPageReportTemplate="Mostrando 1 de {totalPages} página(s)" [filterDelay]="0" [autoLayout]="true">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Categoria</th>
+                        <th>Preço Diario</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-equip>
+                    <tr>
+                        <td>
+                            {{equip.nome}}
+                        </td>
+                        <td>
+                            {{getTipoEquipamento(equip.idTipoEquipamento)}}
+                        </td>
+                        <td>
+                            {{equip.precoDiaria | currency:'BRL'}}
+                        </td>
+                        <td>
+                            {{equip.quantidade}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </form>
+    </p-dialog>
+
+    <p-dialog header="Deseja remover esta sala? " [(visible)]="displayRemover" [resizable]="false">
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" class="ui-button-success" (click)="deletar()" label="Sim"></button>
+            <button type="button" pButton icon="pi pi-times" (click)="displayRemover=false" label="Não" class="ui-button-secondary, ui-button-danger"></button>
+        </p-footer>
+    </p-dialog>
+</div>

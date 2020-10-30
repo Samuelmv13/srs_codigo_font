@@ -1,0 +1,29 @@
+#titulo {
+    color: rgb(233, 234, 234);
+    font:  22px arial;    
+}
+
+#buttonNew{
+    width: 0px;
+    height: 5px;
+}
+
+.campo {
+    margin-bottom: 1em;
+}
+
+.campo label {
+    margin-bottom: 0.2em;
+    color: #666;
+    display: block;
+}
+
+.home-text {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+  }
+
+.dell{
+    margin-top: 5px;font-size: 4rem;
+}
