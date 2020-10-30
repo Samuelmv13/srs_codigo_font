@@ -106,10 +106,10 @@ export class ListarEquipamentosComponent implements OnInit {
   deletarEquipamento(id: number) {
     this.equipamentoService.deletarEquipamento(id).subscribe(
       () => {
-        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Reserva removida com sucesso.' });
+        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Equipamento removido com sucesso.' });
         this.consultarEquipamentos();
       }, response => {
-        this.messageService.add({ severity: 'error', summary: 'Erro', detail: response.error.message })
+        this.messageService.add({ severity: 'error', summary: 'Remoção Inválida', detail: 'Equipamento já cadastrado em uma reserva ou sala.'})
       });
   }
 

@@ -23,17 +23,11 @@ export class ListarReservasComponent implements OnInit {
   config: boolean;
   salas: SalaModel[];
   salaAtual: SalaModel;
-
   clientes: ClienteModel[];
   clienteAtual: ClienteModel;
-
-
   formulario: FormGroup;
-
   listaEquipamentosAtual: EquipamentoModel[];
-
   equipamentos: ListarEquipamentoModel[];
-
   totalAtual: number;
   reservaAtual: InfoReservaModel;
 
@@ -216,7 +210,7 @@ export class ListarReservasComponent implements OnInit {
       this.fecharModal();
       this.listarReservas();
     }, response => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: "Dados inválidos, Tente novamente." });
     });
   }
 
@@ -226,7 +220,7 @@ export class ListarReservasComponent implements OnInit {
       this.fecharModal();
       this.listarReservas();
     }, response => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: "Dados inválidos, Tente novamente." });
     });
   }
 

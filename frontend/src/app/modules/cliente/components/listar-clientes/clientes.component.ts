@@ -166,7 +166,7 @@ export class ListarClientesComponent implements OnInit {
       if (!this.cpfInvalido(this.formCliente.get('cpf').value)){
         this.messageService.add({ severity: 'error', summary: 'Formulário invalido', detail: 'Cpf invalido!' });        
       } else{
-        this.messageService.add({ severity: 'error', summary: 'Formulário invalido', detail: 'Dados editados já cadastrados no sistema!' });        
+        this.messageService.add({ severity: 'error', summary: 'Formulário invalido', detail: 'Dados já cadastrados no sistema!' });        
       }
       this.listar();
     } else{
