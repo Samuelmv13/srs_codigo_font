@@ -27,18 +27,18 @@ export class EquipamentoService {
   }
 
   listarEquipamentos(): Observable<ListarEquipamentoModel[]> {
-    // return of<ListarEquipamentoModel[]>([{
-    //   id: 1,
-    //   nome: "Geladeira",
-    //   precoDiaria: 290.90,
-    //   idTipoEquipamento: 2
-    // },
-    // {
-    //   id: 2,
-    //   nome: "NoteBook",
-    //   precoDiaria: 590.90,
-    //   idTipoEquipamento: 3
-    // }]);
+    return of<ListarEquipamentoModel[]>([{
+      id: 1,
+      nome: "Geladeira",
+      precoDiaria: 290.90,
+      idTipoEquipamento: 2
+    },
+    {
+      id: 2,
+      nome: "NoteBook",
+      precoDiaria: 590.90,
+      idTipoEquipamento: 3
+    }]);
 
     return this.http.get<ListarEquipamentoModel[]>(`${environment.apiUrl}/equipamentos`);
   }
@@ -48,8 +48,8 @@ export class EquipamentoService {
     return this.http.post<ListarEquipamentoModel>(`${environment.apiUrl}/equipamentos`, cadastroEquipamento);
   }
 
-  editarEquipamento(cadastroEquipamento: EditarEquipamentoModel): Observable<InfoEquipamentoModel> {
-    return this.http.put<InfoEquipamentoModel>(`${environment.apiUrl}/equipamentos/`, cadastroEquipamento);
+  editarEquipamento(editarEquipamento: EditarEquipamentoModel): Observable<InfoEquipamentoModel> {
+    return this.http.put<InfoEquipamentoModel>(`${environment.apiUrl}/equipamentos/`, editarEquipamento);
   }
 
 }

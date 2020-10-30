@@ -38,9 +38,6 @@
                                 (onChange)="dt.filter($event.value, 'idTipoEquipamento', 'equals')"></p-dropdown>
                         </th>
                         <th>
-                            <input mode="currency" currency="BRL" pInputText type="text"
-                                (input)="dt.filter($event.target.value, 'precoDiaria', 'startsWith')"
-                                placeholder="Buscar Preço" class="p-column-filter">
                         </th>
                         <th>
                         </th>
@@ -79,8 +76,8 @@
                                         required [minFractionDigits]="2" [maxFractionDigits]="2" id="precoDiaria">
                                     </p-inputNumber>
                                 </ng-template>
-                                <ng-template pTemplate="output" value="equipamento.precoDiaria">R$
-                                    {{equipamento.precoDiaria}}
+                                <ng-template pTemplate="output" value="equipamento.precoDiaria">
+                                    {{equipamento.precoDiaria | currency: "BRL"}}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
@@ -90,7 +87,7 @@
                                  icon="pi pi-trash"
                                 style="margin-right: 14px"></button>
                             <button *ngIf="!editing" pButton pRipple type="button" pTooltip="Editar" pInitEditableRow
-                                icon="pi pi-pencil" (click)="equipamentoModel=equipamento"
+                                icon="pi pi-pencil" (click)="equipamentoDeEdicao=equipamento"
                                  class="p-button-rounded p-button-text"></button>
                             <button *ngIf="editing" pButton pRipple pTooltip="Confirmar" type="button" pSaveEditableRow
                                 icon="pi pi-check" (click)="editarEquipamento()" style="margin-right: 14px"
@@ -163,7 +160,7 @@
     <div class="p-flex p-flex-column">
         <div style="text-align:center">
             <p class="home-text">Tem certeza que deseja excluir <br> este equipamento?</p><br>
-            <i class="pi pi-exclamation-triangle"style="margin-top: 5px;font-size: 4rem; "></i>
+            <i class="pi pi-exclamation-triangle" style="margin-top: 5px;font-size: 4rem; "></i>
            
         </div>
         <div class="p-grid p-fluid">
